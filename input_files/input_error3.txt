@@ -1,0 +1,14 @@
+#Erroneous Input file because the number of ants has chars
+#More Comments
+a3aaa
+##start
+0 1 0
+#Some more comments
+##nonsense command
+##end
+2 9 0
+3 13 0
+0-2
+2-3
+L4-5
+3-1
