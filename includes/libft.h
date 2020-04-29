@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/01 17:11:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/04/21 14:43:55 by dominique     ########   odam.nl         */
+/*   Updated: 2020/04/25 09:48:59 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *newnode);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 t_list				*ft_strarrtolst(char **str);
-void				ft_lstaddend(t_list **lst, t_list *new);
+void				ft_lstaddend(t_list **lst, t_list *newnode);
 int					ft_lstlen(t_list *lst);
 int					ft_lstfindelem(t_list *lst, t_list *search_node);
 void				ft_lstsort(t_list **lst, int cmpf());
 void				ft_del(void *content, size_t content_size);
-void				ft_strreplace(char **original, char *new);
+void				ft_strreplace(char **original, char *newstr);
 
 #endif

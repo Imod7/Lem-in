@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/03/31 14:04:50 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/04/12 11:04:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/04/27 13:42:13 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int					ft_atoi(const char *str)
 	unsigned char	*s;
 	int				sign;
 	int				i;
-	int				found;
 
 	sign = 1;
 	i = 0;
-	found = 0;
 	s = (unsigned char *)str;
 	while ((s[i] >= 9 && s[i] <= 13) || s[i] == 32)
 		i++;

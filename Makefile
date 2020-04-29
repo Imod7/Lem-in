@@ -6,13 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/04/24 09:30:45 by dominique     ########   odam.nl          #
+#    Updated: 2020/04/28 19:19:53 by dominique     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
 CC = gcc -Wall -Wextra -Werror -g
+# CC = gcc-9 -Wall -Wextra -Werror -g
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -25,10 +26,13 @@ NC=\033[0m # No Color
 SRC_LEMIN =	\
 		lemin.c \
 		ft_save_input.c \
-		ft_input_functions.c \
+		ft_save_inputlines.c \
+		ft_save_rooms.c \
+		ft_save_neighbors.c \
 		ft_printing.c \
 		ft_prgm_functions.c \
 		ft_free_functions.c \
+		ft_hashing.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 

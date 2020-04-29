@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_input_functions.c                               :+:    :+:            */
+/*   ft_save_inputlines.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 07:59:04 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 09:20:22 by dominique     ########   odam.nl         */
+/*   Created: 2020/04/25 18:36:58 by dominique     #+#    #+#                 */
+/*   Updated: 2020/04/28 19:04:31 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
 /*
-** Should I put here ft_memalloc instead ?
+** Functions ft_input_newnode & ft_input_addend
+** are used to save the lines of the input file
+** into a linked list
+** Should I put here ft_memalloc instead of malloc ?
 */
 
 t_input				*ft_input_newnode(char *line)

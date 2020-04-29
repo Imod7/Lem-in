@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/24 13:23:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/04/21 14:43:31 by dominique     ########   odam.nl         */
+/*   Updated: 2020/04/27 12:39:50 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdarg.h>
 # include "libft.h"
-
 
 # define ANSI_COLOR_RESET   "\x1b[0m"
 # define ANSI_COLOR_RED     "\x1b[31m"
