@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 09:29:33 by dominique     ########   odam.nl         */
+/*   Updated: 2020/04/28 22:59:45 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct		s_queue
 
 int					ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
+int					check_if_valid(t_ant_farm *ant_farm, char *str);
+int					add_commands(t_ant_farm *ant_farm, char *line);
 int					ft_exit_msg(t_ant_farm *ant_farm, size_t flag);
 int					ft_exitprogram(t_ant_farm *ant_farm);
 

@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/24 13:23:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/04/21 14:43:31 by dominique     ########   odam.nl         */
+/*   Updated: 2020/04/24 18:39:03 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include "libft.h"
-
+# include <string.h>
 
 # define ANSI_COLOR_RESET   "\x1b[0m"
 # define ANSI_COLOR_RED     "\x1b[31m"
@@ -84,7 +84,7 @@ typedef struct	s_print
 typedef union	u_float
 {
 	long double	f_num;
-	uint64_t	mantissa;
+	__UINT64_TYPE__	mantissa;
 	short		exponent[5];
 }				t_float;
 

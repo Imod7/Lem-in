@@ -6,13 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/04/24 09:30:45 by dominique     ########   odam.nl          #
+#    Updated: 2020/04/24 18:37:30 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
-CC = gcc -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g
+CC = clang
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./

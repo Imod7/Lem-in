@@ -6,13 +6,13 @@
 #    By: dsaripap <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/27 14:38:43 by dsaripap      #+#    #+#                  #
-#    Updated: 2020/02/08 10:25:28 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/04/25 16:27:14 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 PROG = prog
 NAME = libft.a
-CC = gcc
+CC = clang
 FLAGS = -Wall -Wextra -Werror -g
 OBJDIR = ft_printf
 LIBFT_OBJDIR = .obj-libft
@@ -131,7 +131,7 @@ $(NAME): $(OBJLIBFT) $(OBJPRINTF)
 # Object Files of printf
 $(PRINTF_OBJDIR)/%.o: $(OBJDIR)/%.c $(INCL)
 	@mkdir -p $(PRINTF_OBJDIR)
-	@$(CC) -c -o $@ $<
+	# @$(CC) -c -o $@ $<
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 # Object Files of libft

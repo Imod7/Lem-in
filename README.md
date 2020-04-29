@@ -13,7 +13,7 @@ or
 ## How to use
 Run the lem-in executable and use the data from one of the test input files that are in the folder "input_files", for example:
 
-    > ./lem-in < input1.txt
+    > ./lem-in < input_files/input1.txt
 
 There are also input_error*.txt files in order to test and capture errors in the input files.
 
