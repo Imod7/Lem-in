@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_save_rooms.c                                    :+:    :+:            */
+/*   ft_save_hash_items.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/28 19:04:13 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 19:26:49 by dominique     ########   odam.nl         */
+/*   Created: 2020/05/03 10:27:57 by dominique     #+#    #+#                 */
+/*   Updated: 2020/05/04 10:59:50 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-/*
-** Functions ft_room_newnode & ft_room_addend
-** are used to save the rooms of the input file
-** into a linked list
-** Should I put here ft_memalloc instead of malloc ?
-*/
-
-t_room				*ft_room_newnode(char *str)
+t_hash_item			*ft_hashitem_newnode(t_room *room)
 {
-	t_room			*newnode;
+	t_hash_item		*newnode;
 
-	newnode = (t_room*)ft_memalloc(sizeof(t_room));
+	newnode = malloc(sizeof(t_hash_item));
 	if (newnode == NULL)
 		return (NULL);
-	newnode->name = ft_strdup(str);
-	// newnode->next = NULL;
+	newnode->room_name = ft_strdup(room->name);
+	newnode->room = room;
+	newnode->colision_next = NULL;
 	return (newnode);
 }
 
-void				ft_room_addend(t_room **lst, t_room *new)
+void				ft_hashitem_addend(t_hash_item **lst, t_hash_item *new)
 {
-	t_room			*temp;
+	t_hash_item		*temp;
 
 	if (*lst == NULL)
 	{
@@ -41,7 +35,7 @@ void				ft_room_addend(t_room **lst, t_room *new)
 		return ;
 	}
 	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+	while (temp->colision_next != NULL)
+		temp = temp->colision_next;
+	temp->colision_next = new;
 }

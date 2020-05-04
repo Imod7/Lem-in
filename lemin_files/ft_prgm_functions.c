@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/22 10:25:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 10:08:02 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/04 17:11:27 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int				ft_exit_msg(t_ant_farm *ant_farm, size_t flag)
 int				ft_exitprogram(t_ant_farm *ant_farm)
 {
 	ft_free_inputlst(ant_farm->input);
+	ft_free_roomslst(ant_farm->rooms_lst);
+	ft_free_hashtable(ant_farm->hash_table);
 	free(ant_farm);
 	return (0);
 }

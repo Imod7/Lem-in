@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_functions.c                                :+:    :+:            */
+/*   ft_free_other.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 09:28:47 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 09:29:05 by dominique     ########   odam.nl         */
+/*   Created: 2020/05/04 15:40:03 by dominique     #+#    #+#                 */
+/*   Updated: 2020/05/04 16:20:04 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void			ft_free_inputlst(t_input *input_lst)
+void		ft_free_line(char **line_items, size_t size)
 {
-	t_input		*curr_node;
-	t_input		*next_node;
+	size_t	i;
 
-	curr_node = input_lst;
-	while (curr_node != NULL)
+	i = 0;
+	while (i < size)
 	{
-		next_node = curr_node->next;
-		free(curr_node);
-		curr_node = next_node;
+		free(line_items[i]);
+		line_items[i] = NULL;
+		i += 1;
 	}
-	input_lst = NULL;
+	free(line_items);
 }

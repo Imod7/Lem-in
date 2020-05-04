@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 13:55:03 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/28 19:33:11 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/04 17:18:50 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,20 @@ static int			read_input(t_ant_farm *ant_farm)
 int					main(void)
 {
 	t_ant_farm		*ant_farm;
-	t_hash_table	*hash_table;
+	// t_hash_table	*hash_table;
 
 	ant_farm = (t_ant_farm *)(ft_memalloc(sizeof(t_ant_farm)));
 	if (read_input(ant_farm) == -1)
 		return (ft_exitprogram(ant_farm));
 	print_input_list(ant_farm->input);
 	print_rooms_list(ant_farm->rooms_lst);
-	ft_hashing_process(ant_farm, &hash_table);
-	print_hash_table(hash_table);
-	ft_save_neighbors(ant_farm, &hash_table);
-	print_neighbors_list(hash_table);
+	ft_hashing_process(ant_farm);
+	print_hash_table(ant_farm->hash_table);
+	ft_save_neighbors(ant_farm);
+	print_neighbors_list(ant_farm->hash_table);
 	ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	ft_exitprogram(ant_farm);
+	// while (1)
+	// 	;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/28 19:33:57 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/04 19:20:22 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct			s_ant_farm
 {
 	size_t				ants;
 	size_t				rooms;
-	struct s_hash_table	*rooms_array;
+	struct s_hash_table	*hash_table;
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
 }						t_ant_farm;
@@ -65,15 +65,16 @@ typedef struct			s_room
 
 typedef struct			s_neighbor
 {
-	unsigned int		key;
+	// unsigned int		key;
+	struct s_hash_item	*hash_item;
 	struct s_neighbor	*next;
 }						t_neighbor;
 
-typedef struct			s_link
-{
-	struct s_room		*room_src;
-	struct s_room		*room_dest;
-}						t_link;
+// typedef struct			s_link
+// {
+// 	struct s_room		*room_src;
+// 	struct s_room		*room_dest;
+// }						t_link;
 
 typedef struct			s_input
 {
@@ -97,8 +98,7 @@ int						ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
 int						ft_exit_msg(t_ant_farm *ant_farm, size_t flag);
 int						ft_exitprogram(t_ant_farm *ant_farm);
-void					ft_save_neighbors(t_ant_farm *ant_farm, \
-									t_hash_table **hash_table);
+void					ft_save_neighbors(t_ant_farm *ant_farm);
 
 /*
 ** Printing Functions
@@ -124,17 +124,29 @@ t_room					*ft_room_newnode(char *str);
 void					ft_room_addend(t_room **lst, t_room *new);
 
 /*
+** Functions to save the hash_items in the hash table
+*/
+
+t_hash_item				*ft_hashitem_newnode(t_room *room);
+void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
+
+/*
 ** Functions to free allocated memory
 */
 
 void					ft_free_inputlst(t_input *input_lst);
+void					ft_free_roomslst(t_room *rooms_lst);
+void					ft_free_hashtable(t_hash_table *hash_table);
+void					ft_free_line(char **line_items, size_t size);
 
 /*
-** Function to hash the names of the rooms
+** Functions related to the hashing process and
+** and the hashing process
 */
 
 unsigned int			ft_hash_function(char *name, int size);
-int						ft_hashing_process(t_ant_farm *ant_farm, \
-										t_hash_table **hash_table);
+int						ft_hashing_process(t_ant_farm *ant_farm);
+t_hash_item 			*ft_retrieve_hash_item(t_hash_table *hash_table, \
+											char *str);
 
 #endif

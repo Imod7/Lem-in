@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 18:11:15 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/29 06:01:23 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/04 16:17:37 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	room->x_coord = ft_atoi(line_items[1]);
 	room->y_coord = ft_atoi(line_items[2]);
 	ant_farm->rooms++;
+	ft_free_line(line_items, 3);
 	return (0);
 }
 

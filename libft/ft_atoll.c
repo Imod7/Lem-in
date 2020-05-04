@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_atoll.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
+/*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/03/31 14:04:50 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/04/29 16:27:17 by dominique     ########   odam.nl         */
+/*   Created: 2020/04/29 15:34:33 by dominique     #+#    #+#                 */
+/*   Updated: 2020/04/29 15:35:25 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int			make_num(unsigned char *s, int sign)
+static long long	make_num(unsigned char *s, int sign)
 {
-	long			num;
+	long long		num;
 	int				len;
 	int				units;
 
@@ -30,7 +30,7 @@ static int			make_num(unsigned char *s, int sign)
 	return (num * sign);
 }
 
-int					ft_atoi(const char *str)
+long long			ft_atoll(const char *str)
 {
 	unsigned char	*s;
 	int				sign;

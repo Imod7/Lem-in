@@ -6,14 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/04/28 19:19:53 by dominique     ########   odam.nl          #
+#    Updated: 2020/05/04 16:18:43 by dominique     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
-CC = gcc -Wall -Wextra -Werror -g
-# CC = gcc-9 -Wall -Wextra -Werror -g
+CC = gcc
+FLAGS = -Wall -Wextra -Werror -g
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -27,11 +27,13 @@ SRC_LEMIN =	\
 		lemin.c \
 		ft_save_input.c \
 		ft_save_inputlines.c \
+		ft_save_hash_items.c \
 		ft_save_rooms.c \
 		ft_save_neighbors.c \
 		ft_printing.c \
 		ft_prgm_functions.c \
-		ft_free_functions.c \
+		ft_free_lists_tables.c \
+		ft_free_other.c \
 		ft_hashing.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
@@ -47,11 +49,11 @@ $(LIBFT):
 $(EXEDIR)$(NAME_LEMIN): $(OBJ_LEMIN) $(LIBFT)
 	@echo "${GREEN} [ + ] ${NC}Creating lem-in object files"
 	@echo "${GREEN} [ + ] ${NC}Creating lem-in executable"
-	@$(CC) $(OBJ_LEMIN) -o $(EXEDIR)$(NAME_LEMIN) $(INCL)
+	@$(CC) $(FLAGS) $(OBJ_LEMIN) -o $(EXEDIR)$(NAME_LEMIN) $(INCL)
 
 $(LEMIN_OBJDIR)/%.o: $(LEMIN_SRCDIR)/%.c $(INCL)
 	@mkdir -p $(LEMIN_OBJDIR)
-	@$(CC) -c -o $@ $<
+	@$(CC) $(FLAGS) -c -o $@ $<
 
 .PHONY: clean
 
