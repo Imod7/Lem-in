@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 09:28:47 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 17:06:38 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/05 16:20:05 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void				ft_free_inputlst(t_input *input_lst)
 	curr_node = input_lst;
 	while (curr_node != NULL)
 	{
-		ft_printf("freeing line %s \n", curr_node->line);
+		// ft_printf("freeing line %s \n", curr_node->line);
 		next_node = curr_node->next;
 		free(curr_node->line);
 		free(curr_node);
@@ -37,7 +37,7 @@ static void			ft_free_neighborslst(t_neighbor *neighbors_lst)
 	curr_node = neighbors_lst;
 	while (curr_node != NULL)
 	{
-		ft_printf(" freeing neigbor %s \n", curr_node->hash_item->room_name);
+		// ft_printf(" freeing neigbor %s \n", curr_node->hash_item->room_name);
 		next_node = curr_node->next;
 		free(curr_node);
 		curr_node = next_node;
@@ -53,9 +53,9 @@ void				ft_free_roomslst(t_room *rooms_lst)
 	curr_node = rooms_lst;
 	while (curr_node != NULL)
 	{
-		ft_printf("freeing neighbors of room %s \n", curr_node->name);
+		// ft_printf("freeing neighbors of room %s \n", curr_node->name);
 		ft_free_neighborslst(curr_node->neighbors);
-		ft_printf("freeing room %s \n", curr_node->name);
+		// ft_printf("freeing room %s \n", curr_node->name);
 		next_node = curr_node->next;
 		free(curr_node->name);
 		free(curr_node);
@@ -80,7 +80,7 @@ void				ft_free_hashtable(t_hash_table *hash_table)
 			curr_item = hash_table->array[i];
 			while(curr_item != NULL)
 			{
-				ft_printf("freeing hash item %s \n", curr_item->room_name);
+				// ft_printf("freeing hash item %s \n", curr_item->room_name);
             	next_item = curr_item->colision_next;
 				free(curr_item->room_name);
             	free(curr_item);

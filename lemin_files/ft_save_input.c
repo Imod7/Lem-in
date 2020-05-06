@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 18:11:15 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 16:17:37 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/05 16:15:07 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
 	line_items = ft_strsplit(line, ' ');
-	room = ft_room_newnode(line_items[0]);
+	// room = ft_room_newnode(line_items[0]);
+	room = (t_room *)ft_memalloc(sizeof(t_room));
+	room->name = ft_strdup(line_items[0]);
 	ft_room_addend(&(ant_farm->rooms_lst), room);
 	room->position = pos;
 	room->x_coord = ft_atoi(line_items[1]);

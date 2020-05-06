@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/05/04 16:18:43 by dominique     ########   odam.nl          #
+#    Updated: 2020/05/05 18:10:53 by dominique     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_LEMIN =	\
 		ft_free_lists_tables.c \
 		ft_free_other.c \
 		ft_hashing.c \
+		ft_bfs.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 

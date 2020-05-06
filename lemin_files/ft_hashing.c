@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/25 18:15:18 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 18:28:10 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/05 14:57:24 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ t_hash_item 		*ft_retrieve_hash_item(t_hash_table *hash_table, char *str)
     t_hash_item 	*temp_item;
     unsigned int 	key;
 
-	ft_printf(" -Looking up the hash_item %s in the hash table\n", str);
+	// ft_printf(" -Looking up the hash_item %s in the hash table\n", str);
 	key = ft_hash_function(str, hash_table->size);
 	temp_item = hash_table->array[key];
 	while (temp_item)
 	{
-		ft_printf(" -Comparing room %s with str %s\n", temp_item->room_name, str);
+		// ft_printf(" -Comparing room %s with str %s\n", temp_item->room_name, str);
 		if (ft_strcmp(str, temp_item->room_name) == 0) 
 			return (temp_item);
 		temp_item = temp_item->colision_next;

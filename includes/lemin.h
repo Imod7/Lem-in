@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 19:20:22 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/05 18:29:08 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_ant_farm
 	struct s_hash_table	*hash_table;
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
+	struct s_queue		*queue;
 }						t_ant_farm;
 
 typedef struct			s_hash_item
@@ -59,6 +60,7 @@ typedef struct			s_room
 	size_t				y_coord;
 	size_t				explored;
 	t_position			position;
+	struct s_room		*parent;
 	struct s_room		*next;
 	struct s_neighbor	*neighbors;
 }						t_room;
@@ -82,11 +84,16 @@ typedef struct			s_input
 	struct s_input		*next;
 }						t_input;
 
+typedef struct			s_queue_item
+{
+	struct s_room		*room;
+	struct s_queue_item	*next;
+}						t_queue_item;
+
 typedef struct			s_queue
 {
-	size_t				count;
-	struct s_room		*room_rear;
-	struct s_room		*room_front;
+	struct s_queue_item	*front;
+	struct s_queue_item	*back;
 }						t_queue;
 
 /*
@@ -120,7 +127,7 @@ void					ft_input_addend(t_input **lst, t_input *newline);
 ** Functions to save the rooms data in a linked list
 */
 
-t_room					*ft_room_newnode(char *str);
+// t_room					*ft_room_newnode(char *str);
 void					ft_room_addend(t_room **lst, t_room *new);
 
 /*
@@ -148,5 +155,7 @@ unsigned int			ft_hash_function(char *name, int size);
 int						ft_hashing_process(t_ant_farm *ant_farm);
 t_hash_item 			*ft_retrieve_hash_item(t_hash_table *hash_table, \
 											char *str);
+
+void					ft_bfs(t_ant_farm *ant_farm);
 
 #endif

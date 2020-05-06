@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 07:44:52 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 15:19:12 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/06 20:15:06 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,27 @@ void				print_rooms_list(t_room *rooms_lst)
 	t_room			*temp;
 
 	temp = rooms_lst;
-	ft_printf("\n            Linked List with all Saved Rooms          \n");
+	ft_printf("\n                      Rooms (Linked List)                \n");
 	ft_printf("-----------------------------------------------------");
-	ft_printf("--------------------\n");
+	ft_printf("------------------------------------\n");
 	ft_printf("|room_name\troom_x_coord\troom_y_coord\troom_position\t");
-	ft_printf("next_room|\n");
+	ft_printf("explored\tparent_room\tnext_room|\n");
 	while (temp != NULL)
 	{
 		ft_printf("|%s\t\t%d\t\t%d", temp->name, temp->x_coord, temp->y_coord);
-		ft_printf("\t\t%d\t\t", temp->position);
+		ft_printf("\t\t%d\t\t%d\t\t", temp->position, temp->explored);
+		if (temp->parent != NULL)
+			ft_printf("%s\t\t", temp->parent->name);
+		else
+			ft_printf("NULL\t\t");
 		if (temp->next != NULL)
 			ft_printf("%s\t|\n", temp->next->name);
 		else
 			ft_printf("NULL\t|\n");
 		temp = temp->next;
 	}
-	ft_printf("------------------------------------");
-	ft_printf("------------------------------------\n");
+	ft_printf("--------------------------------------------------------");
+	ft_printf("---------------------------------\n");
 }
 
 void				print_hash_table(t_hash_table *hash_table)
@@ -83,9 +87,9 @@ void				print_hash_table(t_hash_table *hash_table)
 				if (temp_item)
 					ft_printf(" -> ");
 				else
-					ft_printf("\t|");
+					ft_printf("\t");
 			}
-			ft_printf("\n");
+			ft_printf("|\n");
 		}
 		else
 			ft_printf("|NULL\t\t\tNULL\t\tNULL\t\tNULL\t\t\t|\n");

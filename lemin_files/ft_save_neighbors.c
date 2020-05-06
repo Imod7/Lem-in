@@ -6,23 +6,23 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 19:07:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 19:48:53 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/06 08:42:48 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-static t_neighbor	*ft_neighbor_newnode(t_hash_item *neighbor)
-{
-	t_neighbor		*newnode;
+// static t_neighbor	*ft_neighbor_newnode(t_hash_item *neighbor)
+// {
+// 	t_neighbor		*newnode;
 
-	newnode = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
-	if (newnode == NULL)
-		return (NULL);
-	newnode->hash_item = neighbor;
-	newnode->next = NULL;
-	return (newnode);
-}
+// 	newnode = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
+// 	if (newnode == NULL)
+// 		return (NULL);
+// 	newnode->hash_item = neighbor;
+// 	newnode->next = NULL;
+// 	return (newnode);
+// }
 
 static void			ft_neighbor_addend(t_neighbor **lst, t_neighbor *new)
 {
@@ -69,13 +69,17 @@ void				ft_save_neighbors(t_ant_farm *ant_farm)
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);	
 			ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
-			neighbor = ft_neighbor_newnode(neighbor_item);
+			// neighbor = ft_neighbor_newnode(neighbor_item);
+			neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
+			neighbor->hash_item = neighbor_item;
 			ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
 			room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);	
 			ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
-			neighbor = ft_neighbor_newnode(neighbor_item);
+			neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
+			neighbor->hash_item = neighbor_item;
+			// neighbor = ft_neighbor_newnode(neighbor_item);
 			ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
 			ft_free_line(array, 2);
 		}
