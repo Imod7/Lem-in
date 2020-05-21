@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 13:55:03 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/05 16:25:23 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/19 09:17:11 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int					main(void)
 	print_hash_table(ant_farm->hash_table);
 	ft_save_neighbors(ant_farm);
 	print_neighbors_list(ant_farm->hash_table);
-	ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
+	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
+	ft_printf("Running BFS\n");
 	ft_bfs(ant_farm);
+	ft_free_paths(ant_farm);
+	ft_printf("Running DFS\n");
+	ft_dfs(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)
 	// 	;

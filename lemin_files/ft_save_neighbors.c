@@ -6,23 +6,11 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 19:07:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/06 08:42:48 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/20 09:04:09 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-
-// static t_neighbor	*ft_neighbor_newnode(t_hash_item *neighbor)
-// {
-// 	t_neighbor		*newnode;
-
-// 	newnode = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
-// 	if (newnode == NULL)
-// 		return (NULL);
-// 	newnode->hash_item = neighbor;
-// 	newnode->next = NULL;
-// 	return (newnode);
-// }
 
 static void			ft_neighbor_addend(t_neighbor **lst, t_neighbor *new)
 {
@@ -37,6 +25,7 @@ static void			ft_neighbor_addend(t_neighbor **lst, t_neighbor *new)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
+	new->prev = temp;
 }
 
 /*

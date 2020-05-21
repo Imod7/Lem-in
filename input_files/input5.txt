@@ -9,6 +9,7 @@ sol 4 2
 nand 4 4
 chris 8 2
 marv 8 4
+david-start
 start-sol
 david-dom
 nand-dom
@@ -17,4 +18,3 @@ marv-chris
 end-marv
 sol-nand
 nand-end
-david-start

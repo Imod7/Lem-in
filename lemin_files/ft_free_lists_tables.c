@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 09:28:47 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/05 16:20:05 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/12 12:55:36 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			ft_free_neighborslst(t_neighbor *neighbors_lst)
 	curr_node = neighbors_lst;
 	while (curr_node != NULL)
 	{
-		// ft_printf(" freeing neigbor %s \n", curr_node->hash_item->room_name);
+		// ft_printf(" freeing neighbor %s \n", curr_node->hash_item->room_name);
 		next_node = curr_node->next;
 		free(curr_node);
 		curr_node = next_node;

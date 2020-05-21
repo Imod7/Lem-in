@@ -6,30 +6,17 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 19:04:13 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/05 16:15:33 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/12 12:59:57 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
 /*
-** Functions ft_room_newnode & ft_room_addend
-** are used to save the rooms of the input file
-** into a linked list
-** Should I put here ft_memalloc instead of malloc ?
+** Functions ft_room_addend which is used to
+** save a room of the input file at the end of the
+** rooms linked list
 */
-
-// t_room				*ft_room_newnode(char *str)
-// {
-// 	t_room			*newnode;
-
-// 	newnode = (t_room*)ft_memalloc(sizeof(t_room));
-// 	if (newnode == NULL)
-// 		return (NULL);
-// 	newnode->name = ft_strdup(str);
-// 	// newnode->next = NULL;
-// 	return (newnode);
-// }
 
 void				ft_room_addend(t_room **lst, t_room *new)
 {

@@ -6,116 +6,142 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/05 16:11:02 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/06 20:51:25 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/21 07:30:51 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void				ft_dequeue(t_queue	*q)
-{
-	t_queue_item	*q_item;
-
-	q_item = q->front;
-    q->front = q->front->next;
-	if (q->front == NULL)
-		q->back = NULL;
-    free(q_item);
-
-}
-
-static int			ft_queue_is_empty(t_queue *q)
-{
-	return (q->back == NULL);
-}
-
-void				ft_enqueue(t_queue	*q, t_room	*temp)
-{
-	t_queue_item	*q_item;
-
-	q_item = (t_queue_item *)ft_memalloc(sizeof(t_queue_item));
-	q_item->room = temp;
-	if(!ft_queue_is_empty(q))
-	{
-		q->back->next = q_item;
-		q->back = q_item;
-	}
-	else
-		q->front = q->back = q_item;
-	q_item->room->explored = 1;
-}
-
-void				ft_print_queue(t_queue *q)
-{
-	t_queue_item	*temp;
-
-	temp = q->front;
-	ft_printf("Queue\n");
-	ft_printf("------\n");
-	if (temp == NULL)
-		ft_printf("queue is empty\n");
-	while (temp != NULL)
-	{
-		ft_printf("%s\n", temp->room->name);
-		temp = temp->next;
-	}
-}
-
-void				ft_print_paths(t_ant_farm *ant_farm)
+void				ft_reset(t_ant_farm *ant_farm)
 {
 	t_room			*temp;
 
 	temp = ant_farm->rooms_lst;
 	while (temp != NULL)
 	{
-		if (temp->position == END)
-			break ;
+		if (temp->state != COMPLETED)
+			temp->state = UNEXPLORED;
 		temp = temp->next;
-	}
-	ft_printf("%s", temp->name);
-	while (temp->parent != NULL)
-	{
-		ft_printf("->%s", temp->parent->name);
-		temp = temp->parent;
 	}
 }
 
-void				ft_bfs(t_ant_farm *ant_farm)
+void				ft_fullreset(t_ant_farm *ant_farm)
 {
 	t_room			*temp;
-	t_neighbor		*neighbors;
-	t_queue			*queue;
 
-	queue = (t_queue *)ft_memalloc(sizeof(t_queue));
 	temp = ant_farm->rooms_lst;
+	while (temp != NULL)
+	{
+		temp->state = UNEXPLORED;
+		temp = temp->next;
+	}
+}
+
+t_room				*ft_get_start_room(t_room *temp)
+{
 	while (temp != NULL)
 	{
 		if (temp->position == START)
 			break ;
 		temp = temp->next;
 	}
-	// while (queue->front != NULL)
-	ft_enqueue(queue, temp);
-	while (!ft_queue_is_empty(queue))
+	return (temp);
+}
+
+size_t				ft_check_if_completed(t_room *room)
+{
+	t_neighbor		*neighbors;
+
+	neighbors = room->neighbors;
+	while (neighbors != NULL)
 	{
-		print_rooms_list(ant_farm->rooms_lst);
-		neighbors = queue->front->room->neighbors;
-		while (neighbors != NULL)
-		{
-			if (!(neighbors->hash_item->room->explored))
-			{
-				ft_enqueue(queue, neighbors->hash_item->room);
-				neighbors->hash_item->room->parent = queue->front->room;
-			}
-			neighbors = neighbors->next;
-		}
-		ft_printf("enqueued the neighbors that are not explored \n");
-		ft_print_queue(queue);
-		ft_dequeue(queue);
-		ft_printf("removing front of queue \n");
-		ft_print_queue(queue);
+		if (neighbors->hash_item->room->state != COMPLETED)
+			return (1);
 	}
-	ft_printf("The end \n");
-	ft_print_queue(queue);
-	// ft_print_paths(ant_farm);
+	return (0);
+}
+
+void				ft_remove_path(t_ant_farm *ant_farm, int path_id)
+{
+	t_path_list		*path_temp;
+	t_paths			*paths;
+
+	paths = ant_farm->paths;
+	while (paths != NULL)
+	{
+		if (paths->path_id == path_id)
+		{
+			path_temp = paths->path_lst;
+			ft_free_pathlst(paths->path_lst);
+			paths->prev->next = paths->next;
+			free(paths);
+			break ;
+		}
+		paths = paths->next;
+	}
+}
+
+int					ft_no_neighbors_open(t_neighbor	*neighbors)
+{
+	t_neighbor		*temp;
+
+	temp = neighbors;
+	while (temp != NULL)
+	{
+		// ft_printf("Checking temp room %s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
+		if (temp->hash_item->room->state == UNEXPLORED)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+
+void				ft_bfs(t_ant_farm *ant_farm)
+{
+	t_room			*temp;
+	t_neighbor		*neighbors;
+	size_t			i;
+
+	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
+	ant_farm->queue = (t_queue *)ft_memalloc(sizeof(t_queue));
+	temp = ft_get_start_room(ant_farm->rooms_lst);
+	temp->level = 0;
+	ft_enqueue(ant_farm->queue, temp);
+	i = 0;
+	while (i < ant_farm->max_paths)
+	{
+		while (!ft_queue_is_empty(ant_farm->queue))
+		{
+			neighbors = ant_farm->queue->front->room->neighbors;
+			while (neighbors != NULL)
+			{
+				// ft_printf("neighbor room %s state : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->state);
+				// ft_printf("path_id:%d\n", neighbors->hash_item->room->path_id);
+				if (neighbors->hash_item->room->state == UNEXPLORED)
+				{
+					ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
+					neighbors->hash_item->room->parent = ant_farm->queue->front->room;
+					neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+				}
+				neighbors = neighbors->next;
+			}
+			// ft_printf("Enqueued all neighbors that are not explored of room %s\n", ant_farm->queue->front->room->name);
+			// ft_print_queue(ant_farm->queue);
+			ft_dequeue(ant_farm->queue);
+			// ft_printf("Removing front of queue \n");
+			// ft_print_queue(ant_farm->queue);
+		}
+		ft_save_paths_bfs(ant_farm);
+		ft_reset(ant_farm);
+		temp = ft_get_start_room(temp);
+		temp = ft_get_start_room(ant_farm->rooms_lst);
+		if (temp->state == COMPLETED)
+			ft_enqueue(ant_farm->queue, temp);
+		i += 1;
+	}
+	ft_print_paths(ant_farm);
+	ft_fullreset(ant_farm);
+	// ft_print_paths_list_detail(ant_farm);
+	// print_rooms_list(ant_farm->rooms_lst);
+	ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);
 }

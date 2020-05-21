@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/05 18:29:08 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/20 10:44:12 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ typedef enum		e_position
 	END = 2
 }					t_position;
 
+typedef enum		e_state
+{
+	UNEXPLORED = 0,
+	EXPLORED = 1,
+	COMPLETED = 2
+}					t_state;
+
 /*
 ** Struct t_ant_farm 
 */
@@ -36,6 +43,9 @@ typedef struct			s_ant_farm
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
 	struct s_queue		*queue;
+	struct s_stack		*stack;
+	struct s_paths		*paths;
+	size_t				max_paths;
 }						t_ant_farm;
 
 typedef struct			s_hash_item
@@ -58,8 +68,12 @@ typedef struct			s_room
 	unsigned int		key;
 	size_t				x_coord;
 	size_t				y_coord;
-	size_t				explored;
+	size_t				level;
+	int					score;
+	t_state				state;
 	t_position			position;
+	struct s_paths		*path;
+	// int					path_id;
 	struct s_room		*parent;
 	struct s_room		*next;
 	struct s_neighbor	*neighbors;
@@ -70,19 +84,20 @@ typedef struct			s_neighbor
 	// unsigned int		key;
 	struct s_hash_item	*hash_item;
 	struct s_neighbor	*next;
+	struct s_neighbor	*prev;
 }						t_neighbor;
-
-// typedef struct			s_link
-// {
-// 	struct s_room		*room_src;
-// 	struct s_room		*room_dest;
-// }						t_link;
 
 typedef struct			s_input
 {
 	char				*line;
 	struct s_input		*next;
 }						t_input;
+
+typedef struct			s_stack
+{
+	struct s_room		*room;
+	struct s_stack		*next;
+}						t_stack;
 
 typedef struct			s_queue_item
 {
@@ -95,6 +110,21 @@ typedef struct			s_queue
 	struct s_queue_item	*front;
 	struct s_queue_item	*back;
 }						t_queue;
+
+typedef struct			s_path_list
+{
+	struct s_room		*room;
+	struct s_path_list	*next;
+	struct s_path_list	*prev;
+}						t_path_list;
+
+typedef struct			s_paths
+{
+	int					path_id;
+	struct s_path_list	*path_lst;
+	struct s_paths		*next;
+	struct s_paths		*prev;
+}						t_paths;
 
 /*
 ** Functions to check if the input is valid
@@ -115,6 +145,7 @@ void					print_input_list(t_input *input_data);
 void					print_rooms_list(t_room *rooms_lst);
 void					print_hash_table(t_hash_table *hash_table);
 void					print_neighbors_list(t_hash_table *hash_table);
+void					print_neighbors_list_debug(t_hash_table *hash_table);
 
 /*
 ** Functions to save the input data in a linked list
@@ -145,6 +176,9 @@ void					ft_free_inputlst(t_input *input_lst);
 void					ft_free_roomslst(t_room *rooms_lst);
 void					ft_free_hashtable(t_hash_table *hash_table);
 void					ft_free_line(char **line_items, size_t size);
+void					ft_free_paths(t_ant_farm *ant_farm);
+void					ft_free_pathlst(t_path_list *path_lst);
+void					ft_path_del_last(t_ant_farm *ant_farm);
 
 /*
 ** Functions related to the hashing process and
@@ -156,6 +190,52 @@ int						ft_hashing_process(t_ant_farm *ant_farm);
 t_hash_item 			*ft_retrieve_hash_item(t_hash_table *hash_table, \
 											char *str);
 
+/*
+** Functions to explore the graph
+*/
+
 void					ft_bfs(t_ant_farm *ant_farm);
+void					ft_dfs(t_ant_farm *ant_farm);
+int						ft_dfs_stack_len(t_stack *lst);
+
+/*
+** Functions related to paths
+*/
+
+void					ft_save_paths_bfs(t_ant_farm *ant_farm);
+void					ft_path_addend(t_paths **lst, t_paths *new);
+void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);
+void					ft_pathlst_addend(t_path_list **lst, t_path_list *new);
+size_t					ft_find_maxpaths(t_ant_farm *ant_farm);
+t_paths					*ft_create_path_list(t_ant_farm *ant_farm);
+void					ft_print_paths(t_ant_farm *ant_farm);
+void					ft_print_paths_list(t_ant_farm *ant_farm);
+void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
+void					ft_save_paths_dfs(t_path_list **path_lst, t_room *room);
+t_room					*ft_get_start_room(t_room *temp);
+t_room					*ft_get_end_room(t_ant_farm *ant_farm);
+
+/*
+** Functions to implement a queue and its FIFO functionalities
+** for BFS implementation
+*/
+
+void					ft_dequeue(t_queue	*q);
+int						ft_queue_is_empty(t_queue *q);
+void					ft_enqueue(t_queue	*q, t_room	*temp);
+void					ft_print_queue(t_queue *q);
+void					ft_free_queue(t_queue *q);
+
+/*
+** Functions to implement a stack and its LIFO functionalities
+** for DFS implementation
+*/
+
+void					ft_pop(t_stack **stack);
+void					ft_push(t_stack **stack, t_room *temp);
+int 					ft_stack_empty(t_stack *stack);
+void					ft_print_stack(t_stack *s);
+int						ft_sort_neighbors(t_neighbor **completelist, \
+											t_room **room);
 
 #endif
