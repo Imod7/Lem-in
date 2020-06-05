@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/20 10:44:12 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 17:24:01 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,15 @@
 
 # include "libft.h"
 
-# define MAX_ROOMS 20
+// # define MAX_ROOMS 20
+
+typedef enum			e_prgm_signal
+{
+	SUCCESS = 0,
+	ERROR = -1,
+	CONTINUE = 1,
+	KO = 2
+}						t_prgm_signal;
 
 typedef enum		e_position
 {
@@ -46,6 +54,8 @@ typedef struct			s_ant_farm
 	struct s_stack		*stack;
 	struct s_paths		*paths;
 	size_t				max_paths;
+	size_t				discovered_paths;
+	t_prgm_signal		signal;
 }						t_ant_farm;
 
 typedef struct			s_hash_item
@@ -70,6 +80,7 @@ typedef struct			s_room
 	size_t				y_coord;
 	size_t				level;
 	int					score;
+	// struct s_ants		*ants;
 	t_state				state;
 	t_position			position;
 	struct s_paths		*path;
@@ -121,10 +132,21 @@ typedef struct			s_path_list
 typedef struct			s_paths
 {
 	int					path_id;
+	int					path_size;
+	size_t				ants_amount;
 	struct s_path_list	*path_lst;
+	struct s_ants		*ants_lst;
 	struct s_paths		*next;
 	struct s_paths		*prev;
 }						t_paths;
+
+typedef struct			s_ants
+{
+	int					ant_id;
+	struct s_paths		*path;
+	struct s_ants		*next;
+	struct s_ants		*prev;
+}						t_ants;
 
 /*
 ** Functions to check if the input is valid
@@ -133,9 +155,9 @@ typedef struct			s_paths
 
 int						ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
-int						ft_exit_msg(t_ant_farm *ant_farm, size_t flag);
+int						ft_exit_msg(t_prgm_signal signal);
 int						ft_exitprogram(t_ant_farm *ant_farm);
-void					ft_save_neighbors(t_ant_farm *ant_farm);
+int						ft_save_neighbors(t_ant_farm *ant_farm);
 
 /*
 ** Printing Functions
@@ -211,7 +233,8 @@ t_paths					*ft_create_path_list(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
 void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
-void					ft_save_paths_dfs(t_path_list **path_lst, t_room *room);
+void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
+												t_room *room);
 t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 
@@ -237,5 +260,15 @@ int 					ft_stack_empty(t_stack *stack);
 void					ft_print_stack(t_stack *s);
 int						ft_sort_neighbors(t_neighbor **completelist, \
 											t_room **room);
+
+/*
+** Functions related to ants
+*/
+
+int						ft_ants_to_paths(t_ant_farm *ant_farm);
+void					ft_print_move(t_ant_farm *ant_farm);
+void					ft_keep_ants_moving(t_ant_farm *ant_farm);
+void					ft_print_ants(t_ant_farm *ant_farm);
+void					ft_move_ants(t_ant_farm *ant_farm);
 
 #endif

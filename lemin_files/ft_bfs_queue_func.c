@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 09:53:11 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/19 09:12:17 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/02 14:28:04 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void				ft_print_queue(t_queue *q)
 
 void				ft_free_queue(t_queue *q)
 {
+	if (q == NULL)
+		return ;
 	while (!ft_queue_is_empty(q))
 		ft_dequeue(q);
 	free(q);

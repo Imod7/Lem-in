@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/05 16:11:02 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/21 07:30:51 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 09:35:49 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,6 @@ size_t				ft_check_if_completed(t_room *room)
 	return (0);
 }
 
-void				ft_remove_path(t_ant_farm *ant_farm, int path_id)
-{
-	t_path_list		*path_temp;
-	t_paths			*paths;
-
-	paths = ant_farm->paths;
-	while (paths != NULL)
-	{
-		if (paths->path_id == path_id)
-		{
-			path_temp = paths->path_lst;
-			ft_free_pathlst(paths->path_lst);
-			paths->prev->next = paths->next;
-			free(paths);
-			break ;
-		}
-		paths = paths->next;
-	}
-}
-
 int					ft_no_neighbors_open(t_neighbor	*neighbors)
 {
 	t_neighbor		*temp;
@@ -94,6 +74,16 @@ int					ft_no_neighbors_open(t_neighbor	*neighbors)
 		temp = temp->next;
 	}
 	return (1);
+}
+
+void				ft_paths_discovered(t_ant_farm *ant_farm)
+{
+	t_paths			*temp;
+
+	temp = ant_farm->paths;
+	while (temp->next != NULL)
+		temp = temp->next;
+	ant_farm->discovered_paths = temp->path_id;
 }
 
 void				ft_bfs(t_ant_farm *ant_farm)
@@ -115,13 +105,14 @@ void				ft_bfs(t_ant_farm *ant_farm)
 			neighbors = ant_farm->queue->front->room->neighbors;
 			while (neighbors != NULL)
 			{
-				// ft_printf("neighbor room %s state : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->state);
-				// ft_printf("path_id:%d\n", neighbors->hash_item->room->path_id);
 				if (neighbors->hash_item->room->state == UNEXPLORED)
 				{
+					// ft_printf("neighbor room %s state : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->state);
 					ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
 					neighbors->hash_item->room->parent = ant_farm->queue->front->room;
-					neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+					if (neighbors->hash_item->room->level == 0)
+						neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+					// ft_printf("level : %d\n", neighbors->hash_item->room->level);
 				}
 				neighbors = neighbors->next;
 			}
@@ -143,5 +134,7 @@ void				ft_bfs(t_ant_farm *ant_farm)
 	ft_fullreset(ant_farm);
 	// ft_print_paths_list_detail(ant_farm);
 	// print_rooms_list(ant_farm->rooms_lst);
-	ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);
+	ft_paths_discovered(ant_farm);
+	// print_neighbors_list_debug(ant_farm->hash_table);
+	// ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);
 }

@@ -1,4 +1,4 @@
-15
+7
 ##end
 end 114 96
 A 0 4
@@ -24,7 +24,6 @@ B-C
 C-end
 D-E
 E-F
-E-H
 F-end
 G-H
 H-I
@@ -32,3 +31,4 @@ I-end
 I-M
 J-K
 K-M
+E-H

@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/05/20 10:40:49 by dominique     ########   odam.nl          #
+#    Updated: 2020/05/27 09:46:34 by dominique     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRC_LEMIN =	\
 		ft_save_hash_items.c \
 		ft_save_rooms.c \
 		ft_save_neighbors.c \
-		ft_printing.c \
 		ft_prgm_functions.c \
 		ft_free_lists_tables.c \
 		ft_free_other.c \
@@ -41,9 +40,13 @@ SRC_LEMIN =	\
 		ft_dfs_stack_func.c \
 		ft_paths_auxfunc.c \
 		ft_paths_save.c \
-		ft_paths_print.c \
 		ft_paths_free.c \
 		ft_sort_neighbors.c \
+		ft_ants_to_paths.c \
+		ft_ants_move.c \
+		ft_print_list_tables.c \
+		ft_print_paths.c \
+		ft_print_ants.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 

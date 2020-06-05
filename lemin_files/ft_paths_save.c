@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 08:05:25 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/21 07:31:38 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 12:53:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 {
 	t_room			*temp;
-	t_path_list		*path;
+	t_path_list		*path_list;
 	t_path_list		*prev_pathlst;
-	t_paths			*total_paths;
+	t_paths			*new_path;
 
 	temp = ft_get_end_room(ant_farm);
-	total_paths = ant_farm->paths;
+	// total_paths = ant_farm->paths;
 	prev_pathlst = NULL;
-	while (total_paths != NULL)
-		total_paths = total_paths->next;
-	total_paths = (t_paths *)ft_memalloc(sizeof(t_paths));
-	ft_path_addend(&(ant_farm->paths), total_paths);
-	if ((total_paths != NULL) && (total_paths->prev != NULL))
+	// while (total_paths != NULL)
+	// 	total_paths = total_paths->next;
+	new_path = (t_paths *)ft_memalloc(sizeof(t_paths));
+	ft_path_addend(&(ant_farm->paths), new_path);
+	if ((new_path != NULL) && (new_path->prev != NULL))
 	{
-		prev_pathlst = total_paths->prev->path_lst;
+		prev_pathlst = new_path->prev->path_lst;
 		while (prev_pathlst->next != NULL)
 		{
 			// ft_printf("room %s \n", prev_pathlst->room->name);
@@ -50,27 +50,29 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 		}
 		// ft_printf("prev room %s\n", prev_pathlst->prev->room->name);
 	}
-	path = (t_path_list *)ft_memalloc(sizeof(t_path_list));
-	path->room = temp;
+	path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+	path_list->room = temp;
 	// ft_printf("temp parent %s\n", temp->parent->name);
 	// ft_printf("Saving path %d \n", total_paths->path_id);
 	if (((prev_pathlst != NULL) && \
 	(ft_strcmp(prev_pathlst->prev->room->name, temp->parent->name) != 0)) || \
 	(prev_pathlst == NULL))
 	{
-		ft_pathlst_addstart(&(total_paths->path_lst), path);
-		path = path->next;
+		ft_pathlst_addstart(&(new_path->path_lst), path_list);
+		new_path->path_size += 1;
+		path_list = path_list->next;
 		while (temp->parent != NULL)
 		{
 			// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
 			temp = temp->parent;
 			temp->state = COMPLETED;
-			temp->score = total_paths->path_id;
-			path = (t_path_list *)ft_memalloc(sizeof(t_path_list));
-			path->room = temp;
-			path->room->path = total_paths;
-			ft_pathlst_addstart(&(total_paths->path_lst), path);
-			path = path->next;
+			temp->score = new_path->path_id;
+			path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+			path_list->room = temp;
+			path_list->room->path = new_path;
+			ft_pathlst_addstart(&(new_path->path_lst), path_list);
+			new_path->path_size += 1;
+			path_list = path_list->next;
 		}
 	}
 	else
@@ -93,13 +95,16 @@ t_paths				*ft_create_path_list(t_ant_farm *ant_farm)
 }
 
 /*
-** In DFS we save each room as we go but when a room
+** In DFS we save each room as we go
+** the rest for now commented
+** when a room
 ** has a parent room that is the same as the parent of
 ** the previous room in the path then we free the previous
 ** room in the path
 */
 
-void				ft_save_paths_dfs(t_path_list **path_lst, t_room *room)
+void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
+											t_room *room)
 {
 	t_path_list		*path;
 	t_path_list		*last_node;

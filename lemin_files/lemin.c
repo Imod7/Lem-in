@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 13:55:03 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/19 09:17:11 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 08:55:20 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ static int			read_input(t_ant_farm *ant_farm)
 		i = get_next_line(0, &returned_line);
 		if (i != 0)
 		{
-			ft_printf("line = %s\n", returned_line);
+			// ft_printf("line = %s\n", returned_line);
 			result = ft_saveinput(ant_farm, returned_line, &j);
-			if (result == -1)
-				return (-1);
-			else if (result == 1)
+			// ft_printf("result = %d\n", result);
+			if (result == ERROR)
+				return (ERROR);
+			else if (result == CONTINUE)
 				;
 			else
 				j += 1;
@@ -45,13 +46,14 @@ int					main(void)
 	t_ant_farm		*ant_farm;
 
 	ant_farm = (t_ant_farm *)(ft_memalloc(sizeof(t_ant_farm)));
-	if (read_input(ant_farm) == -1)
+	if (read_input(ant_farm) == ERROR)
 		return (ft_exitprogram(ant_farm));
 	print_input_list(ant_farm->input);
 	print_rooms_list(ant_farm->rooms_lst);
 	ft_hashing_process(ant_farm);
 	print_hash_table(ant_farm->hash_table);
-	ft_save_neighbors(ant_farm);
+	if (ft_save_neighbors(ant_farm) == ERROR)
+		return (ft_exitprogram(ant_farm));
 	print_neighbors_list(ant_farm->hash_table);
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	ft_printf("Running BFS\n");
@@ -59,6 +61,7 @@ int					main(void)
 	ft_free_paths(ant_farm);
 	ft_printf("Running DFS\n");
 	ft_dfs(ant_farm);
+	// ft_ants_to_paths(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)
 	// 	;

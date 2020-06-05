@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_paths_print.c                                   :+:    :+:            */
+/*   ft_print_paths.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 15:14:08 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/18 12:47:08 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 08:06:52 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 	t_path_list		*path_temp;
 	t_paths			*paths;
 
-	ft_printf(ANSI_COLOR_CYAN"Printing the discovered paths \n");
+	ft_printf(ANSI_COLOR_BLUE"Printing the discovered paths \n");
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
@@ -47,10 +47,12 @@ void				ft_print_paths_list(t_ant_farm *ant_farm)
 	paths = ant_farm->paths;
 	ft_printf("\n               Paths List          \n");
 	ft_printf("---------------------------------------------------------\n");
-	ft_printf("|path_id\tprev\tnext\tpaths_list\t\t|\n");
+	ft_printf("|path_id\tpath_size\tants_amount\tprev\tnext\tpaths_list\t\t|\n");
 	while (paths != NULL)
 	{
 		ft_printf("%d\t\t", paths->path_id);
+		ft_printf("%d\t\t", paths->path_size);
+		ft_printf("%d\t\t", paths->ants_amount);
 		if (paths->prev)
 			ft_printf("%d\t", paths->prev->path_id);
 		else

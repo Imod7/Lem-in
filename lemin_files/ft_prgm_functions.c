@@ -6,21 +6,20 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/22 10:25:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/19 09:23:35 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/02 17:16:00 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int				ft_exit_msg(t_ant_farm *ant_farm, size_t flag)
+t_prgm_signal		ft_exit_msg(t_prgm_signal signal)
 {
-	(void)ant_farm;
-	if (flag == 0)
-		ft_printf(ANSI_COLOR_RED"Error\n"ANSI_COLOR_RESET);
-	return (-1);
+	if (signal == ERROR)
+		ft_printf("Error\n");
+	return (ERROR);
 }
 
-int				ft_exitprogram(t_ant_farm *ant_farm)
+int					ft_exitprogram(t_ant_farm *ant_farm)
 {
 	ft_free_inputlst(ant_farm->input);
 	ft_free_paths(ant_farm);
@@ -28,5 +27,7 @@ int				ft_exitprogram(t_ant_farm *ant_farm)
 	ft_free_hashtable(ant_farm->hash_table);
 	ft_free_queue(ant_farm->queue);
 	free(ant_farm);
-	return (0);
+	if (ant_farm->signal == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 08:05:25 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/19 10:53:16 by dominique     ########   odam.nl         */
+/*   Updated: 2020/05/21 08:55:54 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void				ft_pathlst_addend(t_path_list **lst, t_path_list *new)
 	new->prev = temp;
 }
 
-void				ft_path_addend(t_paths **lst, t_paths *new)
+void				ft_path_addend(t_paths **path, t_paths *new)
 {
 	t_paths			*temp;
 
-	if (*lst == NULL)
+	if (*path == NULL)
 	{
-		*lst = new;
+		*path = new;
 		new->path_id = 1;
 		return ;
 	}
-	temp = *lst;
+	temp = *path;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;

@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/15 19:14:26 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/12/15 19:14:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/05/28 06:54:24 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ void		print_final_float(short *pr, t_format *t_flags, t_print *t_prnt)
 void		check_precision(short *pr, t_format *t_flags)
 {
 	int		prec_index;
-	int		current_digit;
 	int		len;
 	int		temp;
 
-	current_digit = 0;
 	if ((t_flags->flags & FLAG_PRECIS) == 0)
 		t_flags->precision = 6;
 	temp = FLOAT_MIDDLE + 1;

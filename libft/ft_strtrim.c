@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/02 15:46:21 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/05/02 13:34:46 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/05/28 06:49:20 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ static int	count_spaces_start(char const *s)
 char		*ft_strtrim(char const *s)
 {
 	char	*copy;
-	int		i;
 	int		sp_start;
 	int		sp_end;
 	int		len;
 
-	i = 0;
 	sp_start = 0;
 	sp_end = 0;
 	len = ft_strlen(s);

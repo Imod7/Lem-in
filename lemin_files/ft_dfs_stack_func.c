@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 18:10:39 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/20 13:44:49 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 12:26:05 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void				ft_print_stack(t_stack *s)
 	t_stack			*temp;
 
 	temp = s;
-	ft_printf("Stack (len = %d)\n", ft_dfs_stack_len(s));
+	ft_printf(ANSI_COLOR_GREEN_EMER"Stack (len = %d)\n", ft_dfs_stack_len(s));
 	ft_printf("------\n");
 	if (temp == NULL)
 		ft_printf("stack is empty\n");
@@ -78,4 +78,5 @@ void				ft_print_stack(t_stack *s)
 		ft_printf("%s\n", temp->room->name);
 		temp = temp->next;
 	}
+	ft_printf(ANSI_COLOR_RESET);
 }

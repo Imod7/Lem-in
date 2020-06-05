@@ -6,7 +6,7 @@
 /*   By: dominique <dominique@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/28 19:07:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/20 09:04:09 by dominique     ########   odam.nl         */
+/*   Updated: 2020/06/03 16:39:04 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			ft_neighbor_addend(t_neighbor **lst, t_neighbor *new)
 ** the neighbor (left part of link) since our graphs are undirected.
 */
 
-void				ft_save_neighbors(t_ant_farm *ant_farm)
+int					ft_save_neighbors(t_ant_farm *ant_farm)
 {
 	t_input			*temp;
 	char			**array;
@@ -56,12 +56,16 @@ void				ft_save_neighbors(t_ant_farm *ant_farm)
 			array = ft_strsplit(temp->line, '-');
 			room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
-			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);	
+			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
+			if (neighbor_item == NULL)
+				return (ft_exit_msg(ERROR));
 			ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
 			// neighbor = ft_neighbor_newnode(neighbor_item);
 			neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
 			neighbor->hash_item = neighbor_item;
 			ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
+			if (neighbor_item == NULL)
+				return (ft_exit_msg(ERROR));
 			room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);	
@@ -74,4 +78,5 @@ void				ft_save_neighbors(t_ant_farm *ant_farm)
 		}
 		temp = temp->next;
 	}
+	return (SUCCESS);
 }
