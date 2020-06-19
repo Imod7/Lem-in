@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:54:15 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 14:18:53 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,54 +37,33 @@ void				ft_fullreset(t_ant_farm *ant_farm)
 	}
 }
 
-t_room				*ft_get_start_room(t_room *temp)
-{
-	while (temp != NULL)
-	{
-		if (temp->position == START)
-			break ;
-		temp = temp->next;
-	}
-	return (temp);
-}
+// size_t				ft_check_if_completed(t_room *room)
+// {
+// 	t_neighbor		*neighbors;
 
-size_t				ft_check_if_completed(t_room *room)
-{
-	t_neighbor		*neighbors;
+// 	neighbors = room->neighbors;
+// 	while (neighbors != NULL)
+// 	{
+// 		if (neighbors->hash_item->room->state != COMPLETED)
+// 			return (1);
+// 	}
+// 	return (0);
+// }
 
-	neighbors = room->neighbors;
-	while (neighbors != NULL)
-	{
-		if (neighbors->hash_item->room->state != COMPLETED)
-			return (1);
-	}
-	return (0);
-}
+// int					ft_no_neighbors_open(t_neighbor	*neighbors)
+// {
+// 	t_neighbor		*temp;
 
-int					ft_no_neighbors_open(t_neighbor	*neighbors)
-{
-	t_neighbor		*temp;
-
-	temp = neighbors;
-	while (temp != NULL)
-	{
-		// ft_printf("%s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
-		if (temp->hash_item->room->state == UNEXPLORED)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
-void				ft_paths_discovered(t_ant_farm *ant_farm)
-{
-	t_paths			*temp;
-
-	temp = ant_farm->paths;
-	while (temp->next != NULL)
-		temp = temp->next;
-	ant_farm->discovered_paths = temp->path_id;
-}
+// 	temp = neighbors;
+// 	while (temp != NULL)
+// 	{
+// 		// ft_printf("%s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
+// 		if (temp->hash_item->room->state == UNEXPLORED)
+// 			return (0);
+// 		temp = temp->next;
+// 	}
+// 	return (1);
+// }
 
 void				ft_bfs(t_ant_farm *ant_farm)
 {

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:17:00 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:30:38 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,16 @@ int					main(void)
 	ft_printf("\nRunning BFS\n");
 	ft_printf("===========\n");
 	ft_bfs(ant_farm);
+	// decision making based on ants
+	// if (ant_farm->ants > 99)
+	// {
 	ft_free_paths(ant_farm);
 	ft_printf("\nRunning DFS\n");
 	ft_printf("===========\n");
 	ft_dfs(ant_farm);
+	// }
 	ft_ants_to_paths(ant_farm);
+	ft_move_ants(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)
 	// 	;

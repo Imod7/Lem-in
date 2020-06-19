@@ -6,13 +6,13 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:06:36 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:42:35 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void				ft_print_ants(t_ant_farm *ant_farm)
+void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 {
 	t_paths			*paths;
 	t_ants			*ants_lst;

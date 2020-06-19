@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:13:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 14:22:54 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,10 +194,9 @@ t_input					*ft_input_newnode(char *line);
 void					ft_input_addend(t_input **lst, t_input *newline);
 
 /*
-** Functions to save the rooms data in a linked list
+** Functions related to Rooms
 */
 
-// t_room					*ft_room_newnode(char *str);
 void					ft_room_addend(t_room **lst, t_room *new);
 
 /*
@@ -208,7 +207,7 @@ t_hash_item				*ft_hashitem_newnode(t_room *room);
 void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 
 /*
-** Functions to free allocated memory
+** Functions to Free Allocated Memory
 */
 
 void					ft_free_inputlst(t_input *input_lst);
@@ -254,6 +253,8 @@ void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
 												t_room *room);
 t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
+void					ft_paths_discovered(t_ant_farm *ant_farm);
+t_room					*ft_get_start_room(t_room *temp);
 
 /*
 ** Functions to implement a queue and its FIFO functionalities
@@ -285,7 +286,7 @@ int						ft_sort_neighbors(t_neighbor **completelist, \
 int						ft_ants_to_paths(t_ant_farm *ant_farm);
 void					ft_print_move(t_ant_farm *ant_farm);
 void					ft_keep_ants_moving(t_ant_farm *ant_farm);
-void					ft_print_ants(t_ant_farm *ant_farm);
+void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_move_ants(t_ant_farm *ant_farm);
 
 #endif

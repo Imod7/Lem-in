@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/06/17 18:06:04 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/06/19 14:23:26 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC_LEMIN =	\
 		ft_dfs.c \
 		ft_dfs_stack_func.c \
 		ft_paths_auxfunc.c \
+		ft_paths_functions.c \
 		ft_paths_save.c \
 		ft_paths_free.c \
 		ft_sort_neighbors.c \

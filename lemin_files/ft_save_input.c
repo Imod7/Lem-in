@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:21 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:19:22 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:51:22 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,6 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	}
 	else if (lm_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
 		return (ant_farm->signal);
-	// else if (ft_isalnum(line[0]) && (*j == 0))
-	// // else if (ft_isalnum(line))
-	// {
-	// 	ant_farm->ants = ft_atoi(line);
-	// 	ft_printf(ANSI_COLOR_CYAN"Ants=%d\n"ANSI_COLOR_RESET, ant_farm->ants);
-	// }
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
 		return (ant_farm->signal);
 	else if (link != NULL)

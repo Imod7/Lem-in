@@ -6,11 +6,37 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:11:35 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 15:30:22 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+// void				ft_print_move(t_ant_farm *ant_farm)
+// {
+// 	t_path_list		*path_lst;
+// 	t_paths			*path;
+
+// 	ft_printf("Print moves \n");
+// 	path = ant_farm->paths;
+// 	while (path != NULL)
+// 	{
+// 		path_lst = path->path_lst->next;
+// 		while (path_lst->next != NULL)
+// 			path_lst = path_lst->next;
+// 		while (path_lst != NULL)
+// 		{
+// 			if (path_lst->room->position == END)
+// 				ft_print_ants_end(path);
+// 			if (path_lst->room->ants != NULL)
+// 				ft_printf("L%d-%s ", path_lst->room->ants->ant_id, \
+// 				path_lst->room->name);
+// 			path_lst = path_lst->prev;
+// 		}
+// 		path = path->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
 // void				ft_ants_to_rooms(t_ant_farm *ant_farm, t_paths *tmp)
 // {
@@ -23,6 +49,16 @@
 ** to assign ants to the correct rooms
 ** When the iteration through paths is over
 ** print the move
+** PSEUDOCODE
+** first try to move ants through 1 path
+** while (paths != NULL) && (path->path_lst != NULL)
+** if (room is empty)
+**    add_ant_to_room
+** else
+**    push_ant_to_next_room
+**    add_ant_to_room
+**   print the path_id and ant_id
+** 
 */
 
 void				ft_move_ants(t_ant_farm *ant_farm)
@@ -53,32 +89,6 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 // 			temp_lst->room->name);
 // 		ants_lst = ants_lst->next;
 // 	}
-// }
-
-// void				ft_print_move(t_ant_farm *ant_farm)
-// {
-// 	t_path_list		*path_lst;
-// 	t_paths			*path;
-
-// 	ft_printf("Print moves \n");
-// 	path = ant_farm->paths;
-// 	while (path != NULL)
-// 	{
-// 		path_lst = path->path_lst->next;
-// 		while (path_lst->next != NULL)
-// 			path_lst = path_lst->next;
-// 		while (path_lst != NULL)
-// 		{
-// 			if (path_lst->room->position == END)
-// 				ft_print_ants_end(path);
-// 			if (path_lst->room->ants != NULL)
-// 				ft_printf("L%d-%s ", path_lst->room->ants->ant_id, \
-// 				path_lst->room->name);
-// 			path_lst = path_lst->prev;
-// 		}
-// 		path = path->next;
-// 	}
-// 	ft_printf("\n");
 // }
 
 // void				ft_keep_ants_moving(t_ant_farm *ant_farm)

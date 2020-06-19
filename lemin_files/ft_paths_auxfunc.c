@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:38:18 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:52:57 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ size_t				ft_find_maxpaths(t_ant_farm *ant_farm)
 	count_s = 0;
 	count_e = 0;
 	temp = ft_get_start_room(ant_farm->rooms_lst);
-	neighbors_lst= temp->neighbors;
+	neighbors_lst = temp->neighbors;
 	while (neighbors_lst != NULL)
 	{
 		count_s += 1;
 		neighbors_lst = neighbors_lst->next;
 	}
 	temp = ft_get_end_room(ant_farm);
-	neighbors_lst= temp->neighbors;
+	neighbors_lst = temp->neighbors;
 	while (neighbors_lst != NULL)
 	{
 		count_e += 1;

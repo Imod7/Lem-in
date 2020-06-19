@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:01:46 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/19 14:08:33 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 			if (path_temp != NULL)
 				ft_printf(" -> ");
 		}
+		ft_printf(ANSI_COLOR_RESET);
+		ft_printf(" [ Path Size : %d ] \n", paths->path_size);
+		ft_printf(ANSI_COLOR_BLUE);
 		paths = paths->next;
-		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);
 	}
 	ft_printf(ANSI_COLOR_RESET);
