@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_paths_free.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/16 08:25:14 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/19 11:28:03 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:38:27 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

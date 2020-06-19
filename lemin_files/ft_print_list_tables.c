@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_print_list_tables.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 07:44:52 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/27 09:46:46 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:38:57 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:18:16 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				print_hash_table(t_hash_table *hash_table)
 	ft_printf("\n           Hash Table        \n");
 	ft_printf("-------------------------------------------");
 	ft_printf("-----------------------------\n");
-	ft_printf("|hashed_name/key\troom_name\tpoints_to_room\tcolision_next\t|\n");
+	ft_printf("|hashed_name/key\troom_name\tpoints_2_room\tcolision_next\t|\n");
 	temp = hash_table->array;
 	i = 0;
 	while (i < hash_table->size)
@@ -85,7 +85,7 @@ void				print_hash_table(t_hash_table *hash_table)
 			ft_printf("%s\t\t", temp[i]->room_name);
 			ft_printf("%s\t\t", temp[i]->room->name);
 			temp_item = temp[i]->colision_next;
-			while(temp_item != NULL)
+			while (temp_item != NULL)
 			{
 				ft_printf("%s", temp_item->room_name);
 				temp_item = temp_item->colision_next;
@@ -131,7 +131,7 @@ void				print_neighbors_list(t_hash_table *hash_table)
 			}
 			ft_printf("\n");
 			temp_item = hash_item[i]->colision_next;
-			while(temp_item != NULL)
+			while (temp_item != NULL)
 			{
 				ft_printf("%d\t\t%s\t\t", i, temp_item->room_name);
 				neigbors_lst = temp_item->room->neighbors;

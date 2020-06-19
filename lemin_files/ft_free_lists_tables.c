@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_free_lists_tables.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 09:28:47 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/12 12:55:36 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:37:48 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:37:51 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

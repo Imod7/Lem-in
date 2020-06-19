@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_print_paths.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/11 15:14:08 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 08:06:52 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:05 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:01:46 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);
 	}
-	ft_printf("----------------------\n");
 	ft_printf(ANSI_COLOR_RESET);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_hashing.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/25 18:15:18 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/05 14:57:24 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:48:23 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,20 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 		key = ft_hash_function(temp->name, ant_farm->hash_table->size);
 		if (ant_farm->hash_table->array[key] == NULL)
 		{
-			ft_printf("Saving room '%s' in key '%d'\n", temp->name, key);
+			// ft_printf("Saving room '%s' in key '%d'\n", temp->name, key);
 			ht_item = ft_hashitem_newnode(temp);
 			ft_hashitem_addend(&(ant_farm->hash_table->array[key]), ht_item);
 		}
 		else
 		{
-			ft_printf(" Key '%d' exists\n", key);
+			// ft_printf(" Key '%d' exists\n", key);
 			temp_item = ant_farm->hash_table->array[key];
 			while(temp_item->colision_next != NULL)
 			{
-				ft_printf(" After item %s of the linkedlist\n", temp_item->room_name);
+				// ft_printf(" After item %s of the linkedlist\n", temp_item->room_name);
 				temp_item = temp_item->colision_next;
 			}
-			ft_printf(" Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
+			// ft_printf(" Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
 			ht_item = ft_hashitem_newnode(temp);
 			ft_hashitem_addend(&(temp_item->colision_next), ht_item);
 			}

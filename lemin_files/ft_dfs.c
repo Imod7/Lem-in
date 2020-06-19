@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_dfs.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/12 16:39:32 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 20:08:33 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:14:43 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ size_t				ft_push_neighbors(t_ant_farm *ant_farm, \
 	size_t			flag;
 
 	// print_rooms_list(ant_farm->rooms_lst);
-	ft_printf(ANSI_COLOR_GREEN_EMER"temp %s , level %d\n"ANSI_COLOR_RESET, temp->name, temp->level);
+	// ft_printf(ANSI_COLOR_GREEN_EMER"temp %s , level %d\n"ANSI_COLOR_RESET, temp->name, temp->level);
 	if (temp->position == END)
 		return (-1);
 	flag = 0;
 	while (neighbors != NULL)
 	{
-		ft_printf(ANSI_COLOR_GREEN_EMER"neighb %s "ANSI_COLOR_RESET, neighbors->hash_item->room->name);
-		ft_printf("state %d ", neighbors->hash_item->room->state);
-		ft_printf("level %d \n", neighbors->hash_item->room->level);
-		ft_printf("position %d \n"ANSI_COLOR_RESET, neighbors->hash_item->room->position);
+		// ft_printf(ANSI_COLOR_GREEN_EMER"neighb %s "ANSI_COLOR_RESET, neighbors->hash_item->room->name);
+		// ft_printf("state %d ", neighbors->hash_item->room->state);
+		// ft_printf("level %d \n", neighbors->hash_item->room->level);
+		// ft_printf("position %d \n"ANSI_COLOR_RESET, neighbors->hash_item->room->position);
 		// neighbors->hash_item->room->parent = temp;
 		// if (neighbors->hash_item->room->parent)
 		// 	ft_printf("neighbor room %s --> parent : %s, state : %d, level : %d, temp lev : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->parent->name, neighbors->hash_item->room->state, neighbors->hash_item->room->level, temp->level);
@@ -83,8 +83,8 @@ t_room				*ft_remove_last_room_from_path(t_ant_farm *ant_farm)
 	ft_printf(ANSI_COLOR_RESET);
 	// room_item = ft_retrieve_hash_item(ant_farm->hash_table, path_temp->room->name);
 	room = path_temp->room;
-	ft_printf("Returning room : %s \n", room->name);
-	ft_print_paths(ant_farm);
+	// ft_printf("Returning room : %s \n", room->name);
+	// ft_print_paths(ant_farm);
 	return (room);
 }
 
@@ -94,7 +94,7 @@ t_room				*ft_backtrack(t_ant_farm *ant_farm)
 		return (NULL);
 	// ft_print_stack(ant_farm->stack);
 	// ft_printf(ANSI_COLOR_RED_CINA"   [2.2] It's DEAD END : %s ~~ %s \n"ANSI_COLOR_RESET, temp->name, ant_farm->stack->room->name);
-	ft_print_paths(ant_farm);
+	// ft_print_paths(ant_farm);
 	// Remove the last node from the last path
 	return (ft_remove_last_room_from_path(ant_farm));
 	// Push it to the stack
@@ -110,7 +110,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
 	i = 0;
-	print_neighbors_list_debug(ant_farm->hash_table);
+	// print_neighbors_list_debug(ant_farm->hash_table);
 	while (i < ant_farm->max_paths)
 	{
 		temp = ft_get_start_room(ant_farm->rooms_lst);
@@ -124,17 +124,17 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			temp = ant_farm->stack->room;
 			temp->path = path;
 			ft_sort_neighbors(&neighbors, &temp);
-			ft_printf("Next Loop --> i = %d\n", i);
-			ft_print_stack(ant_farm->stack);
-			ft_printf("  [1] Removing '%s' from top of the stack\n", ant_farm->stack->room->name);
+			// ft_printf("Next Loop --> i = %d\n", i);
+			// ft_print_stack(ant_farm->stack);
+			// ft_printf("  [1] Removing '%s' from top of the stack\n", ant_farm->stack->room->name);
 			ft_pop(&(ant_farm->stack));
 			result = ft_push_neighbors(ant_farm, neighbors, temp);
-			ft_print_stack(ant_farm->stack);
+			// ft_print_stack(ant_farm->stack);
 			if (result > 0)
 			{
-				ft_printf("  [2.1] Saving '%s' in path\n", temp->name);
+				// ft_printf("  [2.1] Saving '%s' in path\n", temp->name);
 				ft_save_room_to_dfs_path(&(path->path_lst), temp);
-				ft_print_paths(ant_farm);
+				// ft_print_paths(ant_farm);
 				// if (ft_strcmp("f1", temp->name) == 0)
 				// {
 				// 	print_rooms_list(ant_farm->rooms_lst);
@@ -145,7 +145,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			{
 			// 	if (temp->position == END)
 			// {
-				ft_printf(ANSI_COLOR_SAND"end room \n"ANSI_COLOR_RESET);
+				// ft_printf(ANSI_COLOR_SAND"end room \n"ANSI_COLOR_RESET);
 				temp->state = UNEXPLORED;
 				ft_save_room_to_dfs_path(&(path->path_lst), temp);
 				while (!ft_stack_empty(ant_farm->stack))
@@ -155,7 +155,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			}
 			else
 			{
-				ft_printf(ANSI_COLOR_SAND"BACK TRACKING \n"ANSI_COLOR_RESET);
+				// ft_printf(ANSI_COLOR_SAND"BACK TRACKING \n"ANSI_COLOR_RESET);
 				// exit(0);
 				temp = ft_backtrack(ant_farm);
 				// ft_printf("  Pushing '%s' to stack\n", temp->name);
@@ -165,9 +165,9 @@ void				ft_dfs(t_ant_farm *ant_farm)
 				// ft_print_stack(ant_farm->stack);
 			}
 			// ft_printf("  [3] Added all neighbors of %s \n", temp->name);
-			ft_print_stack(ant_farm->stack);
+			// ft_print_stack(ant_farm->stack);
 		}
-		ft_print_paths(ant_farm);
+		// ft_print_paths(ant_farm);
 		i += 1;
 	}
 	ft_print_paths(ant_farm);

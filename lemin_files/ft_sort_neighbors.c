@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_sort_neighbors.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/20 08:57:54 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/20 11:27:28 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:48 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:18:56 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

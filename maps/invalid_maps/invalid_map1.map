@@ -1,5 +1,5 @@
-#Erroneous Input file because the name os start room starts with 'L'
-3
+#Invalid Map because the name of start room starts with 'L'
+7
 ##start
 L0 1 0
 ##end

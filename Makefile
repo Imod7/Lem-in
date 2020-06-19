@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/05/27 09:46:34 by dominique     ########   odam.nl          #
+#    Updated: 2020/06/17 18:06:04 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ NC=\033[0m # No Color
 
 SRC_LEMIN =	\
 		lemin.c \
+		ft_input_validation.c \
 		ft_save_input.c \
 		ft_save_inputlines.c \
 		ft_save_hash_items.c \

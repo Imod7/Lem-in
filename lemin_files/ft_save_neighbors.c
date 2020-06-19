@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_save_neighbors.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/28 19:07:22 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 16:39:04 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:12:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,24 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 	{
 		if (ft_strchr(temp->line, '-') != NULL)
 		{
-			ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
+			// ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
 			array = ft_strsplit(temp->line, '-');
 			room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
 			if (neighbor_item == NULL)
-				return (ft_exit_msg(ERROR));
-			ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
+				return (ft_exit_msg(error_in_link));
+			// ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
 			// neighbor = ft_neighbor_newnode(neighbor_item);
 			neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
 			neighbor->hash_item = neighbor_item;
 			ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
 			if (neighbor_item == NULL)
-				return (ft_exit_msg(ERROR));
+				return (ft_exit_msg(error_in_link));
 			room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
 			// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
-			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);	
-			ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
+			neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);
+			// ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
 			neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
 			neighbor->hash_item = neighbor_item;
 			// neighbor = ft_neighbor_newnode(neighbor_item);

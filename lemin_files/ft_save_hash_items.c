@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_save_hash_items.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/03 10:27:57 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/04 10:59:50 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:13 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:39:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

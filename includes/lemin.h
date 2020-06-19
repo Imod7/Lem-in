@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lemin.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/18 09:25:17 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 17:24:01 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:13:55 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 # define LEMIN_H
 
 # include "libft.h"
-
-// # define MAX_ROOMS 20
+# include <stdio.h>
+# include <errno.h>
 
 typedef enum			e_prgm_signal
 {
 	SUCCESS = 0,
+	success_ants_saved = 1,
+	CONTINUE = 2,
 	ERROR = -1,
-	CONTINUE = 1,
-	KO = 2
+	error_empty_line = -2,
+	error_L_beginning_of_line = -3,
+	error_invalid_start_room = -4,
+	error_invalid_end_room = -5,
+	error_invalid_intermediate_room = -6,
+	error_in_link = -7,
+	KO = -8
 }						t_prgm_signal;
 
 typedef enum		e_position
@@ -40,7 +47,7 @@ typedef enum		e_state
 }					t_state;
 
 /*
-** Struct t_ant_farm 
+** Struct t_ant_farm
 */
 
 typedef struct			s_ant_farm
@@ -149,15 +156,25 @@ typedef struct			s_ants
 }						t_ants;
 
 /*
-** Functions to check if the input is valid
-** and then save it
+** Functions to do Input Validation and Saving
 */
 
-int						ft_saveinput(t_ant_farm *ant_farm, char *line, \
+t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
+int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
+											char *link);
+int						lm_check_if_ants_amount(t_ant_farm *ant_farm, \
+												char *line, size_t j);
+int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
+											t_position pos);
+int						ft_save_neighbors(t_ant_farm *ant_farm);
+
+/*
+** Functions to Exit the program
+*/
+
 int						ft_exit_msg(t_prgm_signal signal);
 int						ft_exitprogram(t_ant_farm *ant_farm);
-int						ft_save_neighbors(t_ant_farm *ant_farm);
 
 /*
 ** Printing Functions
@@ -209,7 +226,7 @@ void					ft_path_del_last(t_ant_farm *ant_farm);
 
 unsigned int			ft_hash_function(char *name, int size);
 int						ft_hashing_process(t_ant_farm *ant_farm);
-t_hash_item 			*ft_retrieve_hash_item(t_hash_table *hash_table, \
+t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 											char *str);
 
 /*
@@ -256,7 +273,7 @@ void					ft_free_queue(t_queue *q);
 
 void					ft_pop(t_stack **stack);
 void					ft_push(t_stack **stack, t_room *temp);
-int 					ft_stack_empty(t_stack *stack);
+int						ft_stack_empty(t_stack *stack);
 void					ft_print_stack(t_stack *s);
 int						ft_sort_neighbors(t_neighbor **completelist, \
 											t_room **room);

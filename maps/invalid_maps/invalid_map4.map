@@ -1,4 +1,4 @@
-#Erroneous Input file because the name of a room starts with 'L'
+#Invalid Map because the name of a room starts with 'L'
 3
 ##start
 0 1 0

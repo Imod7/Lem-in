@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_save_inputlines.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/25 18:36:58 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/28 19:04:31 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:29 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:39:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

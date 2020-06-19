@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_dfs_stack_func.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/12 18:10:39 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 12:26:05 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:37:24 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:16:08 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void				ft_pop(t_stack **stack)
 	}
 }
 
-int			ft_dfs_stack_len(t_stack *lst)
+int					ft_dfs_stack_len(t_stack *lst)
 {
 	t_stack			*temp;
 	int				len;
@@ -56,12 +56,12 @@ void				ft_push(t_stack **stack, t_room *room)
 	*stack = new;
 }
 
-int 				ft_stack_empty(t_stack *stack)
+int					ft_stack_empty(t_stack *stack)
 {
 	int				result;
 
-	result = (stack == NULL) ? 1 : 0; 
-    return (result);
+	result = (stack == NULL) ? 1 : 0;
+	return (result);
 }
 
 void				ft_print_stack(t_stack *s)

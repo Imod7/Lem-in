@@ -3,24 +3,24 @@
 /*                                                        ::::::::            */
 /*   ft_bfs_queue_func.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/07 09:53:11 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/02 14:28:04 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:11:54 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:09:39 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void				ft_dequeue(t_queue	*q)
+void				ft_dequeue(t_queue *q)
 {
 	t_queue_item	*q_item;
 
 	q_item = q->front;
-    q->front = q->front->next;
+	q->front = q->front->next;
 	if (q->front == NULL)
 		q->back = NULL;
-    free(q_item);
+	free(q_item);
 }
 
 void				ft_enqueue(t_queue *q, t_room *temp)
@@ -29,13 +29,16 @@ void				ft_enqueue(t_queue *q, t_room *temp)
 
 	q_item = (t_queue_item *)ft_memalloc(sizeof(t_queue_item));
 	q_item->room = temp;
-	if(!ft_queue_is_empty(q))
+	if (!ft_queue_is_empty(q))
 	{
 		q->back->next = q_item;
 		q->back = q_item;
 	}
 	else
-		q->front = q->back = q_item;
+	{
+		q->front = q_item;
+		q->back = q_item;
+	}
 	q_item->room->state = EXPLORED;
 }
 

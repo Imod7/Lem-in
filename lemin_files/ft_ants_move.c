@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_ants_move.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/24 11:31:38 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/02 10:26:57 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:11:35 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

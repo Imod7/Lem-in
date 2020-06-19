@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_bfs.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/05 16:11:02 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 09:35:49 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:54:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					ft_no_neighbors_open(t_neighbor	*neighbors)
 	temp = neighbors;
 	while (temp != NULL)
 	{
-		// ft_printf("Checking temp room %s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
+		// ft_printf("%s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
 		if (temp->hash_item->room->state == UNEXPLORED)
 			return (0);
 		temp = temp->next;

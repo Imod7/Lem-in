@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_save_input.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/21 18:11:15 by dominique     #+#    #+#                 */
-/*   Updated: 2020/06/03 18:18:09 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:21 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 11:19:22 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 {
 	if ((str[0] == '#') && (str[1] != '#'))
 	{
-		// ft_printf(ANSI_COLOR_CYAN"Ignoring Comments\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"Comment\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
 	else if (str[0] == 'L')
 	{
-		ant_farm->signal = ERROR;
-		return (ft_exit_msg(ERROR));
+		ant_farm->signal = error_L_beginning_of_line;
+		return (ft_exit_msg(ant_farm->signal));
 	}
 	else if (!ft_strcmp(str, ""))
 	{
-		ant_farm->signal = ERROR;
-		return (ft_exit_msg(ERROR));
+		ant_farm->signal = error_empty_line;
+		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
+		return (ft_exit_msg(ant_farm->signal));
 	}
 	return (SUCCESS);
 }
@@ -45,11 +46,10 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 ** CAUTION : remember to free memory allocated from ft_strsplit
 */
 
-int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
+t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 									t_position pos)
 {
 	int				i;
-	// int				valid;
 	t_input			*input_line;
 	t_room			*room;
 	char			**line_items;
@@ -62,8 +62,11 @@ int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		i = get_next_line(0, &line);
 		if (i == 0)
 			return (0);
-		if (check_if_valid(ant_farm, line) == ERROR)
-			return (ERROR);
+		if (check_if_valid(ant_farm, line) != SUCCESS)
+		{
+			// ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
+			return (ant_farm->signal);
+		}
 		input_line = ft_input_newnode(line);
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
@@ -77,7 +80,7 @@ int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	room->y_coord = ft_atoi(line_items[2]);
 	ant_farm->rooms++;
 	ft_free_line(line_items, 3);
-	return (0);
+	return (SUCCESS);
 }
 
 /*
@@ -86,51 +89,38 @@ int					ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 ** If non of the above, it will continue on the next checks
 */
 
-int					ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
+t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 {
 	char			*link;
 	t_input			*input_line;
-	int				valid;
 
 	link = ft_strchr(line, '-');
 	input_line = ft_input_newnode(line);
 	ft_input_addend(&(ant_farm->input), input_line);
-	valid = check_if_valid(ant_farm, line);
-	if (valid != SUCCESS)
-		return (valid);
+	if (check_if_valid(ant_farm, line) != SUCCESS)
+	{
+		// ft_printf("is it valid ant_farm->signal = %d\n", ant_farm->signal);
+		return (ant_farm->signal);
+	}
 	else if ((line[0] == '#') && (line[1] == '#') && \
 	(!(!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))))
 	{
-		ft_printf(ANSI_COLOR_CYAN"More comments so ignore\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
-	else if (ft_isalnum(line[0]) && (*j == 0))
-	// else if (ft_isalnum(line))
-	{
-		ant_farm->ants = ft_atoi(line);
-		ft_printf(ANSI_COLOR_CYAN"Number of ants\n"ANSI_COLOR_RESET);
-	}
-	else if (!ft_strcmp(line, "##start"))
-	{
-		ft_printf(ANSI_COLOR_CYAN"This is a start node\n"ANSI_COLOR_RESET);
-		if (ft_save_inputline(ant_farm, line, 1) == ERROR)
-			return (ERROR);
-	}
-	else if (!ft_strcmp(line, "##end"))
-	{
-		ft_printf(ANSI_COLOR_CYAN"This is an end node\n"ANSI_COLOR_RESET);
-		if (ft_save_inputline(ant_farm, line, 2) == ERROR)
-			return (ERROR);
-	}
-	else if (link == NULL)
-	{
-		ft_printf(ANSI_COLOR_CYAN"This is an Intermediate room\n"ANSI_COLOR_RESET);
-		if (ft_save_inputline(ant_farm, line, 0) == ERROR)
-			return (ERROR);
-	}
+	else if (lm_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
+		return (ant_farm->signal);
+	// else if (ft_isalnum(line[0]) && (*j == 0))
+	// // else if (ft_isalnum(line))
+	// {
+	// 	ant_farm->ants = ft_atoi(line);
+	// 	ft_printf(ANSI_COLOR_CYAN"Ants=%d\n"ANSI_COLOR_RESET, ant_farm->ants);
+	// }
+	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
+		return (ant_farm->signal);
 	else if (link != NULL)
 	{
-		ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
 	}
 	return (SUCCESS);
 }

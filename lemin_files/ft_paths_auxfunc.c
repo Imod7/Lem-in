@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_paths_auxfunc.c                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/07 08:05:25 by dominique     #+#    #+#                 */
-/*   Updated: 2020/05/21 08:55:54 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:38:18 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

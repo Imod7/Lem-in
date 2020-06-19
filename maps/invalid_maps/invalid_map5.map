@@ -1,4 +1,4 @@
-#Erroneous Input file because there is a link that refers to a room that doesnt exist
+#Invalid Map because there is a link that refers to a room that doesnt exist
 3
 ##start
 0 1 0
