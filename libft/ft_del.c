@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/11 14:45:06 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/05/02 12:54:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/05/28 14:05:12 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_del(void *content, size_t content_size)
 {
+	ft_bzero(content, content_size);
 	free(content);
 	content = NULL;
-	content_size = 0;
 }

@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_input_functions.c                               :+:    :+:            */
+/*   ft_save_hash_items.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 07:59:04 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 09:20:22 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:13 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:39:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-/*
-** Should I put here ft_memalloc instead ?
-*/
-
-t_input				*ft_input_newnode(char *line)
+t_hash_item			*ft_hashitem_newnode(t_room *room)
 {
-	t_input			*newnode;
+	t_hash_item		*newnode;
 
-	newnode = malloc(sizeof(t_input));
+	newnode = malloc(sizeof(t_hash_item));
 	if (newnode == NULL)
 		return (NULL);
-	newnode->line = line;
-	newnode->next = NULL;
+	newnode->room_name = ft_strdup(room->name);
+	newnode->room = room;
+	newnode->colision_next = NULL;
 	return (newnode);
 }
 
-void				ft_input_addend(t_input **lst, t_input *new)
+void				ft_hashitem_addend(t_hash_item **lst, t_hash_item *new)
 {
-	t_input			*temp;
+	t_hash_item		*temp;
 
 	if (*lst == NULL)
 	{
@@ -38,7 +35,7 @@ void				ft_input_addend(t_input **lst, t_input *new)
 		return ;
 	}
 	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+	while (temp->colision_next != NULL)
+		temp = temp->colision_next;
+	temp->colision_next = new;
 }

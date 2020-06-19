@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printing.c                                      :+:    :+:            */
+/*   ft_free_other.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 07:44:52 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/24 07:50:18 by dominique     ########   odam.nl         */
+/*   Created: 2020/06/19 10:37:56 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/19 10:37:58 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void			print_input_list(t_input *input_data)
+void		ft_free_line(char **line_items, size_t size)
 {
-	t_input		*temp;
+	size_t	i;
 
-	temp = input_data;
-	while (temp != NULL)
+	i = 0;
+	while (i < size)
 	{
-		if (temp != NULL)
-			ft_printf("%s\n", temp->line);
-		temp = temp->next;
+		free(line_items[i]);
+		line_items[i] = NULL;
+		i += 1;
 	}
+	free(line_items);
 }
