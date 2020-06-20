@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 13:42:35 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/20 21:44:00 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,76 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 			if (ants_lst != NULL)
 				ft_printf(" -> ");
 		}
+		ft_printf(" [ total_size : %d ] ", paths->path_size + \
+		paths->ants_amount);
 		paths = paths->next;
 		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);
 	}
 	ft_printf("\n", ANSI_COLOR_RESET);
+}
+
+void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
+{
+	t_paths			*paths;
+	t_path_list		*path_lst;
+
+	ft_printf(ANSI_COLOR_YELLOW_PAST"Ants in Rooms \n");
+	paths = ant_farm->paths;
+	while (paths != NULL)
+	{
+		ft_printf("Path ID %d : ", paths->path_id);
+		path_lst = paths->path_lst->next;
+		while (path_lst != NULL)
+		{
+			if (path_lst->room->ants_lst != NULL)
+				ft_printf("| %s : %d |", path_lst->room->name, path_lst->room->ants_lst->ant_id);
+			else
+				ft_printf("| %s : 0 |", path_lst->room->name);
+			path_lst = path_lst->next;
+			if (path_lst != NULL)
+				ft_printf(" -> ");
+		}
+		paths = paths->next;
+		ft_printf("\n");
+		// ft_printf("next path %p \n", paths);
+	}
+	ft_printf("\n", ANSI_COLOR_RESET);
+}
+
+void				ft_print_move(t_ant_farm *ant_farm)
+{
+	t_paths			*paths;
+	t_path_list		*path_lst;
+	t_ants			*ants_lst;
+
+	// ft_printf(ANSI_COLOR_YELLOW_PAST"Ants in Rooms \n");
+	paths = ant_farm->paths;
+	while (paths != NULL)
+	{
+		// ft_printf("Path ID %d : ", paths->path_id);
+		path_lst = paths->path_lst;
+		while (path_lst->next != NULL)
+			path_lst = path_lst->next;
+		ants_lst = path_lst->room->ants_lst;
+		if (ants_lst != NULL)
+			ft_printf(" >>>> room %s ant %d \n", path_lst->room->name, ants_lst->ant_id);
+		while (path_lst != NULL)
+		{
+			// ft_printf("--check %d-%s\n", path_lst->room->ant, path_lst->room->name);
+			if ((path_lst->room->ants_lst != NULL) && \
+			(path_lst->room->ants_lst->ant_id != 0))
+			{
+				ft_printf("L%d-%s ", path_lst->room->ants_lst->ant_id, path_lst->room->name);
+				if (path_lst->room->position == END)
+				{
+					ft_printf("room %s ant %d \n", path_lst->room->name, path_lst->room->ants_lst->ant_id);
+					ants_lst = ants_lst->next;
+				}
+			}
+			path_lst = path_lst->prev;
+		}
+		paths = paths->next;
+	}
+	ft_printf("\n");
 }

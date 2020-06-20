@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:22:54 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/20 19:56:46 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct			s_ant_farm
 	struct s_queue		*queue;
 	struct s_stack		*stack;
 	struct s_paths		*paths;
+	size_t				lines;
 	size_t				max_paths;
 	size_t				discovered_paths;
 	t_prgm_signal		signal;
@@ -87,7 +88,8 @@ typedef struct			s_room
 	size_t				y_coord;
 	size_t				level;
 	int					score;
-	// struct s_ants		*ants;
+	// size_t				ant;
+	struct s_ants		*ants_lst;
 	t_state				state;
 	t_position			position;
 	struct s_paths		*path;
@@ -287,6 +289,7 @@ int						ft_ants_to_paths(t_ant_farm *ant_farm);
 void					ft_print_move(t_ant_farm *ant_farm);
 void					ft_keep_ants_moving(t_ant_farm *ant_farm);
 void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
+void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
 void					ft_move_ants(t_ant_farm *ant_farm);
 
 #endif

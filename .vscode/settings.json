@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "fcntl.h": "c",
+        "complex": "c",
+        "ft_printf.h": "c",
+    },
+    "editor.rulers": [
+        80
+    ]
+}
