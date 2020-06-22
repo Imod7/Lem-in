@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/16 19:40:27 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/11/16 19:40:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/05/28 06:52:45 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int				binary_length_unsigned_int(unsigned long long num)
 {
 	int			len;
 
-	if (num < 0)
-		num = num * (-1);
 	len = 0;
 	while (num)
 	{
@@ -77,8 +75,6 @@ void			binary_number_unsigned_int(unsigned long long num, \
 	int			start;
 
 	start = 0;
-	if (num < 0)
-		num = num * (-1);
 	pos = 63;
 	while (pos >= 0)
 	{

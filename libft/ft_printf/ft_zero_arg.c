@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/17 18:49:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/10/17 18:49:45 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/05/28 06:56:47 by dominique     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	minfw_bigger_precision_extra_checks(t_format *t_flags, \
 {
 	if (((t_flags->flags & (FLAG_PLUS | FLAG_SPACE)) && \
 	(t_flags->flags & FLAG_PRECIS)) ||
-	((t_flags->flags & FLAG_HT) && (ft_strchr("xX", t_flags->argtype) > 0)))
+	((t_flags->flags & FLAG_HT) && (ft_strchr("xX", t_flags->argtype) != NULL)))
 		*diff = t_flags->precision;
 	else if (((t_flags->flags & (FLAG_PLUS | FLAG_HT | FLAG_SPACE)) ||
 	(((t_flags->flags & NOFLAGS_MASK) == 0) && \
@@ -61,7 +61,7 @@ void	minfw_bigger_precision_extra_checks(t_format *t_flags, \
 	{
 		if (((t_flags->flags & FLAG_HT) && (t_flags->argtype == 'o')) ||
 		((t_flags->flags & FLAG_SPACE) && (!(t_flags->flags & FLAG_ZERO)) \
-		&& (ft_strchr("di", t_flags->argtype) > 0)))
+		&& (ft_strchr("di", t_flags->argtype) != NULL)))
 			*diff = t_flags->minfw - t_prnt->pad_len;
 		else
 			*diff = t_flags->minfw - t_prnt->pad_len - 1;

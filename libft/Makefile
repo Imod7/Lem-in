@@ -6,7 +6,7 @@
 #    By: dsaripap <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/27 14:38:43 by dsaripap      #+#    #+#                  #
-#    Updated: 2020/04/25 16:27:14 by svan-der      ########   odam.nl          #
+#    Updated: 2020/06/22 15:08:38 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ GREEN=\033[0;32m
 NC=\033[0m # No Color
 
 SRC = ft_atoi.c \
+	  ft_atoll.c \
 	  ft_bzero.c \
 	  ft_del.c \
 	  ft_itoa.c \

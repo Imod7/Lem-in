@@ -1,0 +1,47 @@
+15
+##start
+start 4 0
+##end
+end 114 96
+A 0 4
+B 4 2
+C 4 4
+D 8 2
+E 8 4
+F 77 22
+G 5 87
+H 21 29
+I 7 88
+J 65 8
+K 12 0
+N 17 2
+M 0 77
+O 3 2
+U 7 9
+W 22 16
+V 89 2
+Z 43 109
+start-N
+start-A
+start-B
+A-C
+A-J
+B-C
+C-D
+C-K
+D-G
+M-V
+N-W
+U-N
+Z-U
+D-E
+D-I
+E-K
+E-F
+F-end
+G-H
+G-end
+H-I
+I-J
+N-M
+M-O

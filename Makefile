@@ -6,14 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/04/24 18:37:30 by svan-der      ########   odam.nl          #
+#    Updated: 2020/06/17 18:06:04 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
+CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-CC = clang
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -25,11 +25,29 @@ NC=\033[0m # No Color
 
 SRC_LEMIN =	\
 		lemin.c \
+		ft_input_validation.c \
 		ft_save_input.c \
-		ft_input_functions.c \
-		ft_printing.c \
+		ft_save_inputlines.c \
+		ft_save_hash_items.c \
+		ft_save_rooms.c \
+		ft_save_neighbors.c \
 		ft_prgm_functions.c \
-		ft_free_functions.c \
+		ft_free_lists_tables.c \
+		ft_free_other.c \
+		ft_hashing.c \
+		ft_bfs.c \
+		ft_bfs_queue_func.c \
+		ft_dfs.c \
+		ft_dfs_stack_func.c \
+		ft_paths_auxfunc.c \
+		ft_paths_save.c \
+		ft_paths_free.c \
+		ft_sort_neighbors.c \
+		ft_ants_to_paths.c \
+		ft_ants_move.c \
+		ft_print_list_tables.c \
+		ft_print_paths.c \
+		ft_print_ants.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 
@@ -44,11 +62,11 @@ $(LIBFT):
 $(EXEDIR)$(NAME_LEMIN): $(OBJ_LEMIN) $(LIBFT)
 	@echo "${GREEN} [ + ] ${NC}Creating lem-in object files"
 	@echo "${GREEN} [ + ] ${NC}Creating lem-in executable"
-	@$(CC) $(OBJ_LEMIN) -o $(EXEDIR)$(NAME_LEMIN) $(INCL)
+	@$(CC) $(FLAGS) $(OBJ_LEMIN) -o $(EXEDIR)$(NAME_LEMIN) $(INCL)
 
 $(LEMIN_OBJDIR)/%.o: $(LEMIN_SRCDIR)/%.c $(INCL)
 	@mkdir -p $(LEMIN_OBJDIR)
-	@$(CC) -c -o $@ $<
+	@$(CC) $(FLAGS) -c -o $@ $<
 
 .PHONY: clean
 

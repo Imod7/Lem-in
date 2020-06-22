@@ -1,0 +1,11 @@
+#Invalid Map because the name of start room starts with 'L'
+7
+##start
+L0 1 0
+##end
+1 5 0
+2 9 0
+3 13 0
+0-2
+2-3
+3-1

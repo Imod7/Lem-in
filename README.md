@@ -13,8 +13,9 @@ or
 ## How to use
 Run the lem-in executable and use the data from one of the test input files that are in the folder "input_files", for example:
 
-    > ./lem-in < input_files/input1.txt
+    > ./lem-in <maps/valid_maps/input7v1.map
 
 There are also input_error*.txt files in order to test and capture errors in the input files.
 
 For now we just read the every line and output the text. We also print Error in case of invalid lines in the file.
+

@@ -3,90 +3,124 @@
 /*                                                        ::::::::            */
 /*   ft_save_input.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dominique <dominique@student.codam.nl>       +#+                     */
+/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/21 18:11:15 by dominique     #+#    #+#                 */
-/*   Updated: 2020/04/29 01:06:56 by svan-der      ########   odam.nl         */
+/*   Created: 2020/06/19 10:39:21 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/22 15:09:35 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int					check_if_valid(t_ant_farm *ant_farm, char *str)
+/*
+** This function can return 1 one of the 3 following values :
+** ERROR (-1) : returns -1 to main and stops the prgm
+** CONTINUE (1) : returns 1 to main and continues on the next line
+** SUCCESS (0) : does not return to main and checks next ifs
+*/
+
+static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 {
 	if ((str[0] == '#') && (str[1] != '#'))
 	{
-		ft_printf(ANSI_COLOR_CYAN"Ignoring Comments\n\n"ANSI_COLOR_RESET);
-		return (1);
-	}
-	else if ((str[0] == '#') && (str[1] == '#') && \
-	(!(!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))))
-	{
-		ft_printf(ANSI_COLOR_CYAN"Command != start/end so we ignore\n\n"ANSI_COLOR_RESET);
-		return (1);
+		// ft_printf(ANSI_COLOR_CYAN"Comment\n"ANSI_COLOR_RESET);
+		return (CONTINUE);
 	}
 	else if (str[0] == 'L')
-		return (ft_exit_msg(ant_farm, 0));
+	{
+		ant_farm->signal = error_L_beginning_of_line;
+		return (ft_exit_msg(ant_farm->signal));
+	}
 	else if (!ft_strcmp(str, ""))
-		return (ft_exit_msg(ant_farm, 0));
-	else
-		return (0);
+	{
+		ant_farm->signal = error_empty_line;
+		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
+		return (ft_exit_msg(ant_farm->signal));
+	}
+	return (SUCCESS);
 }
 
 /*
-** 1st if checks if it is a comment
-** 2nd if checks that line is invalid
-** 3rd if checks if it is a command that we ignore
-** ...
+** Saves the line as it is in the linked list ant_farm->input
+** Saves also the room in the linked list ant_farm->rooms
+** CAUTION : remember to free memory allocated from ft_strsplit
 */
 
-int					add_commands(t_ant_farm *ant_farm, char *line)
+t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
+									t_position pos)
 {
 	int				i;
-	int				valid;
 	t_input			*input_line;
-	char			*command;
+	t_room			*room;
+	char			**line_items;
 
-	command = line;
-	i = get_next_line(0, &line);
-	if (i != 0)
+	// valid = check_if_valid(ant_farm, line);
+	// if (check_if_valid(ant_farm, line) == ERROR)
+	// 	return (ERROR);
+	if ((pos == START) || (pos == END))
 	{
-		valid = check_if_valid(ant_farm, line);
-		if (valid != 0)
-			return (valid);
-		if ((!ft_strcmp(command, "##start")))
-			ft_printf(ANSI_COLOR_CYAN"start node line = %s\n\n"ANSI_COLOR_RESET, line);
-		else if (!ft_strcmp(command, "##end"))
-			ft_printf(ANSI_COLOR_CYAN"end node line = %s\n\n"ANSI_COLOR_RESET, line);
+		i = get_next_line(0, &line);
+		if (i == 0)
+			return (0);
+		if (check_if_valid(ant_farm, line) != SUCCESS)
+		{
+			// ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
+			return (ant_farm->signal);
+		}
 		input_line = ft_input_newnode(line);
 		ft_input_addend(&(ant_farm->input), input_line);
-		ant_farm->rooms++;
 	}
-	return (0);
+	line_items = ft_strsplit(line, ' ');
+	// room = ft_room_newnode(line_items[0]);
+	room = (t_room *)ft_memalloc(sizeof(t_room));
+	room->name = ft_strdup(line_items[0]);
+	ft_room_addend(&(ant_farm->rooms_lst), room);
+	room->position = pos;
+	room->x_coord = ft_atoi(line_items[1]);
+	room->y_coord = ft_atoi(line_items[2]);
+	ant_farm->rooms++;
+	ft_free_line(line_items, 3);
+	return (SUCCESS);
 }
 
-int					ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
+/*
+** First checks if it is a non valid line (returns ERROR)
+** or a comment (returns CONTINUE) so it will move on the next line
+** If non of the above, it will continue on the next checks
+*/
+
+t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 {
-	int				i;
 	char			*link;
 	t_input			*input_line;
 
 	link = ft_strchr(line, '-');
 	input_line = ft_input_newnode(line);
 	ft_input_addend(&(ant_farm->input), input_line);
-	if (ft_isalnum(line[0]) && (*j == 0))
+	if (check_if_valid(ant_farm, line) != SUCCESS)
 	{
-		ant_farm->ants = ft_atoi(line);
-		ft_printf(ANSI_COLOR_CYAN"Saved number of ants = %d\n\n"ANSI_COLOR_RESET, ant_farm->ants);
+		// ft_printf("is it valid ant_farm->signal = %d\n", ant_farm->signal);
+		return (ant_farm->signal);
 	}
-	else if (line[0] == '#')
-		return (add_commands(ant_farm, line));
-	else if (link == NULL)
+	else if ((line[0] == '#') && (line[1] == '#') && \
+	(!(!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))))
 	{
-		ft_printf(ANSI_COLOR_CYAN"Intermediate room\n\n"ANSI_COLOR_RESET);
-		ant_farm->rooms++;
+		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
+		return (CONTINUE);
 	}
+	else if (lm_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
+		return (ant_farm->signal);
+	// else if (ft_isalnum(line[0]) && (*j == 0))
+	// // else if (ft_isalnum(line))
+	// {
+	// 	ant_farm->ants = ft_atoi(line);
+	// 	ft_printf(ANSI_COLOR_CYAN"Ants=%d\n"ANSI_COLOR_RESET, ant_farm->ants);
+	// }
+	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
+		return (ant_farm->signal);
 	else if (link != NULL)
-		ft_printf(ANSI_COLOR_CYAN"Link = %s\n\n"ANSI_COLOR_RESET, line);
-	return (0);
+	{
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+	}
+	return (SUCCESS);
 }
