@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/20 21:28:28 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/21 16:48:28 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int					choose_ant(t_paths *path, int ant_id)
 	t_ants			*ant_lst;
 
 	ft_printf(ANSI_COLOR_GREEN_EMER);
-	ft_printf(" choose next ant than %d \n", ant_id);
+	// ft_printf(" choose next ant than %d \n", ant_id);
 	ant_lst = path->ants_lst;
 	while (ant_lst != NULL)
 	{
@@ -44,22 +44,43 @@ void				ft_add_ants_to_antslist(t_ants **lst, t_ants *new)
 	new->prev = temp;
 }
 
-void				add_ant_to_room(t_room *room, int ant_id)
+void				add_ant_to_room(t_paths *path, t_room *room, int ant_id)
 {
 	t_ants			*ant;
 
-	if ((room->ants_lst == NULL) || \
-	(room->position == END))
+	// ft_printf(ANSI_COLOR_RED_CINA" ant_id %d path of the room %s is ##### %d \n"ANSI_COLOR_RESET, ant_id, room->name, room->path->path_id);
+	if (room->ants_lst == NULL)
 	{
 		// ft_printf("ants_lst is NULL - ant %d\n", ant_id);
 		ant = (t_ants *)ft_memalloc(sizeof(t_ants));
 		ant->ant_id = ant_id;
+		ant->path = path;
 		ft_add_ants_to_antslist(&(room->ants_lst), ant);
 	}
 	else
 	{
-		// ft_printf("ants_lst is NOT NULL \n");
-		room->ants_lst->ant_id = ant_id;
+		if ((room->position == END) && \
+		(path->path_id != room->ants_lst->path->path_id))
+		{
+			// in this case we only add to the ants_list of the room end
+			ant = (t_ants *)ft_memalloc(sizeof(t_ants));
+			ant->ant_id = ant_id;
+			ant->path = path;
+			ft_add_ants_to_antslist(&(room->ants_lst), ant);
+		}
+		else if ((room->position == END) && \
+		(path->path_id == room->ants_lst->path->path_id))
+		{
+			// we have to free the previous ants_lst and create a new one
+			room->ants_lst->ant_id = ant_id;
+			room->ants_lst->path = path;
+		}
+		else
+		{
+			// ft_printf("ants_lst is NOT NULL \n");
+			room->ants_lst->ant_id = ant_id;
+			room->ants_lst->path = path;
+		}
 	}
 }
 
@@ -77,41 +98,24 @@ void				push_ant_to_next_room(t_paths *path)
 	{
 		if ((path_lst->room->ants_lst != NULL) && (path_lst->next != NULL))
 		{
-			ft_printf("ant %d found room %s\n", \
-			path_lst->room->ants_lst->ant_id, path_lst->room->name);
+			// ft_printf("ant %d found room %s\n", 
+			// path_lst->room->ants_lst->ant_id, path_lst->room->name);
 			// path_lst->next->room->ant = path_lst->room->ant;
-			add_ant_to_room(path_lst->next->room, path_lst->room->ants_lst->ant_id);
+			add_ant_to_room(path, path_lst->next->room, path_lst->room->ants_lst->ant_id);
 			if ((path_lst->prev != NULL) && \
 			(path_lst->prev->room->ants_lst == NULL))
 			{
-				// if (path_lst->prev->room->position != START)
-				// {
-				ft_printf("we are in room %s\n", path_lst->room->name);
+				// ft_printf("we are in room %s\n", path_lst->room->name);
 				id = choose_ant(path, path_lst->room->ants_lst->ant_id);
-				ft_printf(" chosen ant : %d for room %s\n", id, path_lst->room->name);
-				add_ant_to_room(path_lst->room, id);
-				// if (path_lst->room->ant_lst != NULL) || \
-				// (path_lst->room->position == END)
-				// {
-				// 	ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-				// 	ant->ant_id = ant_lst->ant_id;
-				// 	ft_add_ants_to_room(&(path_lst->room->ants_lst), ant);
-				// }
-				// else
-				// 	path_lst->room->ant_lst->ant_id = ant_lst->ant_id;
-				// path_lst->room->ant = id;
-				// }
+				// ft_printf(" chosen ant : %d for room %s\n", id, path_lst->room->name);
+				add_ant_to_room(path, path_lst->room, id);
 			}
 			else if ((path_lst->prev != NULL) && \
 			(path_lst->prev->room->ants_lst != NULL))
 			{
-				// if (path_lst->prev->room->position != START)
-				// {
-					// id = choose_ant(path, path_lst->room->ant);
-				ft_printf(" Ant : %d for room %s\n", path_lst->prev->room->ants_lst->ant_id, path_lst->room->name);
+				// ft_printf(" Ant : %d for room %s\n", path_lst->prev->room->ants_lst->ant_id, path_lst->room->name);
 				// path_lst->room->ant = path_lst->prev->room->ant;
-				add_ant_to_room(path_lst->room, path_lst->prev->room->ants_lst->ant_id);
-				// }
+				add_ant_to_room(path, path_lst->room, path_lst->prev->room->ants_lst->ant_id);
 			}
 			else
 				path_lst->room->ants_lst->ant_id = 0;
@@ -151,7 +155,7 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 		path = ant_farm->paths;
 		while (path != NULL)
 		{
-			ft_print_ants_in_rooms(ant_farm);
+			// ft_print_ants_in_rooms(ant_farm);
 			ant_lst = path->ants_lst;
 			// if (ant_lst != NULL)
 			// {
@@ -161,24 +165,12 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			path_lst = path->path_lst->next;
 			if ((path_lst != NULL) && (path_lst->room->ants_lst == NULL) && (i == 0))
 			{
-				ft_printf("ants list of path %d is NULL\n", path->path_id);
-				add_ant_to_room(path_lst->room, ant_lst->ant_id);
-			// 	ft_printf("2 case - room %s \n", path_lst->room->name);
-			// 	if (path_lst->room->ant_lst != NULL) || \
-			// 	(path_lst->room->position == END)
-			// 	{
-			// 		ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-			// 		ant->ant_id = ant_lst->ant_id;
-			// 		ft_add_ants_to_antslist(&(path_lst->room->ants_lst), ant);
-			// 	}
-			// 	else
-			// 		path_lst->room->ant_lst->ant_id = ant_lst->ant_id;
-				// path_lst->room->ant = ant_lst->ant_id;
-				// ft_printf("-%s ", path_lst->room->name);
+				// ft_printf("ants list of path %d is NULL\n", path->path_id);
+				add_ant_to_room(path, path_lst->room, ant_lst->ant_id);
 			}
 			else
 			{
-				ft_printf("moving ants on path - room %s\n", path_lst->room->name);
+				// ft_printf("moving ants on path - room %s\n", path_lst->room->name);
 				push_ant_to_next_room(path);
 			}
 				// ft_ants_to_rooms(ant_farm, tmp);
