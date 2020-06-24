@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:16:16 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/23 17:07:11 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 				// ft_printf("  [2.1] Saving '%s' in path\n", temp->name);
 				ft_save_room_to_dfs_path(&(path->path_lst), temp);
 				path->path_size += 1;
+				// ft_printf("path_size %d\n", path->path_size);
 				// ft_print_paths(ant_farm);
 				// if (ft_strcmp("f1", temp->name) == 0)
 				// {
@@ -147,8 +148,10 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			// 	if (temp->position == END)
 			// {
 				// ft_printf(ANSI_COLOR_SAND"end room \n"ANSI_COLOR_RESET);
+				// ft_printf("path_size %d room %s\n", path->path_size, temp->name);
 				temp->state = UNEXPLORED;
 				ft_save_room_to_dfs_path(&(path->path_lst), temp);
+				path->path_size += 1;
 				while (!ft_stack_empty(ant_farm->stack))
 					ft_pop(&(ant_farm->stack));
 				break ;
@@ -162,6 +165,12 @@ void				ft_dfs(t_ant_farm *ant_farm)
 				// ft_printf("  Pushing '%s' to stack\n", temp->name);
 				if ((temp != NULL) && (temp->position != START))
 					ft_push(&(ant_farm->stack), temp);
+				// else
+				// {
+				// 	path->path_size = 0;
+				// 	ft_printf("path_size %d room %s\n", path->path_size, temp->name);
+				// }
+				path->path_size = 1;
 				// ft_printf(ANSI_COLOR_SAND"stack empty? \n"ANSI_COLOR_RESET);
 				// ft_print_stack(ant_farm->stack);
 			}
@@ -171,6 +180,9 @@ void				ft_dfs(t_ant_farm *ant_farm)
 		// ft_print_paths(ant_farm);
 		i += 1;
 	}
+	ft_print_paths(ant_farm);
+	ft_paths_discovered(ant_farm);
+	ft_sort_paths_on_size(ant_farm);
 	ft_print_paths(ant_farm);
 	ft_paths_discovered(ant_farm);
 	ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);

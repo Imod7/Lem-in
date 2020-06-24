@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/20 15:06:27 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/23 17:08:28 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int					main(void)
 	ft_printf("===========\n");
 	ft_dfs(ant_farm);
 	// }
-	ft_ants_to_paths(ant_farm);
+	// ft_ants_to_paths(ant_farm);
 	ft_move_ants(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)

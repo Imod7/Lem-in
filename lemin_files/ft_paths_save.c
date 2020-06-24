@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:09:54 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/23 16:33:33 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,6 @@ void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
 		// ft_printf("prev room  %s \n", prevlast_node->room->name);
 		last_node = last_node->next;
 	}
-	// if (prevlast_node != NULL)
-	// {
-	// 	if ((prevlast_node->room->parent != NULL) && (room->parent != NULL))
-	// 		ft_printf("comparing parent of '%s' is '%s' and of room '%s' is '%s'\n", prevlast_node->room->name, prevlast_node->room->parent->name, room->name, room->parent->name);
-	// 	ft_printf("comparing levels %s %d - %s %d \n", prevlast_node->room->name, prevlast_node->room->level, room->name, room->level);
-	// }
-	// if ((prevlast_node != NULL) && (prevlast_node->room->level == room->level))
-	// (ft_strcmp(prevlast_node->room->parent->name, room->parent->name) == 0))
-	// {
-	// 	prevlast_node->prev->next = NULL;
-	// 	free(prevlast_node);
-	// }
 	path = (t_path_list *)ft_memalloc(sizeof(t_path_list));
 	path->room = room;
 	if (prevlast_node != NULL)

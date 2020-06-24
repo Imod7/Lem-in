@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/20 15:05:33 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/23 16:54:11 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void				ft_calculate_lines(t_ant_farm *ant_farm)
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
-		total_size = paths->path_size + paths->ants_amount;
+		total_size = paths->path_size + paths->ants_amount - 1;
 		if (total_size > max_lines)
 			max_lines = total_size;
 		paths = paths->next;
@@ -105,18 +105,18 @@ int					ft_ants_to_paths(t_ant_farm *ant_farm)
 				next = cur->next;
 			else
 				next = ant_farm->paths;
-			// ft_printf(ANSI_COLOR_BLUE"cur_pathid: %d, size = %d\n"ANSI_COLOR_RESET, cur->path_id, cur->path_size + cur->ants_amount);
+			ft_printf(ANSI_COLOR_BLUE"cur_pathid: %d, size = %d\n"ANSI_COLOR_RESET, cur->path_id, cur->path_size + cur->ants_amount);
 			if (tmp->next != NULL)
 			{
-				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" \
-				// ANSI_COLOR_RESET, next->path_id, \
-				// next->path_size + next->ants_amount);
+				ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" \
+				ANSI_COLOR_RESET, next->path_id, \
+				next->path_size + next->ants_amount);
 			}
 			else
 			{
-				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" \
-				// ANSI_COLOR_RESET, ant_farm->paths->path_id, \
-				// ant_farm->paths->path_size + ant_farm->paths->ants_amount);
+				ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" \
+				ANSI_COLOR_RESET, ant_farm->paths->path_id, \
+				ant_farm->paths->path_size + ant_farm->paths->ants_amount);
 			}
 			if (cur->path_size + cur->ants_amount <= next->path_size + next->ants_amount)
 			{
@@ -133,7 +133,7 @@ int					ft_ants_to_paths(t_ant_farm *ant_farm)
 			}
 			// ft_ants_addend(&(tmp_lst->room->ants), ant);
 			ft_ants_to_pathlst_addend(&(ant->path->ants_lst), ant);
-			// ft_printf(ANSI_COLOR_GREEN_EMER"ant_id: %d, path_id = %d\n\n"ANSI_COLOR_RESET, ant->ant_id, ant->path->path_id);
+			ft_printf(ANSI_COLOR_GREEN_EMER"ant_id: %d, path_id = %d\n\n"ANSI_COLOR_RESET, ant->ant_id, ant->path->path_id);
 			i += 1;
 		}
 	}

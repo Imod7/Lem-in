@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/20 19:56:46 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/23 17:06:53 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);
 t_room					*ft_get_start_room(t_room *temp);
+void					ft_sort_paths_on_size(t_ant_farm *ant_farm);
 
 /*
 ** Functions to implement a queue and its FIFO functionalities
@@ -291,5 +292,6 @@ void					ft_keep_ants_moving(t_ant_farm *ant_farm);
 void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
 void					ft_move_ants(t_ant_farm *ant_farm);
+void					ft_free_ants_lst(t_ants **ants_lst);
 
 #endif

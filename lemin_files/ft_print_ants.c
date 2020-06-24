@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/21 16:39:11 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/23 16:24:40 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 	t_paths			*paths;
 	t_path_list		*path_lst;
 	t_ants			*ants_lst;
+	// t_ants			*delete;
 
 	ft_printf(ANSI_COLOR_YELLOW_PAST"Ants in Rooms \n");
 	paths = ant_farm->paths;
@@ -61,6 +62,13 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 			(path_lst->room->position == END))
 			{
 				ants_lst = path_lst->room->ants_lst;
+				// delete = path_lst->room->ants_lst;
+				// ft_printf("\n ants in end room \n");
+				// while (delete != NULL)
+				// {
+				// 	ft_printf("%d -> ", delete->ant_id);
+				// 	delete = delete->next;
+				// }
 				// ft_printf(" ant %d has path  %p \n", ants_lst->ant_id, ants_lst->path->path_id);
 				while ((ants_lst->next != NULL) && \
 				(ants_lst->path->path_id != paths->path_id))
@@ -84,7 +92,7 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);
 	}
-	ft_printf("\n", ANSI_COLOR_RESET);
+	ft_printf(ANSI_COLOR_RESET);
 }
 
 void				ft_print_move(t_ant_farm *ant_farm)
@@ -106,15 +114,15 @@ void				ft_print_move(t_ant_farm *ant_farm)
 			// ft_printf(" >>>> room %s ant %d \n", path_lst->room->name, ants_lst->ant_id);
 		while (path_lst != NULL)
 		{
-			// ft_printf("--check %d-%s\n", path_lst->room->ant, path_lst->room->name);
-			if ((path_lst->room->ants_lst != NULL) && \
-			(path_lst->room->ants_lst->ant_id != 0))
+			if (path_lst->room->ants_lst != NULL)
 			{
-				if (path_lst->room->position != END)
+				// ft_printf("- ant_id %d-%s\n", path_lst->room->ants_lst->ant_id, path_lst->room->name);
+				if ((path_lst->room->position != END) && (path_lst->room->ants_lst->ant_id != 0))
 					ft_printf("L%d-%s ", path_lst->room->ants_lst->ant_id, path_lst->room->name);
 					// ft_printf("| %s : %d |", path_lst->room->name, path_lst->room->ants_lst->ant_id);
-				else
+				else if (path_lst->room->position == END)
 				{
+					// ft_printf("- ant_id %d-%s\n", path_lst->room->ants_lst->ant_id, path_lst->room->name);
 					ants_lst_end = path_lst->room->ants_lst;
 					// ft_printf(" ant %d has path  %p \n", ants_lst->ant_id, ants_lst->path->path_id);
 					while ((ants_lst_end->next != NULL) && \
@@ -122,7 +130,9 @@ void				ft_print_move(t_ant_farm *ant_farm)
 					{
 						ants_lst_end = ants_lst_end->next;
 					}
-					if (ants_lst_end->path->path_id == paths->path_id)
+					// ft_printf(" antlstpath %d and path %d \n", ants_lst_end->path->path_id, paths->path_id);
+					if ((ants_lst_end->path->path_id == paths->path_id) && \
+					(ants_lst_end->ant_id != 0))
 					{
 						ft_printf("L%d-%s ", ants_lst_end->ant_id, path_lst->room->name);
 						// ft_printf("| %s : %d |", path_lst->room->name, ants_lst_end->ant_id);
@@ -133,5 +143,5 @@ void				ft_print_move(t_ant_farm *ant_farm)
 		}
 		paths = paths->next;
 	}
-	ft_printf("\n------------------------------\n\n"ANSI_COLOR_RESET);
+	ft_printf("\n"ANSI_COLOR_RESET);
 }
