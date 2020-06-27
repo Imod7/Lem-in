@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/06/19 14:23:26 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/06/27 16:56:06 by dominiquesa   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_LEMIN =	\
 		ft_print_list_tables.c \
 		ft_print_paths.c \
 		ft_print_ants.c \
+		ft_sort_paths.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 

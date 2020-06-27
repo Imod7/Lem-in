@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/23 17:06:53 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/27 17:06:01 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void					ft_free_line(char **line_items, size_t size);
 void					ft_free_paths(t_ant_farm *ant_farm);
 void					ft_free_pathlst(t_path_list *path_lst);
 void					ft_path_del_last(t_ant_farm *ant_farm);
+void					ft_mergesort(t_paths **completelist);
 
 /*
 ** Functions related to the hashing process and
@@ -258,6 +259,7 @@ t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);
 t_room					*ft_get_start_room(t_room *temp);
 void					ft_sort_paths_on_size(t_ant_farm *ant_farm);
+size_t					ft_path_size(t_paths *lst);
 
 /*
 ** Functions to implement a queue and its FIFO functionalities

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:18:53 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/27 18:07:46 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void				ft_bfs(t_ant_farm *ant_farm)
 			ft_enqueue(ant_farm->queue, temp);
 		i += 1;
 	}
-	ft_print_paths(ant_farm);
 	ft_fullreset(ant_farm);
 	// ft_print_paths_list_detail(ant_farm);
 	// print_rooms_list(ant_farm->rooms_lst);

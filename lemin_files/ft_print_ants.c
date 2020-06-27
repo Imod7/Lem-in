@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/23 16:24:40 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/27 18:06:44 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void				ft_print_move(t_ant_farm *ant_farm)
 	t_ants			*ants_lst;
 	t_ants			*ants_lst_end;
 
-	ft_printf(ANSI_COLOR_GREEN_BOLD"\nPrinting the move / line\n");
+	// ft_printf(ANSI_COLOR_GREEN_BOLD"\nPrinting the move / line\n");
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{

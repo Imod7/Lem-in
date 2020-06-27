@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 14:18:09 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:19:24 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/27 17:59:02 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void				ft_paths_discovered(t_ant_farm *ant_farm)
 
 	temp = ant_farm->paths;
 	while (temp->next != NULL)
+	{
 		temp = temp->next;
-	ant_farm->discovered_paths = temp->path_id;
+		ant_farm->discovered_paths += 1;
+	}
 }
 
 t_room				*ft_get_start_room(t_room *temp)

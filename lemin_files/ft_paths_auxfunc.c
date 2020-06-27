@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/23 18:05:25 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/27 17:48:32 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,37 @@ size_t				ft_find_maxpaths(t_ant_farm *ant_farm)
 void				ft_sort_paths_on_size(t_ant_farm *ant_farm)
 {
 	t_paths			*paths;
-	// t_paths			*tmp_prev;
-	// t_paths			*tmp_next;
-	// int				temp_id;
 
 	paths = ant_farm->paths;
 	while (paths->next != NULL)
 	{
-		ft_printf("compare path_id %d path_size %d next->path_id %d next->path_size %d \n", paths->path_id, paths->path_size, paths->next->path_id, paths->next->path_size);
 		if (paths->path_size > paths->next->path_size)
 		{
+			ft_mergesort(&(ant_farm->paths));
+			break ;
 			// tmp_prev = paths->prev;
 			// tmp_next = paths->next;
 			// paths->path_id = paths->next->path_id;
 			// paths->next->path_id = temp_id;
 		}
-		paths = paths->next;
+		else
+			paths = paths->next;
 	}
+}
+
+size_t				ft_path_size(t_paths *lst)
+{
+	t_paths			*temp;
+	size_t			len;
+
+	temp = lst;
+	len = 0;
+	if (temp == NULL)
+		return (0);
+	while (temp != NULL)
+	{
+		len++;
+		temp = temp->next;
+	}
+	return (len);
 }

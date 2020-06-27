@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/23 17:07:11 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/27 18:08:47 by dominiquesa   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,8 @@ void				ft_dfs(t_ant_farm *ant_farm)
 		i += 1;
 	}
 	ft_print_paths(ant_farm);
-	ft_paths_discovered(ant_farm);
 	ft_sort_paths_on_size(ant_farm);
-	ft_print_paths(ant_farm);
+	// ft_print_paths(ant_farm);
 	ft_paths_discovered(ant_farm);
-	ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);
+	// ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);
 }
