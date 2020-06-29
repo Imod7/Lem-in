@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:13:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/26 17:56:43 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct			s_room
 	size_t				y_coord;
 	size_t				level;
 	int					score;
+	size_t				ant_id;
 	// struct s_ants		*ants;
 	t_state				state;
 	t_position			position;
@@ -142,6 +143,7 @@ typedef struct			s_paths
 	int					path_size;
 	size_t				ants_amount;
 	struct s_path_list	*path_lst;
+	struct s_path_list  *tail;
 	struct s_ants		*ants_lst;
 	struct s_paths		*next;
 	struct s_paths		*prev;

@@ -6,13 +6,12 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:59:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/29 14:06:22 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-
-// void				ft_assign_and_move(t_ant_farm *ant_farm, t_paths *path, \
+// void				ft_assign_and_move(t_ant_farm *ant_farm, t_paths *path, 
 // 										t_ants *ant)
 // {
 // 	t_path_list		*path_lst;
@@ -109,7 +108,7 @@ void				ft_ants_to_pathlst_addend(t_ants **lst, t_ants *new)
 int					ft_ants_to_paths(t_ant_farm *ant_farm)
 {
 	t_paths			*tmp;
-	t_path_list		*tmp_lst;
+	// t_path_list		*tmp_lst;
 	size_t			i;
 	t_paths			*cur;
 	t_paths			*next;
@@ -134,7 +133,7 @@ int					ft_ants_to_paths(t_ant_farm *ant_farm)
 	while ((i <= ant_farm->ants) && (ant_farm->discovered_paths > 1))
 	{
 		tmp = ant_farm->paths;
-		tmp_lst = tmp->path_lst->next;
+		// tmp_lst = tmp->path_lst->next;
 		while ((tmp != NULL) && (i <= ant_farm->ants))
 		{
 			ant = (t_ants *)ft_memalloc(sizeof(t_ants));
@@ -145,11 +144,7 @@ int					ft_ants_to_paths(t_ant_farm *ant_farm)
 			else
 				next = ant_farm->paths;
 			// ft_printf(ANSI_COLOR_BLUE"cur_pathid: %d, size = %d\n"ANSI_COLOR_RESET, cur->path_id, cur->path_size + cur->ants_amount);
-			if (tmp->next != NULL)
-				;
 				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n"ANSI_COLOR_RESET, next->path_id, next->path_size + next->ants_amount);
-			else
-				;
 				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n"ANSI_COLOR_RESET, ant_farm->paths->path_id, ant_farm->paths->path_size + ant_farm->paths->ants_amount);
 			if (cur->path_size + cur->ants_amount <= next->path_size + next->ants_amount)
 			{
