@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/30 16:39:50 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/07/01 14:01:23 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,35 @@
 // 	while (ant_farm->room)
 // }
 
+void	ft_put_ant_to_room(t_paths **path, t_path_list **path_lst)
+{
+	t_ants *temp;
+
+	(*path)->ants_amount -= 1;
+	temp = (t_ants *)ft_memalloc(sizeof(t_ants));
+	temp->ant_id = (*path)->ants_lst->ant_id;
+	temp->path = *path;
+	ft_add_ants_to_list(&((*path_lst)->room->ants_lst), temp);
+	// (*path_lst)->room->ant_id = (*path)->ants_lst->ant_id;
+	ft_printf("L:%i-%s\n", (*path_lst)->room->ants_lst->ant_id, (*path_lst)->room->name);
+}
+
+void				ft_add_ants_to_list(t_ants **lst, t_ants *new)
+{
+	t_ants			*temp;
+
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
+	new->prev = temp;
+}
+
 void		print_ants_to_rooms(t_ant_farm *ant_farm)
 {
 	t_paths *temp;
@@ -33,21 +62,34 @@ void		print_ants_to_rooms(t_ant_farm *ant_farm)
 	while (temp != NULL)
 	{
 		temp_lst = temp->path_lst;
+		// if (temp_lst->room->ants_lst == NULL)
+		// 	break ;
 		ft_printf("\npath_id:%i", temp->path_id);
 		while (temp_lst != NULL)
 		{
 			if (temp_lst->room->position != END)
-				ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|->"ANSI_COLOR_RESET, temp_lst->room->name, temp_lst->room->ant_id);
+			{
+				if (temp_lst->room->ants_lst == NULL)
+					ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|->"ANSI_COLOR_RESET, temp_lst->room->name, 0);
+				else
+					ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|->"ANSI_COLOR_RESET, temp_lst->room->name, temp_lst->room->ants_lst->ant_id);
+			}
 			else
-				ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|"ANSI_COLOR_RESET, temp_lst->room->name, temp_lst->room->ant_id);
+			{
+				if (temp_lst->room->ants_lst == NULL)
+					ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|"ANSI_COLOR_RESET, temp_lst->room->name, 0);
+				else
+					ft_printf(ANSI_COLOR_GREEN_EMER"|%s:%i|"ANSI_COLOR_RESET, temp_lst->room->name, temp_lst->room->ants_lst->ant_id);
+			}
 			temp_lst = temp_lst->next;
 		}
 		temp = temp->next;
 	}
 	ft_printf("\n");
+	ft_printf("finished printing\n"ANSI_COLOR_RESET);
 }
 
-int			get_ant(t_paths *path, int ant_id)
+int			get_ant(t_paths *path, int ant_id, t_path_list **path_lst)
 {
 	t_ants *temp;
 
@@ -57,7 +99,8 @@ int			get_ant(t_paths *path, int ant_id)
 		// ft_printf("ant_id:%i\n", path->ants_lst->ant_id);
 		if (temp->ant_id == ant_id)
 		{
-			path->ants_amount -= 1;
+			ft_put_ant_to_room(&path, path_lst);
+			// path->ants_amount -= 1;
 			return (temp->next->ant_id);
 		}
 		temp = temp->next;
@@ -78,41 +121,37 @@ void		push_ant(t_paths *path, t_path_list **path_lst)
 	// ft_printf("tail:%s\n", tail->room->name);
 	while (tail->room->position != START)
 	{
+		ft_printf("position:%i\n", tail->room->position);
 		// ft_printf("tail:%s\n", tail->room->name);
-		ft_printf("room->ant_id:%i\n", tail->room->ant_id);
-		if (tail->room->ant_id != 0)
+		// ft_printf("room->ant_id:%i\n", tail->room->ants_lst->ant_id);
+		if (tail->room->ants_lst != NULL)
 		{
+			ft_printf("  hello\n");
+			ft_printf("  room name:%s\n", tail->room->name);
 			if (tail->room->position != END)
 			{
-				tail->next->room->ant_id = tail->room->ant_id;
-				ft_printf(ANSI_COLOR_BLUE"  current ant:%i at current room:%s\n", tail->room->ant_id, tail->room->name);
-				ft_printf("  ant:%i at prev room:%s\n", tail->prev->room->ant_id, tail->prev->room->name);
-				ft_printf("  pushed ant:%i to room:%s\n"ANSI_COLOR_RESET, tail->next->room->ant_id, tail->next->room->name);
-				if (tail->prev->room->ant_id == 0)
+				tail->next->room->ants_lst = tail->room->ants_lst;
+				ft_printf(ANSI_COLOR_BLUE"  current ant:%i at current room:%s\n", tail->room->ants_lst->ant_id, tail->room->name);
+				// ft_printf("  ant:%i at prev room:%s\n", tail->prev->room->ants_lst->ant_id, tail->prev->room->name);
+				// ft_printf("  pushed ant:%i to room:%s\n"ANSI_COLOR_RESET, tail->next->room->ants_lst->ant_id, tail->next->room->name);
+				if (tail->prev->room->ants_lst == NULL)
 				{
-					ant_id = get_ant(path, tail->room->ant_id);
+					ant_id = get_ant(path, tail->room->ants_lst->ant_id, path_lst);
 					// ft_printf("path->ants_amount:%i\n", path->ants_amount);
-					// ft_printf("  ant_id received:%i\n", ant_id);
-					tail->room->ant_id = ant_id;
-					ft_printf("  replaced w/ new ant:%i to current room:%s\n", tail->room->ant_id, tail->room->name);
+					ft_printf("  ant_id received:%i\n", ant_id);
+					tail->room->ants_lst->ant_id = ant_id;
+					ft_printf("  replaced w/ new ant:%i to current room:%s\n", tail->room->ants_lst->ant_id, tail->room->name);
 				}
-				else if (tail->prev->room->ant_id != 0)
+				else if (tail->prev->room->ants_lst != NULL)
 				{
 					// tail->room->ant_id = tail->prev->room->ant_id;
-					tail->room->ant_id = 0;
-					ft_printf("  replaced w/ prev ant:%i to current room:%s\n", tail->room->ant_id, tail->room->name);
+					tail->room->ants_lst->ant_id = 0;
+					ft_printf("  replaced w/ prev ant:%i to current room:%s\n", tail->room->ants_lst->ant_id, tail->room->name);
 				}
 			}
 		}
 		tail = tail->prev;
 	}
-}
-
-void	ft_put_ant_to_room(t_paths **path, t_path_list **path_lst)
-{
-	(*path)->ants_amount -= 1;
-	(*path_lst)->room->ant_id = (*path)->ants_lst->ant_id;
-	ft_printf("L:%i-%s\n", (*path_lst)->room->ant_id, (*path_lst)->room->name);
 }
 
 void	find_tail(t_paths *path)
@@ -157,10 +196,10 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			**
 			*/
 			path_lst = path->path_lst->next;
-			ft_printf("current room:%s in path:%i with ant:%i\n", path_lst->room->name, path->path_id, path_lst->room->ant_id);
-			if (path_lst->room->ant_id != 0 || path->ants_amount == 0)
+			if (path_lst->room->ants_lst != NULL && (path_lst->room->ants_lst->ant_id != 0 || path->ants_amount == 0))
 			{
-				ft_printf("before path_lst->room->ant_id:%i\n", path_lst->room->ant_id);
+				ft_printf("going to push ant\n");
+				// ft_printf("current room:%s in path:%i\n", path_lst->room->name, path->path_id);
 				push_ant(path, &path_lst);
 				// ft_printf("path_lst->room->ant_id:%i\n", path_lst->room->ant_id);
 				// ft_printf("path_lst->room->next->ant_id:%i\n", path_lst->next->room->ant_id);

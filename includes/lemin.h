@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/26 17:56:43 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/07/01 13:17:03 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ typedef struct			s_room
 	size_t				y_coord;
 	size_t				level;
 	int					score;
-	size_t				ant_id;
+	struct s_ants		*ants_lst;
+	// size_t				ant_id;
 	// struct s_ants		*ants;
 	t_state				state;
 	t_position			position;
@@ -284,6 +285,7 @@ int						ft_sort_neighbors(t_neighbor **completelist, \
 ** Functions related to ants
 */
 
+void					ft_add_ants_to_list(t_ants **lst, t_ants *new);
 int						ft_ants_to_paths(t_ant_farm *ant_farm);
 void					ft_print_move(t_ant_farm *ant_farm);
 void					ft_keep_ants_moving(t_ant_farm *ant_farm);

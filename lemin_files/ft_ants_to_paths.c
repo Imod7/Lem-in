@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/29 14:06:22 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/07/01 12:58:55 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 // 		if (path_lst->room->position == END)
 // 		{
 // 			ft_printf(" END room\n");
-// 			ft_ants_addend(&(path_lst->room->ants), ant);
+			// ft_ants_addend(&(path_lst->room->ants), ant);
 // 		}
 // 		if (path_lst->room->ants != NULL)
 // 		{
@@ -72,22 +72,6 @@ int					ft_all_ants_in_same_path(t_ant_farm *ant_farm)
 	}
 	return (0);
 }
-
-// void				ft_ants_addend(t_ants **lst, t_ants *new)
-// {
-// 	t_ants			*temp;
-
-// 	if (*lst == NULL)
-// 	{
-// 		*lst = new;
-// 		return ;
-// 	}
-// 	temp = *lst;
-// 	while (temp->next != NULL)
-// 		temp = temp->next;
-// 	temp->next = new;
-// 	new->prev = temp;
-// }
 
 void				ft_ants_to_pathlst_addend(t_ants **lst, t_ants *new)
 {
