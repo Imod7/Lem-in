@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_paths_save.c                                    :+:    :+:            */
+/*   ft_save_paths.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/23 16:33:33 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/28 12:19:06 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 	t_paths			*new_path;
 
 	temp = ft_get_end_room(ant_farm);
-	// total_paths = ant_farm->paths;
 	prev_pathlst = NULL;
 	// while (total_paths != NULL)
 	// 	total_paths = total_paths->next;
@@ -82,7 +81,7 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 	}
 }
 
-t_paths				*ft_create_path_list(t_ant_farm *ant_farm)
+t_paths				*ft_create_path(t_ant_farm *ant_farm)
 {
 	t_paths			*paths;
 

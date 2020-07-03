@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/27 18:07:46 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/29 20:55:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,42 @@ void				ft_fullreset(t_ant_farm *ant_farm)
 	}
 }
 
-// size_t				ft_check_if_completed(t_room *room)
-// {
-// 	t_neighbor		*neighbors;
+/*
+** Adding all neighbors of the room that is in the front of our queue
+** We also update the parent room at the same time and the level
+** of the neighbor
+*/
 
-// 	neighbors = room->neighbors;
-// 	while (neighbors != NULL)
-// 	{
-// 		if (neighbors->hash_item->room->state != COMPLETED)
-// 			return (1);
-// 	}
-// 	return (0);
-// }
-
-// int					ft_no_neighbors_open(t_neighbor	*neighbors)
+// static int					ft_add_neighbors_in_queue(t_ant_farm *ant_farm, \
+// 														t_neighbor *neighbors)
 // {
 // 	t_neighbor		*temp;
 
-// 	temp = neighbors;
-// 	while (temp != NULL)
+// 	while (neighbors != NULL)
 // 	{
-// 		// ft_printf("%s state : %d\n", temp->hash_item->room->name, temp->hash_item->room->state);
-// 		if (temp->hash_item->room->state == UNEXPLORED)
-// 			return (0);
-// 		temp = temp->next;
+// 		if (neighbors->hash_item->room->state == UNEXPLORED)
+// 		{
+// 			// ft_printf("neighbor room %s state : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->state);
+// 			ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
+// 			ft_printf("enqueud room %s \n", neighbors->hash_item->room->name);
+// 			ft_print_queue(ant_farm->queue);
+// 			ft_printf("neighbors of room %s \n", ant_farm->queue->front->room->name);
+// 			neighbors->hash_item->room->parent = ant_farm->queue->front->room;
+// 			if (neighbors->hash_item->room->level == 0)
+// 				neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+// 			ft_printf("neighbor room %s level : %d , parent : %s level : %d \n", neighbors->hash_item->room->name, neighbors->hash_item->room->level, neighbors->hash_item->room->parent->name, neighbors->hash_item->room->parent->level);
+// 			// ft_print_paths(ant_farm);
+// 			// ft_printf("level : %d\n", neighbors->hash_item->room->level);
+// 		}
+// 		neighbors = neighbors->next;
 // 	}
-// 	return (1);
 // }
 
 void				ft_bfs(t_ant_farm *ant_farm)
 {
 	t_room			*temp;
 	t_neighbor		*neighbors;
+	// t_room			*parent_room;
 	size_t			i;
 
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
@@ -81,16 +85,23 @@ void				ft_bfs(t_ant_farm *ant_farm)
 	{
 		while (!ft_queue_is_empty(ant_farm->queue))
 		{
+			// parent_room = 
 			neighbors = ant_farm->queue->front->room->neighbors;
+			// ft_add_neighbors_of_room(ant_farm->queue, neighbors)
 			while (neighbors != NULL)
 			{
 				if (neighbors->hash_item->room->state == UNEXPLORED)
 				{
 					// ft_printf("neighbor room %s state : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->state);
 					ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
+					// ft_printf("enqueud room %s \n", neighbors->hash_item->room->name);
+					// ft_print_queue(ant_farm->queue);
+					// ft_printf("neighbors of room %s \n", ant_farm->queue->front->room->name);
 					neighbors->hash_item->room->parent = ant_farm->queue->front->room;
 					if (neighbors->hash_item->room->level == 0)
 						neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+					// ft_printf("neighbor room %s level : %d , parent : %s level : %d \n", neighbors->hash_item->room->name, neighbors->hash_item->room->level, neighbors->hash_item->room->parent->name, neighbors->hash_item->room->parent->level);
+					// ft_print_paths(ant_farm);
 					// ft_printf("level : %d\n", neighbors->hash_item->room->level);
 				}
 				neighbors = neighbors->next;

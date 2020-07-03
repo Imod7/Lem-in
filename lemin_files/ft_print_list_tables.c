@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_print_list_tables.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
+/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/19 10:38:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:18:16 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/06/28 10:48:46 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/06/28 10:48:49 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

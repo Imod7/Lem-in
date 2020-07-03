@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/27 17:06:01 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/06/29 19:39:41 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum			e_prgm_signal
 	SUCCESS = 0,
 	success_ants_saved = 1,
 	CONTINUE = 2,
+	BREAK = 3,
 	ERROR = -1,
 	error_empty_line = -2,
 	error_L_beginning_of_line = -3,
@@ -187,6 +188,7 @@ void					print_rooms_list(t_room *rooms_lst);
 void					print_hash_table(t_hash_table *hash_table);
 void					print_neighbors_list(t_hash_table *hash_table);
 void					print_neighbors_list_debug(t_hash_table *hash_table);
+void					ft_print_mapdata(t_ant_farm *ant_farm);
 
 /*
 ** Functions to save the input data in a linked list
@@ -248,7 +250,7 @@ void					ft_path_addend(t_paths **lst, t_paths *new);
 void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);
 void					ft_pathlst_addend(t_path_list **lst, t_path_list *new);
 size_t					ft_find_maxpaths(t_ant_farm *ant_farm);
-t_paths					*ft_create_path_list(t_ant_farm *ant_farm);
+t_paths					*ft_create_path(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
 void					ft_print_paths_list_detail(t_ant_farm *ant_farm);

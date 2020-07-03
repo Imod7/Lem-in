@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/27 18:07:58 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/07/02 08:50:29 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,22 @@ int					main(void)
 		return (ft_exitprogram(ant_farm));
 	// print_neighbors_list(ant_farm->hash_table);
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
-	ft_printf("\nRunning BFS\n");
-	ft_printf("===========\n");
+	// ft_printf("\nRunning BFS\n");
+	// ft_printf("===========\n");
 	ft_bfs(ant_farm);
-	ft_print_paths(ant_farm);
+	// ft_print_paths(ant_farm);
 	// decision making based on ants
-	// if (ant_farm->ants > 99)
+	// if (ant_farm->ants > 5)
 	// {
-	ft_free_paths(ant_farm);
-	ft_printf("\nRunning DFS\n");
-	ft_printf("===========\n");
-	ft_dfs(ant_farm);
-	ft_print_paths(ant_farm);
+	// ft_free_paths(ant_farm);
+	// ft_printf("\nRunning DFS\n");
+	// ft_printf("===========\n");
+	// ft_dfs(ant_farm);
+	// ft_print_paths(ant_farm);
 	// }
 	ft_ants_to_paths(ant_farm);
+	// ft_print_ants_in_paths(ant_farm);
+	ft_print_mapdata(ant_farm);
 	ft_move_ants(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)

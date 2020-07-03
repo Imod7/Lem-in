@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/27 18:06:44 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/07/02 08:21:30 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);
 	}
-	ft_printf("\n", ANSI_COLOR_RESET);
+	ft_printf(ANSI_COLOR_RESET);
 }
 
 void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
@@ -89,8 +89,7 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 				ft_printf(" -> ");
 		}
 		paths = paths->next;
-		ft_printf("\n");
-		// ft_printf("next path %p \n", paths);
+		// ft_printf("\nnext path %p \n", paths);
 	}
 	ft_printf(ANSI_COLOR_RESET);
 }
@@ -143,5 +142,5 @@ void				ft_print_move(t_ant_farm *ant_farm)
 		}
 		paths = paths->next;
 	}
-	ft_printf("\n"ANSI_COLOR_RESET);
+	ft_printf("\n");
 }

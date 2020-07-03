@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_paths_free.c                                    :+:    :+:            */
+/*   ft_free_paths.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:38:27 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/06/28 12:34:13 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void				ft_free_paths(t_ant_farm *ant_farm)
 	}
 	ant_farm->paths = NULL;
 }
+
+/*
+** Deletes the last path from the linked list of paths (ant_farm->paths)
+** The path that it deletes depends on the paths that are already saved in
+** ant_farm->paths linked list right before this function is called
+*/
 
 void				ft_path_del_last(t_ant_farm *ant_farm)
 {

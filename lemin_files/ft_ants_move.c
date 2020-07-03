@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/27 18:07:19 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/07/02 08:53:17 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int					choose_ant(t_paths *path, int ant_id)
 {
 	t_ants			*ant_lst;
 
-	ft_printf(ANSI_COLOR_GREEN_EMER);
+	// ft_printf(ANSI_COLOR_GREEN_EMER);
 	// ft_printf(" choose next ant than %d \n", ant_id);
 	ant_lst = path->ants_lst;
 	while (ant_lst != NULL)
@@ -100,7 +100,7 @@ void				add_ant_to_room(t_paths *path, t_room *room, int ant_id)
 			room->ants_lst->path = path;
 		}
 	}
-	ft_printf(ANSI_COLOR_RESET);
+	// ft_printf(ANSI_COLOR_RESET);
 }
 
 /*
@@ -113,7 +113,7 @@ void				push_ant_to_next_room(t_paths *path)
 	t_path_list		*path_lst;
 	int				id;
 
-	ft_printf(ANSI_COLOR_GREEN_EMER);
+	// ft_printf(ANSI_COLOR_GREEN_EMER);
 	// ft_printf(" pushing ants through path %d \n", path->path_id);
 	path_lst = path->path_lst;
 	while (path_lst->next != NULL)
@@ -173,10 +173,10 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			// ft_print_ants_in_rooms(ant_farm);
 			ant_lst = path->ants_lst;
 			path_lst = path->path_lst->next;
-			if ((path_lst != NULL) && \
+			if ((path_lst != NULL) && (path->ants_lst != NULL) && \
 			(path_lst->room->ants_lst == NULL) && (i == 0))
 			{
-				// ft_printf("ants list of path %d is NULL\n", path->path_id);
+				// ft_printf("ants list of room in path %d is NULL\n", path->path_id);
 				add_ant_to_room(path, path_lst->room, ant_lst->ant_id);
 			}
 			else
@@ -186,10 +186,10 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			}
 			path = path->next;
 		}
-		ft_printf(ANSI_COLOR_YELLOW_PAST);
-		// ft_print_move(ant_farm);
+		// ft_printf(ANSI_COLOR_YELLOW_PAST);
+		ft_print_move(ant_farm);
 		// ft_print_ants_in_rooms(ant_farm);
-		ft_printf(ANSI_COLOR_RESET);
+		// ft_printf("lines i = %d ant_farm->lines = %d\n"ANSI_COLOR_RESET, i, ant_farm->lines);
 		i += 1;
 	}
 }
