@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/29 19:39:41 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:22:20 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ typedef enum		e_state
 }					t_state;
 
 /*
+** The enum t_option helps to set the options of the program
+** which are the bonuses of the project
+*/
+
+typedef enum			e_option
+{
+	OPTION_U = (1 << 0),
+	OPTION_M = (1 << 1),
+	OPTION_N = (1 << 2),
+	OPTION_C = (1 << 3)
+}						t_option;
+
+/*
 ** Struct t_ant_farm
 */
 
@@ -64,6 +77,7 @@ typedef struct			s_ant_farm
 	size_t				lines;
 	size_t				max_paths;
 	size_t				discovered_paths;
+	t_option			options;
 	t_prgm_signal		signal;
 }						t_ant_farm;
 
@@ -139,6 +153,14 @@ typedef struct			s_path_list
 	struct s_path_list	*prev;
 }						t_path_list;
 
+typedef struct			s_ants
+{
+	int					ant_id;
+	struct s_paths		*path;
+	struct s_ants		*next;
+	struct s_ants		*prev;
+}						t_ants;
+
 typedef struct			s_paths
 {
 	int					path_id;
@@ -150,20 +172,13 @@ typedef struct			s_paths
 	struct s_paths		*prev;
 }						t_paths;
 
-typedef struct			s_ants
-{
-	int					ant_id;
-	struct s_paths		*path;
-	struct s_ants		*next;
-	struct s_ants		*prev;
-}						t_ants;
-
 /*
 ** Functions to do Input Validation and Saving
 */
 
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
+int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 											char *link);
 int						lm_check_if_ants_amount(t_ant_farm *ant_farm, \

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/28 12:34:13 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:29:48 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void				ft_free_paths(t_ant_farm *ant_farm)
 	curr_node = ant_farm->paths;
 	while (curr_node != NULL)
 	{
+		ft_free_ants_lst(&(curr_node->ants_lst));
 		ft_free_pathlst(curr_node->path_lst);
 		// ft_printf(" freeing path id  %d\n", curr_node->path_id);
 		curr_node->path_id = 0;

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:37:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:33:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void				ft_free_inputlst(t_input *input_lst)
 		next_node = curr_node->next;
 		free(curr_node->line);
 		free(curr_node);
+		curr_node = NULL;
+		// ft_printf("current node is %p \n", curr_node);
 		curr_node = next_node;
 	}
 	input_lst = NULL;
+	// ft_printf("set list to %p \n", input_lst);
 }
 
 static void			ft_free_neighborslst(t_neighbor *neighbors_lst)
@@ -54,6 +57,7 @@ void				ft_free_roomslst(t_room *rooms_lst)
 	while (curr_node != NULL)
 	{
 		// ft_printf("freeing neighbors of room %s \n", curr_node->name);
+		ft_free_ants_lst(&(curr_node->ants_lst));
 		ft_free_neighborslst(curr_node->neighbors);
 		// ft_printf("freeing room %s \n", curr_node->name);
 		next_node = curr_node->next;
