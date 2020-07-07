@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:33:57 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/07 15:34:58 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int					ft_exitprogram(t_ant_farm *ant_farm)
 	// ft_printf("ant_farm->input %p \n", ant_farm->input);
 	// print_input_list(ant_farm->input);
 	ft_free_paths(ant_farm);
+	// ft_printf("printi paths %p \n", ant_farm->paths);
 	// ft_print_paths(ant_farm);
 	ft_free_roomslst(ant_farm->rooms_lst);
 	ft_free_hashtable(ant_farm->hash_table);

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:33:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/07 12:31:39 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void				ft_free_inputlst(t_input *input_lst)
 		next_node = curr_node->next;
 		free(curr_node->line);
 		free(curr_node);
-		curr_node = NULL;
+		// curr_node = NULL;
 		// ft_printf("current node is %p \n", curr_node);
 		curr_node = next_node;
 	}

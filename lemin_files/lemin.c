@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 16:40:56 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/07 16:49:54 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static int			read_input(t_ant_farm *ant_farm)
 			else if ((ant_farm->signal != SUCCESS) && \
 			(ant_farm->signal != CONTINUE))
 			{
-				free(returned_line);
+				// free(returned_line);
 				return (ERROR);
 			}
 		}
-		free(returned_line);
+		// free(returned_line);
 	}
 	return (0);
 }
@@ -56,7 +56,7 @@ int					main(int argc, char **argv)
 		return (SUCCESS);
 	if (read_input(ant_farm) == ERROR)
 		return (ft_exitprogram(ant_farm));
-	print_input_list(ant_farm->input);
+	// print_input_list(ant_farm->input);
 	// print_rooms_list(ant_farm->rooms_lst);
 	ft_hashing_process(ant_farm);
 	// print_hash_table(ant_farm->hash_table);
@@ -67,7 +67,7 @@ int					main(int argc, char **argv)
 	// ft_printf("\nRunning BFS\n");
 	// ft_printf("===========\n");
 	ft_bfs(ant_farm);
-	ft_print_paths(ant_farm);
+	// ft_print_paths(ant_farm);
 	// decision making based on ants
 	// if (ant_farm->ants > 5)
 	// {
@@ -79,13 +79,13 @@ int					main(int argc, char **argv)
 	// }
 	ft_ants_to_paths(ant_farm);
 	// ft_print_ants_in_paths(ant_farm);
-	// if (!(ant_farm->options & OPTION_M))
-	// {
-	ft_print_mapdata(ant_farm);
-	ft_printf("its not set \n");
-	// }
+	if (!(ant_farm->options & OPTION_M))
+	{
+		ft_print_mapdata(ant_farm);
+		// ft_printf("its not set %d\n", ant_farm->options & OPTION_M);
+	}
 	// else
-	ft_printf("its set \n");
+	// 	ft_printf("its set %d\n", ant_farm->options & OPTION_M);
 	ft_move_ants(ant_farm);
 	ft_exitprogram(ant_farm);
 	// while (1)

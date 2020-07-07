@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/29 20:55:15 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/07 16:35:16 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void				ft_bfs(t_ant_farm *ant_farm)
 	temp->level = 0;
 	ft_enqueue(ant_farm->queue, temp);
 	i = 0;
+	ft_printf("max paths = %d \n", ant_farm->max_paths);
 	while (i < ant_farm->max_paths)
+	// while (i < 1)
 	{
 		while (!ft_queue_is_empty(ant_farm->queue))
 		{
