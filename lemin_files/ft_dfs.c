@@ -6,44 +6,88 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/29 17:33:25 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/12 08:29:49 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-size_t				ft_push_neighbors(t_ant_farm *ant_farm, \
+size_t				ft_check_levels(t_ant_farm *ant_farm, \
 									t_neighbor *neighbors, t_room *temp)
 {
 	size_t			flag;
+	t_neighbor		*neighb_tmp;
 
-	ft_printf(ANSI_COLOR_GREEN_EMER"temp %s , level %d\n"ANSI_COLOR_RESET, temp->name, temp->level);
-	if (temp->position == END)
-		return (-1);
+	neighb_tmp = neighbors;
+	// ft_printf("Check Smaller Level\n");
+	// ft_printf(" Neighbors of temp %s , level %d\n", temp->name, temp->level);
 	flag = 0;
-	while (neighbors != NULL)
+	while (neighb_tmp != NULL)
 	{
-		ft_printf(ANSI_COLOR_GREEN_EMER"neighb %s "ANSI_COLOR_RESET, neighbors->hash_item->room->name);
-		ft_printf("state %d ", neighbors->hash_item->room->state);
-		ft_printf("level %d \n", neighbors->hash_item->room->level);
-		ft_printf("position %d \n"ANSI_COLOR_RESET, neighbors->hash_item->room->position);
+		// ft_printf("    neighb %s ", neighb_tmp->hash_item->room->name);
+		// ft_printf("    state %d ", neighb_tmp->hash_item->room->state);
+		// ft_printf("    level %d \n", neighb_tmp->hash_item->room->level);
+		// ft_printf("    position %d \n", neighbors->hash_item->room->position);
 		// neighbors->hash_item->room->parent = temp;
 		// if (neighbors->hash_item->room->parent)
 		// 	ft_printf("neighbor room %s --> parent : %s, state : %d, level : %d, temp lev : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->parent->name, neighbors->hash_item->room->state, neighbors->hash_item->room->level, temp->level);
-		if (((neighbors->hash_item->room->state == UNEXPLORED) && \
-		(temp->level <= neighbors->hash_item->room->level)) || \
-		(neighbors->hash_item->room->position == END))
+		// if (((neighbors->hash_item->room->state == UNEXPLORED) && \
+		// (temp->level <= neighbors->hash_item->room->level)) || \
+		// (neighbors->hash_item->room->position == END))
+		if ((neighb_tmp->hash_item->room->state == UNEXPLORED) && \
+        (temp->level > neighb_tmp->hash_item->room->level) && \
+		neighb_tmp->hash_item->room->score == 0)
 		{
-			// ft_printf("neighbor pushed \n");
 			// neighbors->hash_item->room->parent = ant_farm->paths->path_lst->room;
-			ft_push(&(ant_farm->stack), neighbors->hash_item->room);
+			ft_push(&(ant_farm->stack), neighb_tmp->hash_item->room);
 			// neighbors->hash_item->room->parent = ant_farm->stack->room;
 			// if (neighbors->hash_item->room->parent)
 			// 	neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
 			flag += 1;
 		}
-		neighbors = neighbors->next;
+		neighb_tmp = neighb_tmp->next;
 	}
+	// ft_printf("flag = %d \n", flag);
+	return (flag);
+}
+
+size_t				ft_push_neighbors(t_ant_farm *ant_farm, \
+									t_neighbor *neighbors, t_room *temp)
+{
+	size_t			flag;
+	t_neighbor		*neighb_tmp;
+
+	neighb_tmp = neighbors;
+	// ft_printf(" Neighbors of temp %s , level %d\n", temp->name, temp->level);
+	if (temp->position == END)
+		return (-1);
+	flag = 0;
+	while (neighb_tmp != NULL)
+	{
+		// ft_printf("    neighb %s ", neighb_tmp->hash_item->room->name);
+		// ft_printf("    state %d ", neighb_tmp->hash_item->room->state);
+		// ft_printf("    level %d \n", neighb_tmp->hash_item->room->level);
+		// ft_printf("    position %d \n", neighbors->hash_item->room->position);
+		// neighbors->hash_item->room->parent = temp;
+		// if (neighbors->hash_item->room->parent)
+		// 	ft_printf("neighbor room %s --> parent : %s, state : %d, level : %d, temp lev : %d\n", neighbors->hash_item->room->name, neighbors->hash_item->room->parent->name, neighbors->hash_item->room->state, neighbors->hash_item->room->level, temp->level);
+		if ((neighb_tmp->hash_item->room->state == UNEXPLORED && \
+		temp->level <= neighb_tmp->hash_item->room->level) || \
+		// neighb_tmp->hash_item->room->score == 0) || 
+		neighb_tmp->hash_item->room->position == END)
+		{
+			// ft_printf("neighbor pushed \n");
+			// neighbors->hash_item->room->parent = ant_farm->paths->path_lst->room;
+			ft_push(&(ant_farm->stack), neighb_tmp->hash_item->room);
+			// neighbors->hash_item->room->parent = ant_farm->stack->room;
+			// if (neighbors->hash_item->room->parent)
+			// 	neighbors->hash_item->room->level = neighbors->hash_item->room->parent->level + 1;
+			flag += 1;
+		}
+		neighb_tmp = neighb_tmp->next;
+	}
+	// if (flag == 0)
+	// 	return (ft_check_levels(ant_farm, neighbors, temp));
 	// ft_printf("flag = %d \n", flag);
 	return (flag);
 }
@@ -79,7 +123,7 @@ t_room				*ft_remove_last_room_from_path(t_ant_farm *ant_farm)
 		path_temp->prev->next = NULL;
 		free(path_temp);
 	}
-	ft_printf(ANSI_COLOR_RESET);
+	// ft_printf(ANSI_COLOR_RESET);
 	// room_item = ft_retrieve_hash_item(ant_farm->hash_table, path_temp->room->name);
 	room = path_temp->room;
 	// ft_printf("Returning room : %s \n", room->name);
@@ -109,20 +153,23 @@ void				ft_dfs(t_ant_farm *ant_farm)
 
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
 	i = 0;
-	while (i < ant_farm->max_paths)
+	// while (i < ant_farm->max_paths)
+	while (i < 2)
 	{
 		temp = ft_get_start_room(ant_farm->rooms_lst);
 		temp->level = 0;
 		ft_push(&(ant_farm->stack), temp);
 		path = ft_create_path(ant_farm);
+		// ft_printf("path id %d", path->path_id);
 		while (!ft_stack_empty(ant_farm->stack))
 		{
 			neighbors = ant_farm->stack->room->neighbors;
 			ant_farm->stack->room->state = EXPLORED;
-			ft_printf("  Set room '%s' as explored\n", temp->name);
-			ft_print_stack(ant_farm->stack);
-			ft_printf("  ROOM LIST \n");
-			print_rooms_list(ant_farm->rooms_lst);
+			// ft_printf("\n\n >>> i = %d \n", i);
+			// ft_printf("  Set room '%s' as explored\n", temp->name);
+			// ft_print_stack(ant_farm->stack);
+			// ft_printf("  ROOM LIST \n");
+			// print_rooms_list(ant_farm->rooms_lst);
 			temp = ant_farm->stack->room;
 			temp->path = path;
 			// ft_printf("Sort neighbors");
@@ -132,7 +179,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			// print_neighbors_list(ant_farm->hash_table);
 			// exit(0);
 			// ft_printf("Next Loop --> i = %d\n", i);
-			// ft_print_stack(ant_farm->stack);
+			ft_print_stack(ant_farm->stack);
 			ft_printf("  [1] Removing '%s' from top of the stack\n", ant_farm->stack->room->name);
 			ft_pop(&(ant_farm->stack));
 			result = ft_push_neighbors(ant_farm, neighbors, temp);
@@ -166,7 +213,7 @@ void				ft_dfs(t_ant_farm *ant_farm)
 			}
 			else
 			{
-				ft_printf(ANSI_COLOR_SAND"BACK TRACKING \n"ANSI_COLOR_RESET);
+				ft_printf("BACK TRACKING \n");
 				// print_neighbors_list_debug(ant_farm->hash_table);
 				// exit(0);
 				temp = ft_backtrack(ant_farm);
@@ -185,20 +232,24 @@ void				ft_dfs(t_ant_farm *ant_farm)
 				// 	ft_printf("path_size %d room %s\n", path->path_size, temp->name);
 				// }
 				// ft_printf(ANSI_COLOR_SAND"stack empty? \n"ANSI_COLOR_RESET);
-				ft_print_paths(ant_farm);
+				// ft_print_paths(ant_farm);
 			}
-			ft_printf("  [3] Added all neighbors of %s \n", temp->name);
+			// ft_printf("  [3] Added all neighbors of %s \n", temp->name);
 		}
 		// ft_printf(ANSI_COLOR_RED_CINA"i %d path id %d path size %d \n"ANSI_COLOR_RESET, i, path->path_id, path->path_size);
 		if (((path->path_size == 1) && ((path->path_lst == NULL) || \
 		(path->path_lst->room->position != END))) || \
 		((path->path_size == 0) && (path->path_lst == NULL)))
 			ft_path_del_last(ant_farm);
+		// else
+		// 	check_if_valid_path(ant_farm);
+		// ft_print_paths(ant_farm);
 		// ft_print_stack(ant_farm->stack);
 		i += 1;
+		// ft_print_paths(ant_farm);
 	}
-	// ft_print_paths(ant_farm);
 	// ft_printf("END of DFS");
+	// ft_print_paths(ant_farm);
 	ft_sort_paths_on_size(ant_farm);
 	// ft_print_paths(ant_farm);
 	ft_paths_discovered(ant_farm);

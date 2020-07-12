@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:22:20 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/11 19:35:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef enum			e_option
 {
 	OPTION_U = (1 << 0),
 	OPTION_M = (1 << 1),
-	OPTION_N = (1 << 2),
+	OPTION_A = (1 << 2),
 	OPTION_C = (1 << 3)
 }						t_option;
 
@@ -86,6 +86,7 @@ typedef struct			s_hash_item
 	char				*room_name;
 	// unsigned int		hashed_key;
 	struct s_room		*room;
+	struct s_hash_item	*colision_prev;
 	struct s_hash_item	*colision_next;
 }						t_hash_item;
 
@@ -186,6 +187,7 @@ int						lm_check_if_ants_amount(t_ant_farm *ant_farm, \
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 											t_position pos);
 int						ft_save_neighbors(t_ant_farm *ant_farm);
+void					delete_dead_ends(t_hash_table *hash_table);
 
 /*
 ** Functions to Exit the program
@@ -277,6 +279,7 @@ void					ft_paths_discovered(t_ant_farm *ant_farm);
 t_room					*ft_get_start_room(t_room *temp);
 void					ft_sort_paths_on_size(t_ant_farm *ant_farm);
 size_t					ft_path_size(t_paths *lst);
+void					check_if_valid_path(t_ant_farm *ant_farm);
 
 /*
 ** Functions to implement a queue and its FIFO functionalities

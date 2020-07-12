@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:48:23 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/11 15:44:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 		{
 			// ft_printf(" Key '%d' exists\n", key);
 			temp_item = ant_farm->hash_table->array[key];
-			while(temp_item->colision_next != NULL)
+			while (temp_item->colision_next != NULL)
 			{
 				// ft_printf(" After item %s of the linkedlist\n", temp_item->room_name);
 				temp_item = temp_item->colision_next;

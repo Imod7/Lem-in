@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 14:22:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 14:42:18 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/07 17:34:58 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static int		ft_print_usage(t_ant_farm *ant_farm, int flag)
 		ft_printf("--- illegal option(s) were given\n");
 	ft_printf("usage: ./lem-in [-u | -m] < path/to/mapfile \n");
 	ft_printf("                 -u : prints the usage\n");
-	ft_printf("                 -m : does not display the map data before the ants move\n");
+	ft_printf("                 -m : ");
+	ft_printf("does not display the map data before the ants move\n");
+	ft_printf("                 -a : ");
+	ft_printf("does not display the lines with the ants moves\n");
 	free(ant_farm);
 	return (SUCCESS);
 }
@@ -56,8 +59,8 @@ int				set_prgm_options(char *argv, t_ant_farm *ant_farm)
 				ant_farm->options |= OPTION_U;
 			else if (argv[i] == 'm')
 				ant_farm->options |= OPTION_M;
-			else if (argv[i] == 'n')
-				ant_farm->options |= OPTION_N;
+			else if (argv[i] == 'a')
+				ant_farm->options |= OPTION_A;
 			else if (argv[i] == 'c')
 				ant_farm->options |= OPTION_C;
 			else

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/07 16:44:49 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/11 19:47:09 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				ft_path_del_last(t_ant_farm *ant_farm)
 	t_paths			*curr_node;
 	// t_paths			*prev_node;
 
+	// ft_printf("Delete Last Path\n");
 	curr_node = ant_farm->paths;
 	while (curr_node->next != NULL)
 	{
@@ -81,3 +82,37 @@ void				ft_path_del_last(t_ant_farm *ant_farm)
 	// ft_printf(" curr node %p\n", curr_node);
 	free(curr_node);
 }
+
+// void				check_if_valid_path(t_ant_farm *ant_farm)
+// {
+// 	t_paths			*curr_node;
+// 	// t_paths			*prev_node;
+// 	t_path_list		*path_lst;
+
+// 	// ft_printf("Delete Last Path\n");
+// 	curr_node = ant_farm->paths;
+// 	while (curr_node->next != NULL)
+// 	{
+// 		// prev_node = curr_node;
+// 		curr_node = curr_node->next;
+// 	}
+// 	// ft_printf(ANSI_COLOR_GREEN_EMER);
+// 	// ft_printf(" pushing ants through path %d \n", path->path_id);
+// 	path_lst = curr_node->path_lst;
+// 	while (path_lst->next != NULL)
+// 	{
+// 		path_lst = path_lst->next;
+// 	}
+// 	if (path_lst->room->position != END)
+// 	{
+// 		// ft_printf(" freeing path id  %d\n", curr_node->path_id);
+// 		ft_free_pathlst(curr_node->path_lst);
+// 		// ft_printf(" prev path id  %d\n", prev_node->path_id);
+// 		// prev_node->next = NULL;
+// 		curr_node->prev->next = NULL;
+// 		// curr_node->path_id = 0;
+// 		// curr_node = NULL;
+// 		// ft_printf(" curr node %p\n", curr_node);
+// 		free(curr_node);
+// 	}
+// }
