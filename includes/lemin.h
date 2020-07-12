@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/11 19:35:15 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/12 19:01:02 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ typedef struct			s_room
 	unsigned int		key;
 	size_t				x_coord;
 	size_t				y_coord;
-	size_t				level;
+	size_t				level_source;
+	size_t				level_sink;
 	int					score;
 	// size_t				ant;
 	struct s_ants		*ants_lst;
@@ -254,7 +255,7 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 ** Functions to explore the graph
 */
 
-void					ft_bfs(t_ant_farm *ant_farm);
+void					ft_bfs(t_ant_farm *ant_farm, size_t flag);
 void					ft_dfs(t_ant_farm *ant_farm);
 int						ft_dfs_stack_len(t_stack *lst);
 
@@ -276,7 +277,6 @@ void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
 t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);
-t_room					*ft_get_start_room(t_room *temp);
 void					ft_sort_paths_on_size(t_ant_farm *ant_farm);
 size_t					ft_path_size(t_paths *lst);
 void					check_if_valid_path(t_ant_farm *ant_farm);

@@ -6,25 +6,11 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/11 19:37:18 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/12 13:52:13 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-
-t_room				*ft_get_end_room(t_ant_farm *ant_farm)
-{
-	t_room			*temp;
-
-	temp = ant_farm->rooms_lst;
-	while (temp != NULL)
-	{
-		if (temp->position == END)
-			break ;
-		temp = temp->next;
-	}
-	return (temp);
-}
 
 /*
 ** In BFS we save the path after we arrive at the sink.

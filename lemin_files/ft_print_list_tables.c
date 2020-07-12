@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 10:48:46 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:22:35 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/12 14:16:36 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ void				print_rooms_list(t_room *rooms_lst)
 	ft_printf("\n                      Rooms (Linked List)                \n");
 	ft_printf("--------------------------------------------------------------");
 	ft_printf("---------------------------------------------------\n");
-	ft_printf("|room_name\troom_x_coord\troom_y_coord\troom_position\t");
-	ft_printf("state\tlevel\tscore\tpath_id\tparent_room\tnext_room|\n");
+	ft_printf("|room_name\tx_coord\ty_coord\tpos\tstate\tlvl_source\t");
+	ft_printf("lvl_sink\tscore\tpath_id\tparent_room\tnext_room|\n");
 	while (temp != NULL)
 	{
 		ft_printf("|%s\t\t%d\t\t%d", temp->name, temp->x_coord, temp->y_coord);
-		ft_printf("\t\t%d\t\t%d\t", temp->position, temp->state);
-		ft_printf("%d\t%d\t", temp->level, temp->score);
+		ft_printf("\t\t%d\t%d\t\t", temp->position, temp->state);
+		ft_printf("%d\t\t\t%d\t\t\t%d\t\t", temp->level_source, temp->level_sink, temp->score);
 		if (temp->path != NULL)
-			ft_printf("%d\t", temp->path->path_id);
+			ft_printf("%d\t\t", temp->path->path_id);
 		else
-			ft_printf("0\t");
+			ft_printf("0\t\t");
 		if (temp->parent != NULL)
 			ft_printf("%s\t\t", temp->parent->name);
 		else

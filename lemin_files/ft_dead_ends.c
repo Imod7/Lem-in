@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/11 14:22:11 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/11 19:00:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/12 19:00:38 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,6 @@
 ** from the hash table but also retrieve its neighbor to delete it from
 ** its neighbor's neighbors list too.
 */
-
-
-/* Function to delete a node in a Doubly Linked List. 
-   head_ref --> pointer to head node pointer. 
-   del  -->  pointer to node to be deleted. */
-// void deleteNode(struct Node** head_ref, struct Node* del) 
-// { 
-
-  
-//     /* If node to be deleted is head node */
-//     if (*head_ref == del) 
-//         *head_ref = del->next; 
-  
-//     /* Change next only if node to be deleted is NOT the last node */
-//     if (del->next != NULL) 
-//         del->next->prev = del->prev; 
-  
-//     /* Change prev only if node to be deleted is NOT the first node */
-//     if (del->prev != NULL) 
-//         del->prev->next = del->next; 
-  
-//     /* Finally, free the memory occupied by del*/
-//     free(del); 
-//     return; 
-// } 
 
 static void			delete_item(t_hash_item *temp_item)
 {
