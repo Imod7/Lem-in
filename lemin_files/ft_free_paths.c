@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/12 19:36:56 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/15 18:31:20 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void				ft_free_path_on_pathid(t_ant_farm *ant_farm, int path_id)
 			break ;
 		curr_node = curr_node->next;
 	}
-	ft_printf(" freeing path id  %d\n", curr_node->path_id);
+	// ft_printf(" freeing path id  %d\n", curr_node->path_id);
 	ft_free_pathlst(curr_node->path_lst);
 	// ft_printf(" prev path id  %d\n", prev_node->path_id);
 	// prev_node->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/28 10:48:37 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/15 18:46:55 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 	t_path_list		*path_temp;
 	t_paths			*paths;
 
-	ft_printf(ANSI_COLOR_BLUE"Printing the discovered paths \n");
+	ft_printf(ANSI_COLOR_YELLOW_PAST"\nPrinting the discovered paths \n");
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
-		ft_printf("Path ID %d : ", paths->path_id);
+		ft_printf(ANSI_COLOR_BLUE"Path ID %d ", paths->path_id);
+		ft_printf(" [ Run %d - Path Size %d ] : ", paths->run, \
+		paths->path_size);
+		ft_printf(ANSI_COLOR_RESET);
 		path_temp = paths->path_lst;
 		while (path_temp != NULL)
 		{
@@ -31,14 +34,25 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 			if (path_temp != NULL)
 				ft_printf(" -> ");
 		}
-		ft_printf(ANSI_COLOR_RESET);
-		ft_printf(" [ Path Size : %d ] \n", paths->path_size);
-		ft_printf(ANSI_COLOR_BLUE);
 		paths = paths->next;
-		// ft_printf("next path %p \n", paths);
+		ft_printf("\n");
 	}
 	ft_printf(ANSI_COLOR_RESET);
 }
+
+// void				ft_print_paths_sizes(t_ant_farm *ant_farm)
+// {
+// 	t_paths			*paths;
+
+// 	paths = ant_farm->paths;
+// 	while (paths != NULL)
+// 	{
+// 		ft_printf("Path ID %d : ", paths->path_id);
+// 		ft_printf(" [ Path Size : %d ] \n", paths->path_size);
+// 		paths = paths->next;
+// 		// ft_printf("next path %p \n", paths);
+// 	}
+// }
 
 void				ft_print_paths_list(t_ant_farm *ant_farm)
 {

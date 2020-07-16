@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/07 15:34:58 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 11:52:54 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,21 @@ t_prgm_signal		ft_exit_msg(t_prgm_signal signal)
 
 int					ft_exitprogram(t_ant_farm *ant_farm)
 {
+	// ft_printf("exit prgm \n");
 	// print_input_list(ant_farm->input);
 	ft_free_inputlst(ant_farm->input);
 	// ant_farm->input = NULL;
 	// ft_printf("ant_farm->input %p \n", ant_farm->input);
 	// print_input_list(ant_farm->input);
+	// ft_printf("before free paths\n");
 	ft_free_paths(ant_farm);
+	// ft_printf("after free paths\n");
 	// ft_printf("printi paths %p \n", ant_farm->paths);
 	// ft_print_paths(ant_farm);
 	ft_free_roomslst(ant_farm->rooms_lst);
 	ft_free_hashtable(ant_farm->hash_table);
 	ft_free_queue(ant_farm->queue);
+	// ft_printf("after free queue\n");
 	free(ant_farm);
 	if (ant_farm->signal == ERROR)
 		return (ERROR);

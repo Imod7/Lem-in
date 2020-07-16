@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/03 06:23:36 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 10:26:50 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void				ft_compare_sizes(t_ant_farm *ant_farm, t_paths **cur, \
 	// else
 	// {
 	// 		ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" 
-	//		ANSI_COLOR_RESET, next->path_id, next_size);
+	// 		ANSI_COLOR_RESET, next->path_id, next_size);
 	// }
 	if (((*cur)->path_size + (*cur)->ants_amount <= next_size) && \
 	((*cur)->path_size + (*cur)->ants_amount <= first_size))
@@ -154,7 +154,6 @@ int					ft_ants_to_paths(t_ant_farm *ant_farm)
 	t_paths			*tmp;
 	// t_path_list		*tmp_lst;
 	size_t			i;
-	// t_ants			*ant;
 
 	// ft_printf("\nAssigning Ants to Paths\n");
 	// ft_printf("========================\n");

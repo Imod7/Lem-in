@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/12 19:01:02 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/15 18:33:47 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct			s_paths
 	int					path_id;
 	int					path_size;
 	size_t				ants_amount;
+	size_t				run;
 	struct s_path_list	*path_lst;
 	struct s_ants		*ants_lst;
 	struct s_paths		*next;
@@ -239,6 +240,8 @@ void					ft_free_line(char **line_items, size_t size);
 void					ft_free_paths(t_ant_farm *ant_farm);
 void					ft_free_pathlst(t_path_list *path_lst);
 void					ft_path_del_last(t_ant_farm *ant_farm);
+void					ft_free_path_on_pathid(t_ant_farm *ant_farm, \
+												int path_id);
 void					ft_mergesort(t_paths **completelist);
 
 /*
@@ -256,20 +259,30 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 */
 
 void					ft_bfs(t_ant_farm *ant_farm, size_t flag);
-void					ft_dfs(t_ant_farm *ant_farm);
-int						ft_dfs_stack_len(t_stack *lst);
+void					ft_bfs_again(t_ant_farm *ant_farm, size_t flag);
+void					ft_bfs_reset(t_ant_farm *ant_farm);
+void					ft_bfs_fullreset(t_ant_farm *ant_farm);
+// void					ft_dfs(t_ant_farm *ant_farm);
+// void					ft_dfs_from_sink(t_ant_farm *ant_farm);
+// int						ft_dfs_stack_len(t_stack *lst);
+// size_t					ft_check_cut_edge_bfs(t_ant_farm *ant_farm, \
+// 									t_neighbor *neighbors, t_room *temp);
+// size_t					ft_check_cut_edge_dfs_sink(t_ant_farm *ant_farm, \
+// 									t_neighbor *neighbors, t_room *temp);
 
 /*
 ** Functions related to paths
 */
 
-void					ft_save_paths_bfs(t_ant_farm *ant_farm);
+// void					ft_save_paths_bfs(t_ant_farm *ant_farm);
+void					ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag);
 void					ft_path_addend(t_paths **lst, t_paths *new);
 void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);
 void					ft_pathlst_addend(t_path_list **lst, t_path_list *new);
 size_t					ft_find_maxpaths(t_ant_farm *ant_farm);
 t_paths					*ft_create_path(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
+// void					ft_print_paths_sizes(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
 void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
 void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
@@ -303,6 +316,14 @@ int						ft_stack_empty(t_stack *stack);
 void					ft_print_stack(t_stack *s);
 int						ft_sort_neighbors(t_neighbor **completelist, \
 											t_room **room);
+
+/*
+** Function related to the bottleneck room and the checking
+** of cutting an edge
+*/
+
+size_t				ft_check_cut_edge(t_ant_farm *ant_farm, \
+									t_neighbor *neighbors, t_room *temp);
 
 /*
 ** Functions related to ants

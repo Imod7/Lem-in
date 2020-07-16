@@ -16,12 +16,12 @@ J 1 9
 K 2 0
 Q 2 1
 M 2 2
-START-B
 START-A
 B-C
 A-C
 A-J
 C-D
+START-B
 J-I
 I-D
 I-H
@@ -31,7 +31,7 @@ E-F
 D-G
 F-END
 G-END
-K-E
 C-K
 Q-START
 Q-M
+K-E

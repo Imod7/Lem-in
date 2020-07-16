@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/12 13:52:13 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 10:28:48 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,44 @@
 ** parent room to the path
 */
 
-void				ft_save_paths_bfs(t_ant_farm *ant_farm)
+void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag)
 {
 	t_room			*temp;
 	t_path_list		*path_list;
 	t_path_list		*prev_pathlst;
 	t_paths			*new_path;
 
-	temp = ft_get_end_room(ant_farm);
+	// (void)flag;
+	if (flag == 0)
+		temp = ft_get_start_room(ant_farm->rooms_lst);
+	else
+		temp = ft_get_end_room(ant_farm);
+	// temp = ft_get_end_room(ant_farm);
 	prev_pathlst = NULL;
 	// while (total_paths != NULL)
 	// 	total_paths = total_paths->next;
 	new_path = (t_paths *)ft_memalloc(sizeof(t_paths));
+	new_path->run = 1;
 	ft_path_addend(&(ant_farm->paths), new_path);
-	// ft_printf("\nmallocked path %d \n", new_path->path_id);
+	// ft_printf("\n Saving the path %d \n", new_path->path_id);
 	// ft_print_paths(ant_farm);
 	if ((new_path != NULL) && (new_path->prev != NULL))
 	{
 		prev_pathlst = new_path->prev->path_lst;
 		while (prev_pathlst->next != NULL)
 		{
-			// ft_printf("room %s \n", prev_pathlst->room->name);
+			// ft_printf(" ** room %s \n", prev_pathlst->room->name);
 			prev_pathlst = prev_pathlst->next;
 		}
 		// ft_printf("prev room %s\n", prev_pathlst->prev->room->name);
 	}
-	// ft_printf("temp parent %s pathlst->room->name %s\n", temp->parent->name, path_list->room->name);
+	// if (prev_pathlst != NULL) 
+	// 	ft_printf("prev_pathlst->room->name %s\n", prev_pathlst->prev->room->name);
+	// else
+	// 	ft_printf("prev_path NULL\n");
 	// ft_print_paths(ant_farm);
-	// ft_printf("Saving path %d \n", total_paths->path_id);
+	// ft_printf("Saving path %d \n", new_path->path_id);
+	// ft_printf("...parent of end%s \n", temp->parent->name);
 	if (((prev_pathlst != NULL) && \
 	(ft_strcmp(prev_pathlst->prev->room->name, temp->parent->name) != 0)) || \
 	(prev_pathlst == NULL))
@@ -54,8 +64,11 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 		path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
 		path_list->room = temp;
 		// ft_printf("path lst room %s\n", path_list->room->name);
-		// ft_printf("add end room  %s \n", path_list->room->name);
+		// ft_printf(" --> add room %s to path \n", path_list->room->name);
+		// if (flag == 0)
 		ft_pathlst_addstart(&(new_path->path_lst), path_list);
+		// else
+		// 	ft_pathlst_addend(&(new_path->path_lst), path_list);
 		// ft_print_paths(ant_farm);
 		new_path->path_size += 1;
 		// path_list = path_list->next;
@@ -67,9 +80,13 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm)
 			temp->score = new_path->path_id;
 			path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
 			path_list->room = temp;
-			// ft_printf("pathlst room %s \n", path_list->room->name);
+			// ft_printf(" ++ save room %s \n", path_list->room->name);
 			path_list->room->path = new_path;
-			ft_pathlst_addstart(&(new_path->path_lst), path_list);
+			// ft_pathlst_addstart(&(new_path->path_lst), path_list);
+			if (flag == 0)
+				ft_pathlst_addend(&(new_path->path_lst), path_list);
+			else
+				ft_pathlst_addstart(&(new_path->path_lst), path_list);
 			// ft_print_paths(ant_farm);
 			new_path->path_size += 1;
 			// path_list = path_list->next;
@@ -114,7 +131,7 @@ void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
 
 	last_node = *path_lst;
 	prevlast_node = *path_lst;
-	// ft_printf("Saving room %s to path\n", room->name);
+	ft_printf("Saving room %s to path\n", room->name);
 	while (last_node != NULL)
 	{
 		prevlast_node = last_node;

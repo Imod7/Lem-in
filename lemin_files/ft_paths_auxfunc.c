@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/29 09:01:25 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/14 16:34:08 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void				ft_pathlst_addend(t_path_list **lst, t_path_list *new)
 void				ft_path_addend(t_paths **path, t_paths *new)
 {
 	t_paths			*temp;
+	// size_t			count;
 
 	if (*path == NULL)
 	{
@@ -54,8 +55,12 @@ void				ft_path_addend(t_paths **path, t_paths *new)
 		return ;
 	}
 	temp = *path;
+	// count = 1;
 	while (temp->next != NULL)
+	{
 		temp = temp->next;
+		// count += 1;
+	}
 	temp->next = new;
 	new->prev = temp;
 	new->path_id = temp->path_id + 1;

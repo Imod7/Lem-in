@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/02 08:21:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 10:27:29 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 	t_paths			*paths;
 	t_ants			*ants_lst;
 
-	ft_printf(ANSI_COLOR_CYAN"Ants assigned to Paths \n");
+	ft_printf(ANSI_COLOR_YELLOW_PAST"\nAnts assigned to Paths \n");
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
-		ft_printf("Path ID %d : ", paths->path_id);
+		ft_printf(ANSI_COLOR_BLUE"Path ID %d ", paths->path_id);
+		ft_printf(" [ total_size : %d ] : ", paths->path_size + \
+		paths->ants_amount);
+		ft_printf(ANSI_COLOR_RESET);
 		ants_lst = paths->ants_lst;
 		while (ants_lst != NULL)
 		{
@@ -31,8 +34,8 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 			if (ants_lst != NULL)
 				ft_printf(" -> ");
 		}
-		ft_printf(" [ total_size : %d ] ", paths->path_size + \
-		paths->ants_amount);
+		// ft_printf(" [ total_size : %d ] ", paths->path_size + \
+		// paths->ants_amount);
 		paths = paths->next;
 		ft_printf("\n");
 		// ft_printf("next path %p \n", paths);

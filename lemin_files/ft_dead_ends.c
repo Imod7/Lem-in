@@ -6,36 +6,38 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/11 14:22:11 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/12 19:00:38 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 12:03:41 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
 /*
-** In this function I want to delete the room that has only one neighbor
-** from the hash table but also retrieve its neighbor to delete it from
-** its neighbor's neighbors list too.
+** The room I want to delete has only one neighbor. I will retrieve that
+** neighbor and its neighbor list, iterate it, find the room I am
+** planning to delete so I remove it from its neighbor's neighbor list.
+** Then I will delete the room itself (since it has only one neighbor)
 */
 
 static void			delete_item(t_hash_item *temp_item)
 {
-	// t_hash_item		*neighbor_item;
 	t_neighbor		*neigbors_lst;
+	t_hash_item 	*prev_item;
 	t_neighbor		*temp;
 	size_t			count;
 
-	ft_printf(" temp_item %s \n", temp_item->room_name);
+	ft_printf(" Delete_item Function %s \n", temp_item->room_name);
 	neigbors_lst = temp_item->room->neighbors->hash_item->room->neighbors;
-	ft_printf(" delete it first from the neightbors list of %s \n", temp_item->room->neighbors->hash_item->room->name);
+	prev_item = temp_item->room->neighbors->hash_item;
+	// ft_printf(" delete it first from the neightbors list of %s \n", temp_item->room->neighbors->hash_item->room->name);
 	count = 0;
 	while (neigbors_lst != NULL)
 	{
-		ft_printf(" neighbor %s \n", neigbors_lst->hash_item->room_name);
+		// ft_printf(" neighbor %s \n", neigbors_lst->hash_item->room_name);
 		if (ft_strcmp(temp_item->room_name, neigbors_lst->hash_item->room_name) == 0) 
 		// if (temp_item->room_name == neigbors_lst->hash_item->room_name)
 		{
-			ft_printf("  Deleting neighbor %s \n", neigbors_lst->hash_item->room_name);
+			ft_printf("  First deleting neighbor %s of room %s\n", neigbors_lst->hash_item->room_name, temp_item->room->neighbors->hash_item->room->name);
 			temp = neigbors_lst->next;
 			if (temp != NULL)
 				ft_printf("  next %s \n", temp->hash_item->room->name);
@@ -50,20 +52,25 @@ static void			delete_item(t_hash_item *temp_item)
 				temp->prev = neigbors_lst->prev;
 			else if ((temp != NULL) && (neigbors_lst == NULL))
 				temp->prev = NULL;
+			ft_printf("  Freeing neighb list %s\n", neigbors_lst->hash_item->room->name);
 			free(neigbors_lst);
 			neigbors_lst = temp;
-			if (neigbors_lst != NULL)
-				ft_printf("  so now i continue from %s \n", neigbors_lst->hash_item->room_name);
+			// if (neigbors_lst != NULL)
+			// 	ft_printf("  so now i continue from %s \n", neigbors_lst->hash_item->room_name);
 		}
 		if (neigbors_lst != NULL)
 			neigbors_lst = neigbors_lst->next;
 	}
-	// ft_printf(" so now head is %s \n", temp_item->room->neighbors->hash_item->room->neighbors->hash_item->room->name);
-	// ft_printf(" so now next of head is %s \n", temp_item->room->neighbors->hash_item->room->neighbors->next->hash_item->room->name);
+	free(temp_item);
+	ft_printf(" so now prev is %s \n", prev_item->room->name);
+	ft_printf(" so now prev neighb is %s \n", prev_item->room->neighbors->hash_item->room->name);
+	ft_printf(" so now prev neighb -> next  is %p \n", prev_item->room->neighbors->next);
 	// ft_printf(" so now prev of head is %p \n", temp_item->room->neighbors->hash_item->room->neighbors->prev);
 	// ft_printf(" so now next of next is %p \n", temp_item->room->neighbors->hash_item->room->neighbors->next->next);
 	// ft_printf(" so now prev of next is %s \n", temp_item->room->neighbors->hash_item->room->neighbors->next->prev->hash_item->room->name);
-	free(temp_item);
+	if (prev_item->room->neighbors->next == NULL && \
+	(prev_item->room->position != START || prev_item->room->position != END))
+		delete_item(prev_item);
 }
 
 /*
@@ -87,7 +94,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 	i = 0;
 	while (i < hash_table->size)
 	{
-		ft_printf("HASH ITEM [%d] \n", i);
+		// ft_printf("HASH ITEM [%d] \n", i);
 		if (hash_item[i] != NULL)
 		{
 			neigbors_lst = hash_item[i]->room->neighbors;
@@ -101,7 +108,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 			}
 			if (count == 1)
 			{
-				ft_printf("Deleting room %s \n", hash_item[i]->room->name);
+				ft_printf("Call delete_item function for room %s \n", hash_item[i]->room->name);
 				temp_item = hash_item[i]->colision_next;
 				delete_item(hash_item[i]);
 				hash_item[i] = temp_item;
@@ -117,7 +124,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 			// 	temp_item = NULL;
 			while (temp_item != NULL)
 			{
-				ft_printf("Collision next temp_item %s \n", temp_item->room_name);
+				// ft_printf("Collision next temp_item %s \n", temp_item->room_name);
 				neigbors_lst = temp_item->room->neighbors;
 				count = 0;
 				while (neigbors_lst != NULL)
@@ -130,7 +137,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 				}
 				if (count == 1)
 				{
-					ft_printf("Deleting room %s \n", temp_item->room_name);
+					ft_printf("Collision : Call delete_item function for room %s \n", temp_item->room_name);
 					temp_itema = temp_item->colision_next;
 					if (temp_item->colision_prev != NULL)
 						temp_item->colision_prev->colision_next = temp_itema;
@@ -139,10 +146,10 @@ void				delete_dead_ends(t_hash_table *hash_table)
 					delete_item(temp_item);
 					temp_item = temp_itema;
 					// print_neighbors_list(hash_table);
-					if (temp_item != NULL)
-						ft_printf("so now collision next is %s \n", temp_item->room_name);
-					else
-						ft_printf("so now collision next is NULL \n");
+					// if (temp_item != NULL)
+					// 	ft_printf("so now collision next is %s \n", temp_item->room_name);
+					// else
+					// 	ft_printf("so now collision next is NULL \n");
 				}
 				else
 					temp_item = temp_item->colision_next;
