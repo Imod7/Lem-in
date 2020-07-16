@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:18:56 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 21:23:45 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_neighbor			*ft_mergeback(t_neighbor **ahalf, t_neighbor **bhalf)
 	{
 		// if (((*ahalf)->hash_item->room != NULL) && ((*bhalf)->hash_item->room != NULL))
 		// 	ft_printf("ahalf %s = %d, bhalf %s = %d \n", (*ahalf)->hash_item->room->name, (*ahalf)->hash_item->room->score, (*bhalf)->hash_item->room->name, (*bhalf)->hash_item->room->score);
-		if ((*ahalf)->hash_item->room->score < (*bhalf)->hash_item->room->score)
+		// if ((*ahalf)->hash_item->room->score < (*bhalf)->hash_item->room->score)
+		if ((*ahalf)->hash_item->room->level_sink > (*bhalf)->hash_item->room->level_sink)
 		{
 			// ft_printf("bhalf first \n");
 			result_list = *bhalf;
@@ -120,6 +121,11 @@ t_neighbor			*ft_merge_sort(t_neighbor **completelist)
 	// ft_printf(" list %s \n", (*completelist)->hash_item->room->name);
 	return (*completelist);
 }
+
+/*
+** Sorts the neighbors of the given room
+** Checks which room has the smallest sink_level and puts that first
+*/
 
 int					ft_sort_neighbors(t_neighbor **completelist, t_room **room)
 {

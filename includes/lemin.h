@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/15 18:33:47 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 19:15:02 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct			s_ant_farm
 typedef struct			s_hash_item
 {
 	char				*room_name;
-	// unsigned int		hashed_key;
+	unsigned int		hashed_key;
 	struct s_room		*room;
 	struct s_hash_item	*colision_prev;
 	struct s_hash_item	*colision_next;
@@ -258,10 +258,11 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 ** Functions to explore the graph
 */
 
-void					ft_bfs(t_ant_farm *ant_farm, size_t flag);
-void					ft_bfs_again(t_ant_farm *ant_farm, size_t flag);
+void					ft_bfs(t_ant_farm *ant_farm);
+// void					ft_bfs_again(t_ant_farm *ant_farm, size_t flag);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
+void					ft_bfs_for_levels(t_ant_farm *ant_farm);
 // void					ft_dfs(t_ant_farm *ant_farm);
 // void					ft_dfs_from_sink(t_ant_farm *ant_farm);
 // int						ft_dfs_stack_len(t_stack *lst);

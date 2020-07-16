@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/11 15:44:31 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:48:22 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ t_hash_table		*ft_create_hash_table(unsigned int size)
 ** room resides
 */
 
-t_hash_item 		*ft_retrieve_hash_item(t_hash_table *hash_table, char *str)
+t_hash_item			*ft_retrieve_hash_item(t_hash_table *hash_table, char *str)
 {
-    t_hash_item 	*temp_item;
-    unsigned int 	key;
+	t_hash_item		*temp_item;
+	unsigned int	key;
 
 	// ft_printf(" -Looking up the hash_item %s in the hash table\n", str);
 	key = ft_hash_function(str, hash_table->size);
@@ -56,11 +56,11 @@ t_hash_item 		*ft_retrieve_hash_item(t_hash_table *hash_table, char *str)
 	while (temp_item)
 	{
 		// ft_printf(" -Comparing room %s with str %s\n", temp_item->room_name, str);
-		if (ft_strcmp(str, temp_item->room_name) == 0) 
+		if (ft_strcmp(str, temp_item->room_name) == 0)
 			return (temp_item);
 		temp_item = temp_item->colision_next;
 	}
-    return (NULL);
+	return (NULL);
 }
 
 /*
@@ -93,7 +93,7 @@ unsigned int		ft_hash_function(char *name, int size)
 /*
 ** Function that saves a room in the Hash Table
 ** For every room we malloc a hash_item (which is an item in the hash_table)
-** And then to save the room_name in the hash_item->room_name 
+** And then to save the room_name in the hash_item->room_name
 ** we need to allocate memory equal to the length of the room name (ft_strdup)
 ** If the key in th Hash Table is already occupied then we add a node
 ** in the collision_next linked list
@@ -120,21 +120,24 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 		{
 			// ft_printf("Saving room '%s' in key '%d'\n", temp->name, key);
 			ht_item = ft_hashitem_newnode(temp);
+			ht_item->hashed_key = key;
+			ht_item->colision_prev = NULL;
 			ft_hashitem_addend(&(ant_farm->hash_table->array[key]), ht_item);
 		}
 		else
 		{
 			// ft_printf(" Key '%d' exists\n", key);
 			temp_item = ant_farm->hash_table->array[key];
-			while (temp_item->colision_next != NULL)
-			{
-				// ft_printf(" After item %s of the linkedlist\n", temp_item->room_name);
-				temp_item = temp_item->colision_next;
-			}
-			// ft_printf(" Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
+			// while (temp_item->colision_next != NULL)
+			// {
+			// 	ft_printf(" After item %s of the collision list\n", temp_item->room_name);
+			// 	temp_item = temp_item->colision_next;
+			// }
+			// ft_printf("Colision : Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
 			ht_item = ft_hashitem_newnode(temp);
+			ht_item->hashed_key = key;
 			ft_hashitem_addend(&(temp_item->colision_next), ht_item);
-			}
+		}
 		temp = temp->next;
 		// print_hash_table(ant_farm->hash_table);
 	}

@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/11 14:22:11 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 12:03:41 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 18:46:17 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** Then I will delete the room itself (since it has only one neighbor)
 */
 
-static void			delete_item(t_hash_item *temp_item)
+static void			delete_item(t_hash_table *hash_table, t_hash_item *temp_item)
 {
 	t_neighbor		*neigbors_lst;
 	t_hash_item 	*prev_item;
@@ -55,22 +55,28 @@ static void			delete_item(t_hash_item *temp_item)
 			ft_printf("  Freeing neighb list %s\n", neigbors_lst->hash_item->room->name);
 			free(neigbors_lst);
 			neigbors_lst = temp;
-			// if (neigbors_lst != NULL)
-			// 	ft_printf("  so now i continue from %s \n", neigbors_lst->hash_item->room_name);
+			if (neigbors_lst != NULL)
+				ft_printf("  so now i continue from %s \n", neigbors_lst->hash_item->room_name);
 		}
 		if (neigbors_lst != NULL)
 			neigbors_lst = neigbors_lst->next;
 	}
+	free(temp_item->room_name);
+	ft_printf("col prev %p\n", temp_item->colision_prev);
+	ft_printf("col next %p\n", temp_item->colision_next);
+	if (hash_table->array[temp_item->hashed_key]->colision_next == NULL)
+		hash_table->array[temp_item->hashed_key] = NULL;
 	free(temp_item);
+	print_hash_table(hash_table);
 	ft_printf(" so now prev is %s \n", prev_item->room->name);
-	ft_printf(" so now prev neighb is %s \n", prev_item->room->neighbors->hash_item->room->name);
-	ft_printf(" so now prev neighb -> next  is %p \n", prev_item->room->neighbors->next);
+	ft_printf(" so now neighb of prev is %s \n", prev_item->room->neighbors->hash_item->room->name);
+	ft_printf(" so now neighb->next of prev is %p \n", prev_item->room->neighbors->next);
 	// ft_printf(" so now prev of head is %p \n", temp_item->room->neighbors->hash_item->room->neighbors->prev);
 	// ft_printf(" so now next of next is %p \n", temp_item->room->neighbors->hash_item->room->neighbors->next->next);
 	// ft_printf(" so now prev of next is %s \n", temp_item->room->neighbors->hash_item->room->neighbors->next->prev->hash_item->room->name);
 	if (prev_item->room->neighbors->next == NULL && \
 	(prev_item->room->position != START || prev_item->room->position != END))
-		delete_item(prev_item);
+		delete_item(hash_table, prev_item);
 }
 
 /*
@@ -110,7 +116,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 			{
 				ft_printf("Call delete_item function for room %s \n", hash_item[i]->room->name);
 				temp_item = hash_item[i]->colision_next;
-				delete_item(hash_item[i]);
+				delete_item(hash_table, hash_item[i]);
 				hash_item[i] = temp_item;
 				// print_neighbors_list(hash_table);
 			}
@@ -143,7 +149,7 @@ void				delete_dead_ends(t_hash_table *hash_table)
 						temp_item->colision_prev->colision_next = temp_itema;
 					if (temp_itema != NULL)
 						temp_itema->colision_prev = temp_item->colision_prev;
-					delete_item(temp_item);
+					delete_item(hash_table, temp_item);
 					temp_item = temp_itema;
 					// print_neighbors_list(hash_table);
 					// if (temp_item != NULL)

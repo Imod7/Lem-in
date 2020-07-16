@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/07 12:31:39 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 17:16:36 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void				ft_free_hashtable(t_hash_table *hash_table)
 		if (hash_table->array[i] != NULL)
 		{
 			curr_item = hash_table->array[i];
-			while(curr_item != NULL)
+			while (curr_item != NULL)
 			{
 				// ft_printf("freeing hash item %s \n", curr_item->room_name);
-            	next_item = curr_item->colision_next;
+				next_item = curr_item->colision_next;
 				free(curr_item->room_name);
-            	free(curr_item);
-            	curr_item = next_item;
-        	}
+				free(curr_item);
+				curr_item = next_item;
+			}
 		}
 		i += 1;
 	}

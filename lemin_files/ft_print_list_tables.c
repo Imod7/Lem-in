@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 10:48:46 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/12 14:16:36 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 19:22:08 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void				print_rooms_list(t_room *rooms_lst)
 	ft_printf("lvl_sink\tscore\tpath_id\tparent_room\tnext_room|\n");
 	while (temp != NULL)
 	{
-		ft_printf("|%s\t\t%d\t\t%d", temp->name, temp->x_coord, temp->y_coord);
-		ft_printf("\t\t%d\t%d\t\t", temp->position, temp->state);
-		ft_printf("%d\t\t\t%d\t\t\t%d\t\t", temp->level_source, temp->level_sink, temp->score);
+		ft_printf("|%s\t\t%d\t%d", temp->name, temp->x_coord, temp->y_coord);
+		ft_printf("\t%d\t%d\t", temp->position, temp->state);
+		ft_printf("%d\t\t%d\t\t%d\t", temp->level_source, temp->level_sink, temp->score);
 		if (temp->path != NULL)
-			ft_printf("%d\t\t", temp->path->path_id);
+			ft_printf("%d\t", temp->path->path_id);
 		else
-			ft_printf("0\t\t");
+			ft_printf("0\t");
 		if (temp->parent != NULL)
 			ft_printf("%s\t\t", temp->parent->name);
 		else

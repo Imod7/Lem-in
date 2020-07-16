@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 10:28:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 21:59:01 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 ** We will start at the sink/end room and we will go backwards
 ** by checking the parent room each time and save the corresponding
 ** parent room to the path
+** CAUTION : check if flag is still necessary to keep
+** otherwise DELETE
 */
 
 void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag)

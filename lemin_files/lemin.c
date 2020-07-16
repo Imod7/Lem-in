@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 11:05:45 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/16 20:19:58 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int			read_input(t_ant_farm *ant_farm)
 			else if ((ant_farm->signal != SUCCESS) && \
 			(ant_farm->signal != CONTINUE))
 			{
-				// free(returned_line);
 				return (ERROR);
 			}
 		}
@@ -57,19 +56,18 @@ int					main(int argc, char **argv)
 	if (read_input(ant_farm) == ERROR)
 		return (ft_exitprogram(ant_farm));
 	// print_input_list(ant_farm->input);
-	// print_rooms_list(ant_farm->rooms_lst);
 	ft_hashing_process(ant_farm);
 	// print_hash_table(ant_farm->hash_table);
 	if (ft_save_neighbors(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
-	// print_neighbors_list(ant_farm->hash_table);
-	delete_dead_ends(ant_farm->hash_table);
+	print_neighbors_list(ant_farm->hash_table);
+	// delete_dead_ends(ant_farm->hash_table);
 	// print_neighbors_list(ant_farm->hash_table);
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	// ft_printf("\nRunning BFS\n");
 	// ft_printf("===========\n");
-	ft_bfs(ant_farm, 0);
-	ft_bfs(ant_farm, 1);
+	ft_bfs_for_levels(ant_farm);
+	ft_bfs(ant_farm);
 	ft_printf("\nBFS PATHS\n");
 	ft_print_paths(ant_farm);
 	// ft_print_paths_sizes(ant_farm);
