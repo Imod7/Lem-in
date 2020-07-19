@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 21:47:08 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/17 11:26:12 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_prgm_signal		ft_exit_msg(t_prgm_signal signal)
 	// ft_printf("error number \t : %d\n", errno);
 	// ft_printf("error string \t : %s\n", strerror(errno));
 	// exit(EXIT_FAILURE);
-	ft_printf(ANSI_COLOR_RESET);
+	// ft_printf(ANSI_COLOR_RESET);
 	return (signal);
 }
 
@@ -48,13 +48,13 @@ int					ft_exitprogram(t_ant_farm *ant_farm)
 	// print_input_list(ant_farm->input);
 	// ft_printf("before free paths\n");
 	ft_free_paths(ant_farm);
-	ft_printf("after free paths\n");
+	// ft_printf("after free paths\n");
 	// ft_printf("printi paths %p \n", ant_farm->paths);
 	// ft_print_paths(ant_farm);
 	ft_free_roomslst(ant_farm->rooms_lst);
 	ft_free_hashtable(ant_farm->hash_table);
 	ft_free_queue(ant_farm->queue);
-	ft_printf("after free queue\n");
+	// ft_printf("after free queue\n");
 	free(ant_farm);
 	if (ant_farm->signal == ERROR)
 		return (ERROR);

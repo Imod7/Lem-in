@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/14 16:34:08 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/17 16:20:01 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				ft_pathlst_addend(t_path_list **lst, t_path_list *new)
 void				ft_path_addend(t_paths **path, t_paths *new)
 {
 	t_paths			*temp;
-	// size_t			count;
+	int				max;
 
 	if (*path == NULL)
 	{
@@ -55,15 +55,25 @@ void				ft_path_addend(t_paths **path, t_paths *new)
 		return ;
 	}
 	temp = *path;
-	// count = 1;
+	max = 0;
+	while (temp != NULL)
+	{
+		if (temp->path_id > max)
+			max = temp->path_id;
+		// ft_printf("  temp->path id %d - max %d\n", temp->path_id, max);
+		temp = temp->next;
+	}
+	temp = *path;
 	while (temp->next != NULL)
 	{
 		temp = temp->next;
-		// count += 1;
 	}
 	temp->next = new;
 	new->prev = temp;
-	new->path_id = temp->path_id + 1;
+	if (max == 0)
+		max = 1;
+	new->path_id = max + 1;
+	// ft_printf("max %d so new path id %d\n", max, new->path_id);
 }
 
 size_t				ft_find_maxpaths(t_ant_farm *ant_farm)

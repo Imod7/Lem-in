@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/15 18:46:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/19 10:53:14 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,20 @@ void				ft_print_paths(t_ant_farm *ant_farm)
 	ft_printf(ANSI_COLOR_RESET);
 }
 
-// void				ft_print_paths_sizes(t_ant_farm *ant_farm)
-// {
-// 	t_paths			*paths;
+void				ft_print_paths_sizes(t_ant_farm *ant_farm)
+{
+	t_paths			*paths;
 
-// 	paths = ant_farm->paths;
-// 	while (paths != NULL)
-// 	{
-// 		ft_printf("Path ID %d : ", paths->path_id);
-// 		ft_printf(" [ Path Size : %d ] \n", paths->path_size);
-// 		paths = paths->next;
-// 		// ft_printf("next path %p \n", paths);
-// 	}
-// }
+	paths = ant_farm->paths;
+	while (paths != NULL)
+	{
+		ft_printf("Path ID %d : ", paths->path_id);
+		ft_printf(" [ Path Size : %d ", paths->path_size);
+		ft_printf(" - Run : %d ] \n", paths->run);
+		paths = paths->next;
+		// ft_printf("next path %p \n", paths);
+	}
+}
 
 void				ft_print_paths_list(t_ant_farm *ant_farm)
 {

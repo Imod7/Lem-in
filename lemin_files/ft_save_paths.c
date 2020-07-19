@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 21:59:01 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/17 12:18:51 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 ** otherwise DELETE
 */
 
-void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag)
+void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
+									size_t run)
 {
 	t_room			*temp;
 	t_path_list		*path_list;
@@ -38,7 +39,7 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag)
 	// while (total_paths != NULL)
 	// 	total_paths = total_paths->next;
 	new_path = (t_paths *)ft_memalloc(sizeof(t_paths));
-	new_path->run = 1;
+	new_path->run = run;
 	ft_path_addend(&(ant_farm->paths), new_path);
 	// ft_printf("\n Saving the path %d \n", new_path->path_id);
 	// ft_print_paths(ant_farm);
