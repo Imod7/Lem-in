@@ -6,14 +6,14 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 18:48:22 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/21 13:22:55 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
 /*
-** Function ft_create_hash_table where we malloc the hash table 
+** Function ft_create_hash_table where we malloc the hash table
 ** for a size double than the amount of rooms
 ** We also initialize the hash table to NULL
 */

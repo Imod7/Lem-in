@@ -6,7 +6,7 @@
 /*   By: dominiquesaripapazoglou <dominiquesarip      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:53:31 by dominiquesa   #+#    #+#                 */
-/*   Updated: 2020/06/27 18:03:18 by dominiquesa   ########   odam.nl         */
+/*   Updated: 2020/07/19 19:32:04 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,29 @@ static t_paths		*ft_mergeback(t_paths **ahalf, t_paths **bhalf)
 ** the Merge Sort algorithm
 */
 
-void				ft_mergesort(t_paths **completelist)
+t_paths 			*ft_mergesort(t_ant_farm *ant_farm, t_paths **completelist)
 {
 	t_paths			*first_half;
 	t_paths			*second_half;
 
 	first_half = NULL;
 	second_half = NULL;
+	while ((*completelist) != NULL && (*completelist)->run != ant_farm->best_run)
+	{
+		// ft_printf(">> iterating through Path %d\n", paths->path_id);
+		(*completelist) = (*completelist)->next;
+	}
+	// ft_printf(">> Merge Sort paths Starting from Path %d\n", paths->path_id);
 	// ft_printf("\nmerge complete %d\n", (*completelist)->path_id);
 	if ((*completelist)->next == NULL)
-		return ;
+		return (0);
 	ft_splitlist((*completelist), &first_half, &second_half);
-	ft_mergesort(&first_half);
-	ft_mergesort(&second_half);
+	ft_mergesort(ant_farm, &first_half);
+	ft_mergesort(ant_farm, &second_half);
 	// ft_printf("  apath %d\n", first_half->path_id);
 	// ft_printf("  bpath %d\n", second_half->path_id);
 	*completelist = ft_mergeback(&first_half, &second_half);
+	return (*completelist);
 	// ft_printf("complete %d\n", (*completelist)->path_id);
 	// ft_printf("complete %d\n", (*completelist)->next->path_id);
 	// if ((*completelist)->next->next != NULL)

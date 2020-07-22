@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/17 16:20:01 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/20 18:44:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,32 @@ size_t				ft_find_maxpaths(t_ant_farm *ant_farm)
 void				ft_sort_paths_on_size(t_ant_farm *ant_farm)
 {
 	t_paths			*paths;
+	t_paths			*sorted;
+	t_paths			*temp;
+	size_t			flag;
 
+	temp = ant_farm->paths;
 	paths = ant_farm->paths;
-	while (paths->next != NULL)
+	sorted = NULL;
+	flag = 0;
+	while (paths->next != NULL && paths->run != ant_farm->best_run)
+	{
+		// ft_printf(">> iterating through Path %d\n", paths->path_id);
+		paths = paths->next;
+		temp = temp->next;
+	}
+	if (temp != NULL && temp->prev != NULL)
+	{
+		temp = temp->prev;
+		// ft_printf(">> temp %d, run %d\n", temp->path_id, temp->run);
+	}
+	// ft_printf(">> Sorting paths Starting from Path %d\n", paths->path_id);
+	while (paths->next != NULL && paths->next != NULL)
 	{
 		if (paths->path_size > paths->next->path_size)
 		{
-			ft_mergesort(&(ant_farm->paths));
+			flag += 1;
+			sorted = ft_mergesort(ant_farm, &(ant_farm->paths));
 			break ;
 			// tmp_prev = paths->prev;
 			// tmp_next = paths->next;
@@ -122,6 +141,21 @@ void				ft_sort_paths_on_size(t_ant_farm *ant_farm)
 		}
 		else
 			paths = paths->next;
+		// ft_printf(" ==== merge sort %d \n", ant_farm->paths->path_id);
+		// ft_print_paths(ant_farm);
+	}
+	// ft_printf(">> temp %d, run %d\n", temp->path_id, temp->run);
+	// if (sorted != NULL)
+	// 	ft_printf(">> sorted ->  %d, sorted run %d\n", sorted->path_id, sorted->run);
+	// ft_printf(">> ant_farm paths ->  %d, run %d\n", ant_farm->paths->path_id, ant_farm->paths->run);
+	if (temp->next != NULL && temp->run != ant_farm->paths->run && flag != 0)
+	{
+		// ft_printf(" -- getting in here\n");
+		temp->next = ant_farm->paths;
+		ant_farm->paths->prev = temp;
+		while (temp->prev != NULL)
+			temp = temp->prev;
+		ant_farm->paths = temp;
 	}
 }
 

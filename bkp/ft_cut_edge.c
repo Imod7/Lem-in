@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 08:23:30 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/14 15:58:54 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/20 18:44:32 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int					find_path_cut_edge(t_ant_farm *ant_farm, \
 		tmp_path = tmp_path->next;
 	}
 	ft_cut_edge(ant_farm, tmp_path, bottleneck_room);
-	ft_printf(" B.4 Free path %d\n", tmp_path->path_id);
+	// ft_printf(" B.4 Free path %d\n", tmp_path->path_id);
 	ft_free_path_on_pathid(ant_farm, tmp_path->path_id);
 	return (tmp_path->path_id);
 }
@@ -140,16 +140,16 @@ size_t				ft_check_cut_edge(t_ant_farm *ant_farm, \
 		neighb_tmp->hash_item->room->score != 0)
 		// temp->position != START)
 		{
-			ft_printf(" \n>>B.1 Blocked in next room of %s\n", temp->name);
-			ft_printf(" \n BEFORE THE CUT\n");
+			// ft_printf(" \n>>B.1 Blocked in next room of %s\n", temp->name);
+			// ft_printf(" \n BEFORE THE CUT\n");
 			ft_print_paths(ant_farm);
 			// print_neighbors_list(ant_farm->hash_table);
-			ft_printf("neighbor pushed %s \n", neighb_tmp->hash_item->room->name);
+			// ft_printf("neighbor pushed %s \n", neighb_tmp->hash_item->room->name);
 			ft_push(&(ant_farm->stack), neighb_tmp->hash_item->room);
 			path_id = find_path_cut_edge(ant_farm, neighb_tmp->hash_item->room);
 			// ft_printf(" \n room name %s path_id %d\n",neighb_tmp->hash_item->room->name, temp->path->path_id);
 			temp->path->path_id = path_id;
-			ft_printf(" \n AFTER THE CUT\n");
+			// ft_printf(" \n AFTER THE CUT\n");
 			ft_print_paths(ant_farm);
 			ft_print_stack(ant_farm->stack);
 			// print_neighbors_list(ant_farm->hash_table);

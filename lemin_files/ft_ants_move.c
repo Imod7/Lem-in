@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/14 16:50:12 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/21 10:26:22 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,20 +168,25 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 	while (i < ant_farm->lines)
 	{
 		path = ant_farm->paths;
-		while (path != NULL)
+		while (path != NULL && path->run != ant_farm->best_run)
+			path = path->next;
+		// ft_printf("Ant farm best run%d \n", ant_farm->best_run);
+		// ft_printf("path id %d - path run %d\n", path->path_id, path->run);
+		while (path != NULL && path->run == ant_farm->best_run)
 		{
+			// ft_printf("path id %d - path run %d\n", path->path_id, path->run);
 			// ft_print_ants_in_rooms(ant_farm);
 			ant_lst = path->ants_lst;
 			path_lst = path->path_lst->next;
 			if ((path_lst != NULL) && (path->ants_lst != NULL) && \
 			(path_lst->room->ants_lst == NULL) && (i == 0))
 			{
-				// ft_printf("ants list of room in path %d is NULL\n", path->path_id);
+				// ft_printf(" 0. Ants list of room in path %d is NULL\n", path->path_id);
 				add_ant_to_room(path, path_lst->room, ant_lst->ant_id);
 			}
 			else
 			{
-				// ft_printf("moving ants on path - room %s\n", path_lst->room->name);
+				// ft_printf(" -. Moving ants on path - room %s\n", path_lst->room->name);
 				push_ant_to_next_room(path);
 			}
 			path = path->next;

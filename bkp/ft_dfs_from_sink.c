@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:42:02 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/21 11:51:04 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ void				ft_dfs_from_sink(t_ant_farm *ant_farm)
 			temp->path = path;
 			// ft_printf("Sort neighbors");
 			// print_neighbors_list(ant_farm->hash_table);
-			ft_sort_neighbors(&neighbors, &temp);
+			ft_sort_neighbors(&neighbors, &temp, 1);
+			ft_sort_neighbors(&neighbors, &temp, 0);
 			// ft_printf(" AFTER Sort neighbors");
 			// print_neighbors_list(ant_farm->hash_table);
 			// exit(0);

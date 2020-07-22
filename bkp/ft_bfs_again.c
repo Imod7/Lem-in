@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 16:01:56 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/15 20:02:00 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/19 12:17:49 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void				ft_bfs_again(t_ant_farm *ant_farm, size_t flag)
 	}
 	ft_bfs_fullreset(ant_farm);
 	// ft_print_paths_list_detail(ant_farm);
-	// print_rooms_list(ant_farm->rooms_lst);
 	ft_paths_discovered(ant_farm);
 	// print_neighbors_list_debug(ant_farm->hash_table);
 	// ft_printf("Max Paths in Graph %d\n", ant_farm->max_paths);

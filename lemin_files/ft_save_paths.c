@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/17 12:18:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/20 12:35:52 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,49 +59,49 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
 	// 	ft_printf("prev_path NULL\n");
 	// ft_print_paths(ant_farm);
 	// ft_printf("Saving path %d \n", new_path->path_id);
-	// ft_printf("...parent of end%s \n", temp->parent->name);
-	if (((prev_pathlst != NULL) && \
-	(ft_strcmp(prev_pathlst->prev->room->name, temp->parent->name) != 0)) || \
-	(prev_pathlst == NULL))
+	// ft_printf("...parent of end %s \n", temp->parent->name);
+	// if (((prev_pathlst != NULL) && \
+	// (ft_strcmp(prev_pathlst->prev->room->name, temp->parent->name) != 0)) || \
+	// (prev_pathlst == NULL))
+	// {
+	path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+	path_list->room = temp;
+	// ft_printf("path lst room %s\n", path_list->room->name);
+	// ft_printf(" --> add room %s to path \n", path_list->room->name);
+	// if (flag == 0)
+	ft_pathlst_addstart(&(new_path->path_lst), path_list);
+	// else
+	// 	ft_pathlst_addend(&(new_path->path_lst), path_list);
+	// ft_print_paths(ant_farm);
+	new_path->path_size += 1;
+	// path_list = path_list->next;
+	while (temp->parent != NULL)
 	{
+		// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
+		temp = temp->parent;
+		temp->state = COMPLETED;
+		temp->score = new_path->path_id;
 		path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
 		path_list->room = temp;
-		// ft_printf("path lst room %s\n", path_list->room->name);
-		// ft_printf(" --> add room %s to path \n", path_list->room->name);
-		// if (flag == 0)
-		ft_pathlst_addstart(&(new_path->path_lst), path_list);
-		// else
-		// 	ft_pathlst_addend(&(new_path->path_lst), path_list);
+		// ft_printf(" ++ save room %s \n", path_list->room->name);
+		path_list->room->path = new_path;
+		// ft_pathlst_addstart(&(new_path->path_lst), path_list);
+		if (flag == 0)
+			ft_pathlst_addend(&(new_path->path_lst), path_list);
+		else
+			ft_pathlst_addstart(&(new_path->path_lst), path_list);
 		// ft_print_paths(ant_farm);
 		new_path->path_size += 1;
-		// path_list = path_list->next;
-		while (temp->parent != NULL)
-		{
-			// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
-			temp = temp->parent;
-			temp->state = COMPLETED;
-			temp->score = new_path->path_id;
-			path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
-			path_list->room = temp;
-			// ft_printf(" ++ save room %s \n", path_list->room->name);
-			path_list->room->path = new_path;
-			// ft_pathlst_addstart(&(new_path->path_lst), path_list);
-			if (flag == 0)
-				ft_pathlst_addend(&(new_path->path_lst), path_list);
-			else
-				ft_pathlst_addstart(&(new_path->path_lst), path_list);
-			// ft_print_paths(ant_farm);
-			new_path->path_size += 1;
 			// path_list = path_list->next;
-		}
 	}
-	else
-	{
-		// ft_printf("free last one %s %s %p\n", prev_pathlst->prev->room->name, temp->parent->name, prev_pathlst);
-		// free(path_list);
-		ft_path_del_last(ant_farm);
-		// ft_print_paths(ant_farm);
-	}
+	// }
+	// else
+	// {
+	// 	ft_printf("free last one %s %s %p\n", prev_pathlst->prev->room->name, temp->parent->name, prev_pathlst);
+	// 	// free(path_list);
+	// 	ft_path_del_last(ant_farm);
+	// 	// ft_print_paths(ant_farm);
+	// }
 }
 
 t_paths				*ft_create_path(t_ant_farm *ant_farm)
@@ -134,7 +134,7 @@ void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
 
 	last_node = *path_lst;
 	prevlast_node = *path_lst;
-	ft_printf("Saving room %s to path\n", room->name);
+	// ft_printf("Saving room %s to path\n", room->name);
 	while (last_node != NULL)
 	{
 		prevlast_node = last_node;

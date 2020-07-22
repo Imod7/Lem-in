@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 08:23:30 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:36:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/20 12:38:35 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void				ft_set_score_pathlst(t_path_list *path_lst)
 	while (curr_node != NULL)
 	{
 		curr_node->room->score = 0;
+		ft_printf(" reset score pathlst id  %d\n", curr_node->room->name);
 		// next_node = curr_node->next;
 		curr_node = curr_node->next;
 	}
@@ -121,7 +122,7 @@ void				ft_set_score_zero(t_ant_farm *ant_farm, int path_id)
 			break ;
 		curr_node = curr_node->next;
 	}
-	// ft_printf(" freeing path id  %d\n", curr_node->path_id);
+	ft_printf(" reset score path id  %d\n", curr_node->path_id);
 	ft_set_score_pathlst(curr_node->path_lst);
 }
 
@@ -144,7 +145,7 @@ int					find_path_cut_edge_ds(t_ant_farm *ant_farm, \
 		tmp_path = tmp_path->next;
 	}
 	ft_cut_edge_ds(ant_farm, tmp_path, bottleneck_room);
-	ft_printf(" B.4 Setting state path %d\n", tmp_path->path_id);
+	// ft_printf(" B.4 Setting state path %d\n", tmp_path->path_id);
 	ft_set_score_zero(ant_farm, tmp_path->path_id);
 	return (tmp_path->path_id);
 }

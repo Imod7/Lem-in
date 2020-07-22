@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/07/17 10:22:41 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/07/21 13:25:19 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRC_LEMIN =	\
 		ft_hashing.c \
 		ft_bfs.c \
 		ft_bfs_queue_func.c \
+		ft_bfs_levels.c \
+		ft_bfs_reset.c \
 		ft_min_cut.c \
 		ft_paths_auxfunc.c \
 		ft_paths_functions.c \

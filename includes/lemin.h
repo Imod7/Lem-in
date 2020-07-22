@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/19 10:49:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/21 13:25:42 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ typedef enum			e_option
 	OPTION_C = (1 << 3)
 }						t_option;
 
+typedef struct			s_lines
+{
+	size_t				lines;
+	struct s_lines		*next;
+	struct s_lines		*prev;
+}						t_lines;
+
 /*
 ** Struct t_ant_farm
 */
@@ -74,9 +81,12 @@ typedef struct			s_ant_farm
 	struct s_queue		*queue;
 	struct s_stack		*stack;
 	struct s_paths		*paths;
+	size_t				total_runs;
+	size_t				best_run;
 	size_t				lines;
 	size_t				max_paths;
 	size_t				discovered_paths;
+	t_lines				*lines_lst;
 	t_option			options;
 	t_prgm_signal		signal;
 }						t_ant_farm;
@@ -105,6 +115,7 @@ typedef struct			s_room
 	size_t				level_source;
 	size_t				level_sink;
 	int					score;
+	size_t				run;
 	// size_t				ant;
 	struct s_ants		*ants_lst;
 	t_state				state;
@@ -242,7 +253,8 @@ void					ft_free_pathlst(t_path_list *path_lst);
 void					ft_path_del_last(t_ant_farm *ant_farm);
 void					ft_free_path_on_pathid(t_ant_farm *ant_farm, \
 												int path_id);
-void					ft_mergesort(t_paths **completelist);
+t_paths					*ft_mergesort(t_ant_farm *ant_farm, \
+									t_paths **completelist);
 
 /*
 ** Functions related to the hashing process and
@@ -255,28 +267,26 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 											char *str);
 
 /*
-** Functions to explore the graph
+** Functions related to BFS exploration of the graph
 */
 
 void					ft_bfs_runs(t_ant_farm *ant_farm);
-// void					ft_bfs_again(t_ant_farm *ant_farm, size_t flag);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
 void					ft_bfs_for_levels(t_ant_farm *ant_farm);
-// void					ft_dfs(t_ant_farm *ant_farm);
-// void					ft_dfs_from_sink(t_ant_farm *ant_farm);
-// int						ft_dfs_stack_len(t_stack *lst);
+void					ft_bfs_for_levels(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \
-									t_neighbor *neighbors, t_room *temp);
-// size_t					ft_check_cut_edge_dfs_sink(t_ant_farm *ant_farm, \
-// 									t_neighbor *neighbors, t_room *temp);
+									t_neighbor *neighbors, t_room *temp, \
+									size_t run);
+void					ft_reset_score_on_pathid(t_ant_farm *ant_farm, \
+											int path_id);
+void					ft_bfs_reset(t_ant_farm *ant_farm);
+void					ft_bfs_fullreset(t_ant_farm *ant_farm);								
 
 /*
 ** Functions related to paths
 */
 
-// void					ft_save_paths_bfs(t_ant_farm *ant_farm);
-// void					ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag);
 void					ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
 									size_t run);
 void					ft_path_addend(t_paths **lst, t_paths *new);
@@ -318,7 +328,7 @@ void					ft_push(t_stack **stack, t_room *temp);
 int						ft_stack_empty(t_stack *stack);
 void					ft_print_stack(t_stack *s);
 int						ft_sort_neighbors(t_neighbor **completelist, \
-											t_room **room);
+										t_room **room, size_t flag);
 
 /*
 ** Function related to the bottleneck room and the checking
@@ -339,5 +349,7 @@ void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
 void					ft_move_ants(t_ant_farm *ant_farm);
 void					ft_free_ants_lst(t_ants **ants_lst);
+void					ft_lines_list_addend(t_lines **lst, t_lines *new);
+void					ft_free_paths_ants_lst(t_ant_farm *ant_farm);
 
 #endif

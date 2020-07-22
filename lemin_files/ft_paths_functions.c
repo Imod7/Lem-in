@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 14:18:09 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/14 16:43:00 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/20 18:43:55 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void				ft_paths_discovered(t_ant_farm *ant_farm)
 
 	temp = ant_farm->paths;
 	ant_farm->discovered_paths = 0;
-	while (temp != NULL)
+	while (temp != NULL) //&& temp->run == ant_farm->best_run)
 	{
-		// ft_printf("path id %d \n", temp->path_id);
-		ant_farm->discovered_paths += 1;
+		// ft_printf("path id %d path run %d\n", temp->path_id, temp->run);
+		// ft_printf("current run %d \n", ant_farm->best_run);
+		if (temp->run == ant_farm->best_run)
+			ant_farm->discovered_paths += 1;
 		temp = temp->next;
 	}
 	// ant_farm->discovered_paths += 1;
