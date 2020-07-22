@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 11:51:04 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/22 19:29:36 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void				ft_dfs_from_sink(t_ant_farm *ant_farm)
 		{
 			neighbors = ant_farm->stack->room->neighbors;
 			ant_farm->stack->room->state = EXPLORED;
-			ft_printf("\n\n >>> max paths = %d \n", ant_farm->max_paths);
+			// ft_printf("\n\n >>> max paths = %d \n", ant_farm->max_paths);
 			// ft_printf("  Set room '%s' as explored\n", temp->name);
 			// ft_print_stack(ant_farm->stack);
 			// ft_printf("  ROOM LIST \n");

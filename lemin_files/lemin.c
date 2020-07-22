@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 16:53:37 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/22 19:40:00 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int					main(int argc, char **argv)
 	// print_neighbors_list(ant_farm->hash_table);
 	// delete_dead_ends(ant_farm->hash_table);
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
-	ft_bfs_for_levels(ant_farm);
+	ft_bfs_level_sink(ant_farm);
+	ft_bfs_level_source(ant_farm);
 	// print_rooms_list(ant_farm->rooms_lst);
 	ft_bfs_runs(ant_farm);
 	ft_free_paths_ants_lst(ant_farm);
@@ -69,9 +70,8 @@ int					main(int argc, char **argv)
 	ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
 	ft_printf(" ****** BEST RUN %d - Lines needed %d ********** \n", ant_farm->best_run, ant_farm->lines);
 	ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
-	ft_print_paths(ant_farm);
+	// ft_print_paths(ant_farm);
 	// ft_print_paths_sizes(ant_farm);
-	// ft_printf("\nRunning BFS AGAIN\n");
 	// ft_bfs_again(ant_farm, 2);
 	// ft_printf("\nBFS AGAIN PATHS\n");
 	// ft_print_paths(ant_farm);

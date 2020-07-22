@@ -130,7 +130,7 @@ static void				find_path_of_bottleneck_room(t_ant_farm *ant_farm, \
 ** If I couldn't add any neighbors I call function ft_check_cut_edge
 */
 
-size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
+size_t				ft_check_min_cut_sink(t_ant_farm *ant_farm, \
 									t_neighbor *neighbors, t_room *temp, \
 									size_t current_run)
 {
@@ -140,17 +140,17 @@ size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
 	(void)temp;
 	neighb_tmp = neighbors;
 	flag = 0;
-	ft_printf(ANSI_COLOR_SAND"\n~~~~~~~~~~ MIN CUT FUNCTION ~~~~~~~~~~ \n");
-	ft_printf(" From Room %s cant move , lvl_source %d, lvl_sink %d\n", temp->name, temp->level_source, temp->level_sink);
+	// ft_printf(ANSI_COLOR_SAND"\n~~~~~~~~~~ MIN CUT FUNCTION ~~~~~~~~~~ \n");
+	// ft_printf(" From Room %s cant move , lvl_source %d, lvl_sink %d\n", temp->name, temp->level_source, temp->level_sink);
 	// ft_printf(" Neighbors of Front Room %s , level_source %d, lvl_sink %d\n", temp->name, temp->level_source, temp->level_sink);
 	while (neighb_tmp != NULL)
 	{
-		ft_printf("    neighb %s ", neighb_tmp->hash_item->room->name);
-		ft_printf("    state %d ", neighb_tmp->hash_item->room->state);
-		ft_printf("    level_source %d, ", neighb_tmp->hash_item->room->level_source);
-		ft_printf("    level_sink %d, ", neighb_tmp->hash_item->room->level_sink);
-		ft_printf("    score %d ", neighb_tmp->hash_item->room->score);
-		ft_printf("    run %d ", neighb_tmp->hash_item->room->run);
+		// ft_printf("    neighb %s ", neighb_tmp->hash_item->room->name);
+		// ft_printf("    state %d ", neighb_tmp->hash_item->room->state);
+		// ft_printf("    level_source %d, ", neighb_tmp->hash_item->room->level_source);
+		// ft_printf("    level_sink %d, ", neighb_tmp->hash_item->room->level_sink);
+		// ft_printf("    score %d ", neighb_tmp->hash_item->room->score);
+		// ft_printf("    run %d ", neighb_tmp->hash_item->room->run);
 		// if (neighb_tmp->hash_item->room->state == UNEXPLORED && 
 		// (temp->level_source >= neighb_tmp->hash_item->room->level_source && 
 		// temp->level_sink <= neighb_tmp->hash_item->room->level_sink) && 
@@ -159,7 +159,7 @@ size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
 		if (neighb_tmp->hash_item->room->state == UNEXPLORED && \
 		neighb_tmp->hash_item->room->score != 0 && \
 		neighb_tmp->hash_item->room->run != current_run && \
-		neighb_tmp->hash_item->room->level_sink != 0)
+		neighb_tmp->hash_item->room->level_source != 0)
 		// neighb_tmp->hash_item->room->level_sink != 0)
 		{
 			// ft_printf(" \n  CUTTING EDGE\n");
@@ -170,7 +170,7 @@ size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
 			neighb_tmp->hash_item->room->parent = ant_farm->queue->front->room;
 			neighb_tmp->hash_item->room->parent->run = current_run;
 			// ft_printf("parent of room %s is %s\n", neighb_tmp->hash_item->room->name, neighb_tmp->hash_item->room->parent->name);
-			ft_printf(" -> MINCUT - Enqueued %s\n", neighb_tmp->hash_item->room->name);
+			// ft_printf(" -> MINCUT - Enqueued %s\n", neighb_tmp->hash_item->room->name);
 			// ft_push(&(ant_farm->stack), neighb_tmp->hash_item->room);
 			find_path_of_bottleneck_room(ant_farm, neighb_tmp->hash_item->room);
 			// ft_printf(" \n room name %s path_id %d\n",neighb_tmp->hash_item->room->name, temp->path->path_id);
@@ -182,8 +182,8 @@ size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
 			// ft_printf(" \n  AFTER THE CUT\n");
 			break ;
 		}
-		else
-			ft_printf("\n");
+		// else
+		// 	ft_printf("\n");
 		neighb_tmp = neighb_tmp->next;
 	}
 	// ft_printf(ANSI_COLOR_RESET);

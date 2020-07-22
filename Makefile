@@ -40,7 +40,9 @@ SRC_LEMIN =	\
 		ft_bfs_queue_func.c \
 		ft_bfs_levels.c \
 		ft_bfs_reset.c \
+		ft_bfs_sink.c \
 		ft_min_cut.c \
+		ft_min_cut_sink.c \
 		ft_paths_auxfunc.c \
 		ft_paths_functions.c \
 		ft_sort_neighbors.c \

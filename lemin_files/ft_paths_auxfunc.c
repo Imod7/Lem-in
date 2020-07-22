@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/20 18:44:15 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/22 19:30:24 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,22 @@ size_t				ft_find_maxpaths(t_ant_farm *ant_farm)
 	count_e = 0;
 	temp = ft_get_start_room(ant_farm->rooms_lst);
 	neighbors_lst = temp->neighbors;
+	// ft_printf(" start lvl sink %d \n", temp->level_sink);
 	while (neighbors_lst != NULL)
 	{
-		count_s += 1;
+		// ft_printf(" neigh %s lvl sink %d \n", neighbors_lst->hash_item->room->name, neighbors_lst->hash_item->room->level_sink);
+		if (neighbors_lst->hash_item->room->level_sink != 0)
+			count_s += 1;
 		neighbors_lst = neighbors_lst->next;
 	}
 	temp = ft_get_end_room(ant_farm);
 	neighbors_lst = temp->neighbors;
+	// ft_printf(" end lvl source %d \n", temp->level_source);
 	while (neighbors_lst != NULL)
 	{
-		count_e += 1;
+		// ft_printf(" neigh %s lvl source %d \n", neighbors_lst->hash_item->room->name, neighbors_lst->hash_item->room->level_source);
+		if (neighbors_lst->hash_item->room->level_source != 0)
+			count_e += 1;
 		neighbors_lst = neighbors_lst->next;
 	}
 	max_paths = (count_s <= count_e) ? count_s : count_e;

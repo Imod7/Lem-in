@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 13:25:42 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/22 17:48:38 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,15 +273,19 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 void					ft_bfs_runs(t_ant_farm *ant_farm);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
-void					ft_bfs_for_levels(t_ant_farm *ant_farm);
-void					ft_bfs_for_levels(t_ant_farm *ant_farm);
+void					ft_bfs_level_sink(t_ant_farm *ant_farm);
+void					ft_bfs_level_source(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \
 									t_neighbor *neighbors, t_room *temp, \
 									size_t run);
 void					ft_reset_score_on_pathid(t_ant_farm *ant_farm, \
 											int path_id);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
-void					ft_bfs_fullreset(t_ant_farm *ant_farm);								
+void					ft_bfs_fullreset(t_ant_farm *ant_farm);
+size_t					ft_bfs_sink(t_ant_farm *ant_farm, size_t run);
+size_t					ft_check_min_cut_sink(t_ant_farm *ant_farm, \
+									t_neighbor *neighbors, t_room *temp, \
+									size_t current_run);
 
 /*
 ** Functions related to paths

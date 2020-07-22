@@ -1,0 +1,5 @@
+--- illegal option(s) were given
+usage: ./lem-in [-u | -m] < path/to/mapfile 
+                 -u : prints the usage
+                 -m : does not display the map data before the ants move
+                 -a : does not display the lines with the ants moves
