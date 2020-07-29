@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 08:23:30 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/22 19:32:24 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 15:20:19 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,18 +151,12 @@ size_t				ft_check_min_cut(t_ant_farm *ant_farm, \
 		ft_printf("    level_sink %d, ", neighb_tmp->hash_item->room->level_sink);
 		ft_printf("    score %d ", neighb_tmp->hash_item->room->score);
 		ft_printf("    run %d ", neighb_tmp->hash_item->room->run);
-		// if (neighb_tmp->hash_item->room->state == UNEXPLORED && 
-		// (temp->level_source >= neighb_tmp->hash_item->room->level_source && 
-		// temp->level_sink <= neighb_tmp->hash_item->room->level_sink) && 
-		// neighb_tmp->hash_item->room->score != 0 &&
-		// neighb_tmp->hash_item->room->position != START)
 		if (neighb_tmp->hash_item->room->state == UNEXPLORED && \
 		neighb_tmp->hash_item->room->score != 0 && \
 		neighb_tmp->hash_item->room->run != current_run && \
 		neighb_tmp->hash_item->room->level_sink != 0)
 		// neighb_tmp->hash_item->room->level_sink != 0)
 		{
-			// ft_printf(" \n  CUTTING EDGE\n");
 			// ft_print_paths(ant_farm);
 			// print_neighbors_list(ant_farm->hash_table);
 			// ft_printf("neighbor pushed %s \n", neighb_tmp->hash_item->room->name);

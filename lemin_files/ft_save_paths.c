@@ -6,11 +6,41 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/20 12:35:52 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 20:39:18 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+/*
+** Retracing all the path by following all the parent rooms 
+*/
+
+static void			ft_retrace_path(t_room *temp, size_t flag, \
+									t_paths *new_path)
+{
+	t_path_list		*path_list;
+
+	while (temp->parent != NULL)
+	{
+		// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
+		temp = temp->parent;
+		temp->state = COMPLETED;
+		temp->score = new_path->path_id;
+		path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+		path_list->room = temp;
+		// ft_printf(" ++ save room %s \n", path_list->room->name);
+		path_list->room->path = new_path;
+		// ft_pathlst_addstart(&(new_path->path_lst), path_list);
+		if (flag == 0)
+			ft_pathlst_addend(&(new_path->path_lst), path_list);
+		else
+			ft_pathlst_addstart(&(new_path->path_lst), path_list);
+		// ft_print_paths(ant_farm);
+		new_path->path_size += 1;
+			// path_list = path_list->next;
+	}
+}
 
 /*
 ** In BFS we save the path after we arrive at the sink.
@@ -75,25 +105,25 @@ void				ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
 	// ft_print_paths(ant_farm);
 	new_path->path_size += 1;
 	// path_list = path_list->next;
-	while (temp->parent != NULL)
-	{
-		// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
-		temp = temp->parent;
-		temp->state = COMPLETED;
-		temp->score = new_path->path_id;
-		path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
-		path_list->room = temp;
-		// ft_printf(" ++ save room %s \n", path_list->room->name);
-		path_list->room->path = new_path;
-		// ft_pathlst_addstart(&(new_path->path_lst), path_list);
-		if (flag == 0)
-			ft_pathlst_addend(&(new_path->path_lst), path_list);
-		else
-			ft_pathlst_addstart(&(new_path->path_lst), path_list);
-		// ft_print_paths(ant_farm);
-		new_path->path_size += 1;
-			// path_list = path_list->next;
-	}
+	ft_retrace_path(temp, flag, new_path);
+	// while (temp->parent != NULL)
+	// {
+	// 	// ft_printf("parent of %s is %s \n", temp->name, temp->parent->name);
+	// 	temp = temp->parent;
+	// 	temp->state = COMPLETED;
+	// 	temp->score = new_path->path_id;
+	// 	path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+	// 	path_list->room = temp;
+	// 	// ft_printf(" ++ save room %s \n", path_list->room->name);
+	// 	path_list->room->path = new_path;
+	// 	// ft_pathlst_addstart(&(new_path->path_lst), path_list);
+	// 	if (flag == 0)
+	// 		ft_pathlst_addend(&(new_path->path_lst), path_list);
+	// 	else
+	// 		ft_pathlst_addstart(&(new_path->path_lst), path_list);
+	// 	// ft_print_paths(ant_farm);
+	// 	new_path->path_size += 1;
+	// 		// path_list = path_list->next;
 	// }
 	// else
 	// {

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/22 20:04:21 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 20:34:47 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,41 @@ static size_t		ft_add_neighbors_of_room(t_ant_farm *ant_farm, \
 }
 
 /*
+** Implementing the enqueuing and dequeuing of the BFS algorithm
+*/
+
+static size_t		ft_bfs(t_ant_farm *ant_farm, size_t run, size_t flag)
+{
+	t_neighbor		*neighbors;
+	int				result;
+
+	neighbors = ant_farm->queue->front->room->neighbors;
+	ft_sort_neighbors(&neighbors, &(ant_farm->queue->front->room), 0);
+	ft_sort_neighbors(&neighbors, &(ant_farm->queue->front->room), 1);
+	result = ft_add_neighbors_of_room(ant_farm, neighbors, \
+							ant_farm->queue->front->room, run);
+	if (result == -1)
+	{
+		// ft_printf("\nArrived at %s room\n", ant_farm->queue->front->room->name);
+		flag = 1;
+	}
+	ft_dequeue(ant_farm->queue);
+	// ft_printf("Removing front of queue \n");
+	// ft_print_queue(ant_farm->queue);
+	return (flag);
+}
+
+/*
 ** We run the bfs algorithm traversing the graph from source to sink,
-** find the shortest paths and save them and also to set the level_source
-** of all the rooms (leveling from source to sink).
+** find the shortest paths and save them.
+** Also we set the level_source of all the rooms(leveling from source to sink).
 ** Before adding the neighbors of each room to the queue I sort
 ** the neighbors based on the level_sink
 */
 
-size_t				ft_bfs(t_ant_farm *ant_farm, size_t run)
+size_t				ft_bfs_algorithm(t_ant_farm *ant_farm, size_t run)
 {
 	t_room			*temp;
-	t_neighbor		*neighbors;
-	int				result;
 	size_t			i;
 	size_t			flag;
 
@@ -94,21 +117,7 @@ size_t				ft_bfs(t_ant_farm *ant_farm, size_t run)
 	{
 		flag = 0;
 		while (!ft_queue_is_empty(ant_farm->queue))
-		{
-			neighbors = ant_farm->queue->front->room->neighbors;
-			ft_sort_neighbors(&neighbors, &(ant_farm->queue->front->room), 0);
-			ft_sort_neighbors(&neighbors, &(ant_farm->queue->front->room), 1);
-			result = ft_add_neighbors_of_room(ant_farm, neighbors, \
-									ant_farm->queue->front->room, run);
-			if (result == -1)
-			{
-				// ft_printf("\nArrived at %s room\n", ant_farm->queue->front->room->name);
-				flag = 1;
-			}
-			ft_dequeue(ant_farm->queue);
-			// ft_printf("Removing front of queue \n");
-			// ft_print_queue(ant_farm->queue);
-		}
+			flag = ft_bfs(ant_farm, run, flag);
 		// ft_printf(ANSI_COLOR_RED_CINA"result from neighbors result = %d - flag %d\n"ANSI_COLOR_RESET, result, flag);
 		if (flag == 1)
 			ft_save_paths_bfs(ant_farm, 1, run);
@@ -119,7 +128,6 @@ size_t				ft_bfs(t_ant_farm *ant_farm, size_t run)
 		// ft_print_paths(ant_farm);
 		i += 1;
 	}
-	ft_bfs_fullreset(ant_farm);
 	ft_paths_discovered(ant_farm);
 	return (ant_farm->discovered_paths);
 }
@@ -145,7 +153,7 @@ void				ft_bfs_runs(t_ant_farm *ant_farm)
 	{
 		ft_printf("discovered paths = %d \n", ant_farm->discovered_paths);
 		ant_farm->best_run = i;
-		result = ft_bfs(ant_farm, i);
+		result = ft_bfs_algorithm(ant_farm, i);
 		// ft_printf(">> Current Run : %d - BFS Result %d\n", ant_farm->best_run, result);
 		if (result != 0)
 		{
@@ -177,43 +185,8 @@ void				ft_bfs_runs(t_ant_farm *ant_farm)
 			ft_paths_discovered(ant_farm);
 			flag = 1;
 		}
-		// result = ft_bfs_sink(ant_farm, i);
-		// // ft_printf(">> Current Run : %d - BFS Result %d\n", ant_farm->best_run, result);
-		// if (result != 0)
-		// {
-		// 	ft_sort_paths_on_size(ant_farm);
-		// 	ft_ants_to_paths(ant_farm);
-		// 	ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-		// 	ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
-		// 	ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
-		// 	// ft_print_paths(ant_farm);
-		// 	temp = (t_lines *)ft_memalloc(sizeof(t_lines));
-		// 	temp->lines = ant_farm->lines;
-		// 	ft_lines_list_addend(&(ant_farm->lines_lst), temp);
-		// 	temp = ant_farm->lines_lst;
-		// 	// while (temp != NULL)
-		// 	// {
-		// 	// 	if (temp->next != NULL && temp->lines < temp->next->lines)
-		// 	// 	{
-		// 	// 		ant_farm->best_run = i - 1;
-		// 	// 		ft_paths_discovered(ant_farm);
-		// 	// 		flag = 1;
-		// 	// 		break ;
-		// 	// 	}
-		// 	// 	temp = temp->next;
-		// 	// }
-		// }
-		// else
-		// {
-		// 	ant_farm->best_run = i - 1;
-		// 	ft_paths_discovered(ant_farm);
-		// 	flag = 1;
-		// }
 		ft_bfs_level_sink(ant_farm);
 		ft_bfs_level_source(ant_farm);
 		i += 1;
 	}
-	// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-	// ft_printf(" ****** BFS END ******************** \n", i, ant_farm->lines);
-	// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
 }

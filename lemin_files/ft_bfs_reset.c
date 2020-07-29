@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:12:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 13:21:28 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 13:25:13 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void				ft_bfs_fullreset(t_ant_farm *ant_farm)
 static void			ft_reset_score_pathlst(t_path_list *path_lst)
 {
 	t_path_list		*curr_node;
-	// t_path_list		*next_node;
 
 	curr_node = path_lst;
 	while (curr_node != NULL)

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/22 19:30:24 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 15:40:37 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void				ft_path_addend(t_paths **path, t_paths *new)
 	}
 	temp = *path;
 	while (temp->next != NULL)
-	{
 		temp = temp->next;
-	}
 	temp->next = new;
 	new->prev = temp;
 	if (max == 0)
@@ -133,7 +131,7 @@ void				ft_sort_paths_on_size(t_ant_farm *ant_farm)
 		// ft_printf(">> temp %d, run %d\n", temp->path_id, temp->run);
 	}
 	// ft_printf(">> Sorting paths Starting from Path %d\n", paths->path_id);
-	while (paths->next != NULL && paths->next != NULL)
+	while (paths->next != NULL) // && paths->next != NULL)
 	{
 		if (paths->path_size > paths->next->path_size)
 		{

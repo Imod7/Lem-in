@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 13:19:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 14:38:09 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void				ft_free_pathlst(t_path_list *path_lst)
 		next_node = curr_node->next;
 		// curr_node->room->path_id = 0;
 		// ft_printf(" freeing from path %d - node %s\n", curr_node->room->path->path_id, curr_node->room->name);
-		// ft_printf("   freeing from path - node %s\n", curr_node->room->name);
 		// curr_node->room->path = NULL;
 		// curr_node = NULL;
 		free(curr_node);
@@ -68,28 +67,28 @@ void				ft_free_paths(t_ant_farm *ant_farm)
 ** ant_farm->paths linked list right before this function is called
 */
 
-void				ft_path_del_last(t_ant_farm *ant_farm)
-{
-	t_paths			*curr_node;
+// void				ft_path_del_last(t_ant_farm *ant_farm)
+// {
+// 	t_paths			*curr_node;
 
-	// ft_printf("Delete Last Path\n");
-	curr_node = ant_farm->paths;
-	while (curr_node->next != NULL)
-	{
-		// prev_node = curr_node;
-		curr_node = curr_node->next;
-	}
-	// ft_printf(" freeing path id  %d\n", curr_node->path_id);
-	ft_free_pathlst(curr_node->path_lst);
-	// ft_printf(" prev path id  %d\n", prev_node->path_id);
-	// prev_node->next = NULL;
-	curr_node->prev->next = NULL;
-	// curr_node->path_id = 0;
-	// curr_node = NULL;
-	ft_printf(" curr node %p\n", curr_node);
-	ft_printf(" prev path id %d prev next  %p\n", curr_node->prev->path_id, curr_node->prev->next);
-	free(curr_node);
-}
+// 	// ft_printf("Delete Last Path\n");
+// 	curr_node = ant_farm->paths;
+// 	while (curr_node->next != NULL)
+// 	{
+// 		// prev_node = curr_node;
+// 		curr_node = curr_node->next;
+// 	}
+// 	// ft_printf(" freeing path id  %d\n", curr_node->path_id);
+// 	ft_free_pathlst(curr_node->path_lst);
+// 	// ft_printf(" prev path id  %d\n", prev_node->path_id);
+// 	// prev_node->next = NULL;
+// 	curr_node->prev->next = NULL;
+// 	// curr_node->path_id = 0;
+// 	// curr_node = NULL;
+// 	// ft_printf(" curr node %p\n", curr_node);
+// 	// ft_printf(" prev path id %d prev next  %p\n", curr_node->prev->path_id, curr_node->prev->next);
+// 	free(curr_node);
+// }
 
 /*
 ** Deletes the path from the linked list of paths (ant_farm->paths)
@@ -127,25 +126,20 @@ void				ft_free_path_on_pathid(t_ant_farm *ant_farm, int path_id)
 	free(curr_node);
 }
 
+/*
+** Function that frees/deletes the ants_list of the given path
+** and sets ants_amount of this path to 0
+*/
+
 void				ft_free_paths_ants_lst(t_ant_farm *ant_farm)
 {
 	t_paths			*curr_node;
-	// t_paths			*next_node;
 
 	curr_node = ant_farm->paths;
 	while (curr_node != NULL)
 	{
-		// ft_printf(" .freeing from path id %d the ants list\n", curr_node->path_id);
 		ft_free_ants_lst(&(curr_node->ants_lst));
 		curr_node->ants_amount = 0;
-		// ft_printf(" .freeing from path id %d the paths list\n", curr_node->path_id);
-		// ft_free_pathlst(curr_node->path_lst);
-		// ft_printf(" freeing path id  %d\n", curr_node->path_id);
-		// curr_node->path_id = 0;
 		curr_node = curr_node->next;
-		// curr_node = NULL;
-		// free(curr_node);
-		// curr_node = next_node;
 	}
-	// ant_farm->paths = NULL;
 }

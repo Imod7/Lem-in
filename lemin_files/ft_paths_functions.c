@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 14:18:09 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/20 18:43:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 12:11:50 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void				ft_paths_discovered(t_ant_farm *ant_farm)
 		temp = temp->next;
 	}
 	// ant_farm->discovered_paths += 1;
+	ft_bfs_fullreset(ant_farm);
 }
 
 t_room				*ft_get_start_room(t_room *temp)

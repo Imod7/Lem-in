@@ -6,92 +6,37 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 10:26:22 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 10:22:13 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int					choose_ant(t_paths *path, int ant_id)
-{
-	t_ants			*ant_lst;
-
-	// ft_printf(ANSI_COLOR_GREEN_EMER);
-	// ft_printf(" choose next ant than %d \n", ant_id);
-	ant_lst = path->ants_lst;
-	while (ant_lst != NULL)
-	{
-		if ((ant_lst->next != NULL) && (ant_id == ant_lst->ant_id))
-			return (ant_lst->next->ant_id);
-		ant_lst = ant_lst->next;
-	}
-	return (0);
-}
-
-void				ft_add_ants_to_antslist(t_ants **lst, t_ants *new)
-{
-	t_ants			*temp;
-
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
-	new->prev = temp;
-}
-
 /*
-** This function adds the given ant_id to the given room of the the given path
-** If the ants_lst of the room is NULL we just add the ant
-** If the ants_lst is NOT NULL check if the room is the END room
+** This function checks the ant_id, room and the path that
+** are given as parameters and decides what to do :
+** 1) If the ants_lst of the room is NULL we just add the ant to the room
+** 2) If the ants_lst is NOT NULL we check if the room is the END room
+**  2.1) and the path given == path of ants_list then first free ants_list
+** and then add the ant
+**  2.2) and the path given != path of ants_list then add the ant to room
 */
 
-void				add_ant_to_room(t_paths *path, t_room *room, int ant_id)
+void				check_ant_vs_room(t_paths *path, t_room *room, int ant_id)
 {
-	t_ants			*ant;
-
 	if (room->ants_lst == NULL)
-	{
-		// ft_printf(" ants_lst is NULL - ant %d\n", ant_id);
-		ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-		ant->ant_id = ant_id;
-		ant->path = path;
-		ft_add_ants_to_antslist(&(room->ants_lst), ant);
-	}
+		add_ant_to_room(path, room, ant_id);
 	else
 	{
-		// if (room->position == END)
-		// {
-		// 	ft_printf(ANSI_COLOR_RED_CINA" room %s, room path %d \n", room->name, room->path->path_id);
-		// 	ft_printf(ANSI_COLOR_RED_CINA" path %d \n", path->path_id);
-		// 	// if (room->ants_lst != NULL)
-		// 	ft_printf(ANSI_COLOR_RED_CINA" ant_id %d, path %d \n", ant_id, room->ants_lst->path->path_id);
-		// }
 		if ((room->position == END) && \
 		(path->path_id != room->ants_lst->path->path_id))
-		{
-			// ft_printf(" ADD room end to the ants_list\n");
-			ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-			ant->ant_id = ant_id;
-			ant->path = path;
-			ft_add_ants_to_antslist(&(room->ants_lst), ant);
-		}
+			add_ant_to_room(path, room, ant_id);
 		else if ((room->position == END) && \
 		(path->path_id == room->ants_lst->path->path_id))
 		{
 			// ft_printf(" FREE the previous ants_lst and create a new one\n");
 			ft_free_ants_lst(&(room->ants_lst));
-			// room->ants_lst = NULL;
-			ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-			ant->ant_id = ant_id;
-			ant->path = path;
-			ft_add_ants_to_antslist(&(room->ants_lst), ant);
-			// room->ants_lst->ant_id = ant_id;
-			// room->ants_lst->path = path;
+			add_ant_to_room(path, room, ant_id);
 		}
 		else
 		{
@@ -100,7 +45,6 @@ void				add_ant_to_room(t_paths *path, t_room *room, int ant_id)
 			room->ants_lst->path = path;
 		}
 	}
-	// ft_printf(ANSI_COLOR_RESET);
 }
 
 /*
@@ -113,7 +57,6 @@ void				push_ant_to_next_room(t_paths *path)
 	t_path_list		*path_lst;
 	int				id;
 
-	// ft_printf(ANSI_COLOR_GREEN_EMER);
 	// ft_printf(" pushing ants through path %d \n", path->path_id);
 	path_lst = path->path_lst;
 	while (path_lst->next != NULL)
@@ -125,21 +68,20 @@ void				push_ant_to_next_room(t_paths *path)
 			// ft_printf("ant %d found in room %s\n", 
 			// path_lst->room->ants_lst->ant_id, path_lst->room->name);
 			// path_lst->next->room->ant = path_lst->room->ant;
-			add_ant_to_room(path, path_lst->next->room, path_lst->room->ants_lst->ant_id);
+			check_ant_vs_room(path, path_lst->next->room, path_lst->room->ants_lst->ant_id);
 			// if ((path_lst->prev != NULL) && 
 			if (path_lst->prev->room->ants_lst == NULL)
 			{
-				// ft_printf(">we are in room %s\n", path_lst->room->name);
 				id = choose_ant(path, path_lst->room->ants_lst->ant_id);
 				// ft_printf(" chosen ant : %d for room %s\n", id, path_lst->room->name);
-				add_ant_to_room(path, path_lst->room, id);
+				check_ant_vs_room(path, path_lst->room, id);
 			}
 			// else if ((path_lst->prev != NULL) && 
 			else if (path_lst->prev->room->ants_lst != NULL)
 			{
 				// ft_printf(">ant %d for room %s\n", path_lst->prev->room->ants_lst->ant_id, path_lst->room->name);
 				// path_lst->room->ant = path_lst->prev->room->ant;
-				add_ant_to_room(path, path_lst->room, path_lst->prev->room->ants_lst->ant_id);
+				check_ant_vs_room(path, path_lst->room, path_lst->prev->room->ants_lst->ant_id);
 			}
 			// else
 			// 	path_lst->room->ants_lst->ant_id = 0;
@@ -155,6 +97,8 @@ void				push_ant_to_next_room(t_paths *path)
 ** If there are not we just add the first ant
 ** If there are ants already we have to push the ant to next room
 ** before adding a new one
+** If option -a was selected then it does not print_the_move
+** If option -a was not selected then it prints the ants moves
 */
 
 void				ft_move_ants(t_ant_farm *ant_farm)
@@ -182,7 +126,7 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			(path_lst->room->ants_lst == NULL) && (i == 0))
 			{
 				// ft_printf(" 0. Ants list of room in path %d is NULL\n", path->path_id);
-				add_ant_to_room(path, path_lst->room, ant_lst->ant_id);
+				check_ant_vs_room(path, path_lst->room, ant_lst->ant_id);
 			}
 			else
 			{
@@ -192,8 +136,7 @@ void				ft_move_ants(t_ant_farm *ant_farm)
 			path = path->next;
 		}
 		// ft_printf(ANSI_COLOR_YELLOW_PAST);
-		if (!(ant_farm->options & OPTION_A))
-			ft_print_move(ant_farm);
+		(ant_farm->options & OPTION_A) ? : ft_print_move(ant_farm);
 		// ft_print_ants_in_rooms(ant_farm);
 		// ft_printf("lines i = %d ant_farm->lines = %d\n"ANSI_COLOR_RESET, i, ant_farm->lines);
 		i += 1;

@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/07/21 13:25:19 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/07/29 20:26:49 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,8 @@ SRC_LEMIN =	\
 		lemin.c \
 		ft_prgm_functions.c \
 		ft_prgm_options.c \
-		ft_input_validation.c \
-		ft_save_input.c \
-		ft_save_inputlines.c \
+		ft_input_parsing.c \
+		ft_input_checking.c \
 		ft_save_hash_items.c \
 		ft_save_rooms.c \
 		ft_save_neighbors.c \
@@ -43,16 +42,20 @@ SRC_LEMIN =	\
 		ft_bfs_sink.c \
 		ft_min_cut.c \
 		ft_min_cut_sink.c \
+		ft_map_data_functions.c \
 		ft_paths_auxfunc.c \
 		ft_paths_functions.c \
 		ft_sort_neighbors.c \
 		ft_sort_paths.c \
 		ft_ants_to_paths.c \
 		ft_ants_move.c \
-		ft_print_list_tables.c \
+		ft_ants_functions.c \
+		ft_lines_move.c \
+		ft_print_hash_table.c \
+		ft_print_neighbors.c \
+		ft_print_rooms.c \
 		ft_print_paths.c \
 		ft_print_ants.c \
-		ft_print_mapdata.c \
 		ft_free_lists_tables.c \
 		ft_free_other.c \
 		ft_free_paths.c \

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/21 13:22:55 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 14:46:30 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_hash_table		*ft_create_hash_table(unsigned int size)
 	if (hash_table == NULL)
 		return (NULL);
 	hash_table->size = size * 2;
-	hash_table->array = (t_hash_item**)ft_memalloc(sizeof(t_hash_item*) * hash_table->size);
+	hash_table->array = (t_hash_item**)ft_memalloc(sizeof(t_hash_item*) * \
+	hash_table->size);
 	if (hash_table->array == NULL)
 		return (NULL);
 	i = 0;
@@ -119,8 +120,8 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 		if (ant_farm->hash_table->array[key] == NULL)
 		{
 			// ft_printf("Saving room '%s' in key '%d'\n", temp->name, key);
-			ht_item = ft_hashitem_newnode(temp);
-			ht_item->hashed_key = key;
+			ht_item = ft_hashitem_newnode(temp, key);
+			// ht_item->hashed_key = key;
 			ht_item->colision_prev = NULL;
 			ft_hashitem_addend(&(ant_farm->hash_table->array[key]), ht_item);
 		}
@@ -134,8 +135,8 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 			// 	temp_item = temp_item->colision_next;
 			// }
 			// ft_printf("Colision : Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
-			ht_item = ft_hashitem_newnode(temp);
-			ht_item->hashed_key = key;
+			ht_item = ft_hashitem_newnode(temp, key);
+			// ht_item->hashed_key = key;
 			ft_hashitem_addend(&(temp_item->colision_next), ht_item);
 		}
 		temp = temp->next;

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/22 17:48:38 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 19:27:47 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 											char *link);
-int						lm_check_if_ants_amount(t_ant_farm *ant_farm, \
+int						ft_check_if_ants_amount(t_ant_farm *ant_farm, \
 												char *line, size_t j);
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 											t_position pos);
@@ -214,10 +214,10 @@ int						ft_exitprogram(t_ant_farm *ant_farm);
 */
 
 void					print_input_list(t_input *input_data);
-void					print_rooms_list(t_room *rooms_lst);
+void					ft_print_rooms_list(t_room *rooms_lst);
 void					print_hash_table(t_hash_table *hash_table);
-void					print_neighbors_list(t_hash_table *hash_table);
-void					print_neighbors_list_debug(t_hash_table *hash_table);
+void					ft_print_neighbors_list(t_hash_table *hash_table);
+// void					print_neighbors_list_debug(t_hash_table *hash_table);
 void					ft_print_mapdata(t_ant_farm *ant_farm);
 
 /*
@@ -237,7 +237,8 @@ void					ft_room_addend(t_room **lst, t_room *new);
 ** Functions to save the hash_items in the hash table
 */
 
-t_hash_item				*ft_hashitem_newnode(t_room *room);
+// t_hash_item				*ft_hashitem_newnode(t_room *room);
+t_hash_item				*ft_hashitem_newnode(t_room *room, unsigned int	key);
 void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 
 /*
@@ -250,7 +251,7 @@ void					ft_free_hashtable(t_hash_table *hash_table);
 void					ft_free_line(char **line_items, size_t size);
 void					ft_free_paths(t_ant_farm *ant_farm);
 void					ft_free_pathlst(t_path_list *path_lst);
-void					ft_path_del_last(t_ant_farm *ant_farm);
+// void					ft_path_del_last(t_ant_farm *ant_farm);
 void					ft_free_path_on_pathid(t_ant_farm *ant_farm, \
 												int path_id);
 t_paths					*ft_mergesort(t_ant_farm *ant_farm, \
@@ -301,7 +302,7 @@ t_paths					*ft_create_path(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_sizes(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
-void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
+// void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
 void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
 												t_room *room);
 t_room					*ft_get_start_room(t_room *temp);
@@ -347,13 +348,25 @@ size_t				ft_check_cut_edge(t_ant_farm *ant_farm, \
 */
 
 int						ft_ants_to_paths(t_ant_farm *ant_farm);
+int						choose_ant(t_paths *path, int ant_id);
+void					ft_move_ants(t_ant_farm *ant_farm);
+void					add_ant_to_room(t_paths *path, t_room *room, \
+										int ant_id);
+void					ft_add_ant_to_antslist(t_ants **lst, t_ants *new);
 void					ft_print_move(t_ant_farm *ant_farm);
-void					ft_keep_ants_moving(t_ant_farm *ant_farm);
+// void					ft_keep_ants_moving(t_ant_farm *ant_farm);
 void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
-void					ft_move_ants(t_ant_farm *ant_farm);
 void					ft_free_ants_lst(t_ants **ants_lst);
-void					ft_lines_list_addend(t_lines **lst, t_lines *new);
 void					ft_free_paths_ants_lst(t_ant_farm *ant_farm);
+
+/*
+** Functions related to the moving of the ants.
+** like the calculation of needed lines to move all the ants
+** from source to sink
+*/
+
+void					ft_calculate_lines(t_ant_farm *ant_farm);
+void					ft_lines_list_addend(t_lines **lst, t_lines *new);
 
 #endif

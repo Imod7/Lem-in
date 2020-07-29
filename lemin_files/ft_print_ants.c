@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/20 18:10:09 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 15:46:50 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 	t_paths			*paths;
 	t_path_list		*path_lst;
 	t_ants			*ants_lst;
-	// t_ants			*delete;
 
-	ft_printf(ANSI_COLOR_YELLOW_PAST"Ants in Rooms \n");
+	ft_printf(ANSI_COLOR_YELLOW_PAST"Ants in Rooms\n");
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
@@ -68,14 +67,6 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 				(path_lst->room->position == END))
 				{
 					ants_lst = path_lst->room->ants_lst;
-					// delete = path_lst->room->ants_lst;
-					// ft_printf("\n ants in end room \n");
-					// while (delete != NULL)
-					// {
-					// 	ft_printf("%d -> ", delete->ant_id);
-					// 	delete = delete->next;
-					// }
-					// ft_printf(" ant %d has path  %p \n", ants_lst->ant_id, ants_lst->path->path_id);
 					while ((ants_lst->next != NULL) && \
 					(ants_lst->path->path_id != paths->path_id))
 					{

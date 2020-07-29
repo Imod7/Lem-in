@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_input_validation.c                              :+:    :+:            */
+/*   ft_input_checking.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
+/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/17 18:00:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:47:41 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
+/*   Updated: 2020/07/29 15:02:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int			lm_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
+int			ft_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
 {
 	ant_farm->signal = CONTINUE;
 	if (ft_isalnum(line[0]) && (j == 0))
