@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "fcntl.h": "c",
+        "complex": "c",
+        "ft_printf.h": "c",
+    },
+    "editor.rulers": [
+        80
+    ],
+    "codamheader.CodamEmail": "marvin@codam.nl",
+    "codamheader.CodamUsername": "dsaripap"
+}

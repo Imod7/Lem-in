@@ -1,0 +1,36 @@
+43
+3 2 2
+##start
+start 4 0
+##end
+end 4 6
+A 0 4
+B 4 2
+C 4 4
+D 8 2
+E 8 4
+F 7 0
+G 0 7
+H 5 9
+I 51 92
+J 5 91
+K 0 91
+M 77 9
+N 22 3
+start-A
+A-B
+B-end
+K-start
+J-B
+C-end
+D-C
+E-D
+E-F
+G-F
+H-G
+I-H
+J-G
+K-J
+M-I
+M-N
+I-N

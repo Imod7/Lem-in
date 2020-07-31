@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_paths_auxfunc.c                                 :+:    :+:            */
+/*   ft_paths_commonfunc.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:16 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:38:18 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/31 05:07:16 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+/*
+** Function that adds a new path_list node at the start of the
+** path list linked list.
+** The path list node points to a specific room and the path list
+** is pointed by a specific path so we are actually adding a room
+** at the start of a specific path.
+*/
 
 void				ft_pathlst_addstart(t_path_list **lst, t_path_list *new)
 {
@@ -26,6 +34,14 @@ void				ft_pathlst_addstart(t_path_list **lst, t_path_list *new)
 	new->next = temp;
 	temp->prev = new;
 }
+
+/*
+** Function that adds a new path_list node at the end of the
+** path list linked list.
+** The path list node points to a specific room and the path list
+** is pointed by a specific path so we are actually adding a room
+** at the end of a specific path.
+*/
 
 void				ft_pathlst_addend(t_path_list **lst, t_path_list *new)
 {
@@ -43,9 +59,14 @@ void				ft_pathlst_addend(t_path_list **lst, t_path_list *new)
 	new->prev = temp;
 }
 
+/*
+** Function that adds a path at the end of the linked list of paths
+*/
+
 void				ft_path_addend(t_paths **path, t_paths *new)
 {
 	t_paths			*temp;
+	int				max;
 
 	if (*path == NULL)
 	{
@@ -54,37 +75,21 @@ void				ft_path_addend(t_paths **path, t_paths *new)
 		return ;
 	}
 	temp = *path;
+	max = 0;
+	while (temp != NULL)
+	{
+		if (temp->path_id > max)
+			max = temp->path_id;
+		// ft_printf("  temp->path id %d - max %d\n", temp->path_id, max);
+		temp = temp->next;
+	}
+	temp = *path;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
 	new->prev = temp;
-	new->path_id = temp->path_id + 1;
-}
-
-size_t				ft_find_maxpaths(t_ant_farm *ant_farm)
-{
-	t_room			*temp;
-	t_neighbor		*neighbors_lst;
-	size_t			count_s;
-	size_t			count_e;
-	size_t			max_paths;
-
-	count_s = 0;
-	count_e = 0;
-	temp = ft_get_start_room(ant_farm->rooms_lst);
-	neighbors_lst= temp->neighbors;
-	while (neighbors_lst != NULL)
-	{
-		count_s += 1;
-		neighbors_lst = neighbors_lst->next;
-	}
-	temp = ft_get_end_room(ant_farm);
-	neighbors_lst= temp->neighbors;
-	while (neighbors_lst != NULL)
-	{
-		count_e += 1;
-		neighbors_lst = neighbors_lst->next;
-	}
-	max_paths = (count_s <= count_e) ? count_s : count_e;
-	return (max_paths);
+	if (max == 0)
+		max = 1;
+	new->path_id = max + 1;
+	// ft_printf("max %d so new path id %d\n", max, new->path_id);
 }

@@ -6,54 +6,11 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 10:59:30 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/29 11:42:19 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-
-// void				ft_assign_and_move(t_ant_farm *ant_farm, t_paths *path, \
-// 										t_ants *ant)
-// {
-// 	t_path_list		*path_lst;
-// 	// t_paths			*path;
-
-// 	(void)ant_farm;
-// 	// ft_printf("Try to assign %d to path %d\n", ant_id, path->path_id);
-// 	path_lst = path->path_lst->next;
-// 	while (path_lst != NULL)
-// 	{
-// 		if (path_lst->room->ants != NULL)
-// 			path_lst = path_lst->next;
-// 		else
-// 			break ;
-// 	}
-// 	path_lst = path_lst->prev;
-// 	while (path_lst != NULL)
-// 	{
-// 		if (path_lst->room->position == END)
-// 		{
-// 			ft_printf(" END room\n");
-// 			ft_ants_addend(&(path_lst->room->ants), ant);
-// 		}
-// 		if (path_lst->room->ants != NULL)
-// 		{
-// 			ft_printf("   Ant %d to room %s", path_lst->room->ants->ant_id, path_lst->next->room->name);
-// 			path_lst->next->room->ants = path_lst->room->ants;
-// 			ft_printf(" Ant %d to room %s\n", ant->ant_id, path_lst->room->name);
-// 			path_lst->room->ants = ant;
-// 			// ft_printf("ant %d, room %s \n",path_lst->room->ant_id, path_lst->room->name);
-// 		}
-// 		else
-// 		{
-// 			// path_lst->room->ant_id = ant_id;
-// 			break ;
-// 		}
-// 			// path_lst->room->ant_id = path_lst->prev->room->ant_id;
-// 		path_lst = path_lst->prev;
-// 	}
-// 	// ft_printf("\n");	
-// }
 
 int					ft_all_ants_in_same_path(t_ant_farm *ant_farm)
 {
@@ -63,115 +20,133 @@ int					ft_all_ants_in_same_path(t_ant_farm *ant_farm)
 
 	i = 1;
 	tmp = ant_farm->paths;
+	while (tmp != NULL && tmp->run != ant_farm->best_run)
+		tmp = tmp->next;
+	// ft_printf("All ants in same path\n");
 	while (i <= ant_farm->ants)
 	{
 		ant = (t_ants *)ft_memalloc(sizeof(t_ants));
 		ant->ant_id = i;
 		ant->path = tmp;
-		ft_printf(ANSI_COLOR_BLUE"ant_id: %d in path_id: %d\n"ANSI_COLOR_RESET, ant->ant_id, ant->path->path_id);
+		// ft_printf(ANSI_COLOR_BLUE"ant_id: %d in path_id: %d\n"ANSI_COLOR_RESET, ant->ant_id, ant->path->path_id);
+		ft_add_ant_to_antslist(&(tmp->ants_lst), ant);
 		i += 1;
 	}
-	return (0);
+	tmp->ants_amount = i - 1;
+	return (SUCCESS);
 }
 
-// void				ft_ants_addend(t_ants **lst, t_ants *new)
-// {
-// 	t_ants			*temp;
-
-// 	if (*lst == NULL)
-// 	{
-// 		*lst = new;
-// 		return ;
-// 	}
-// 	temp = *lst;
-// 	while (temp->next != NULL)
-// 		temp = temp->next;
-// 	temp->next = new;
-// 	new->prev = temp;
-// }
-
-void				ft_ants_to_pathlst_addend(t_ants **lst, t_ants *new)
+void				ft_assign_based_on_size(t_ants **ant, t_paths **cur, \
+											t_paths *first, t_paths *next)
 {
-	t_ants			*temp;
+	size_t			first_size;
+	size_t			next_size;
 
-	if (*lst == NULL)
+	first_size = first->path_size + first->ants_amount;
+	next_size = next->path_size + next->ants_amount;
+	if (((*cur)->path_size + (*cur)->ants_amount <= next_size) && \
+	((*cur)->path_size + (*cur)->ants_amount <= first_size))
 	{
-		*lst = new;
-		return ;
+		// assign to current path
+		(*ant)->path = (*cur);
+		(*cur)->ants_amount += 1;
 	}
-	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
-	new->prev = temp;
+	else if (((*cur)->path_size + (*cur)->ants_amount <= next_size) && \
+	((*cur)->path_size + (*cur)->ants_amount > first_size))
+	{
+		// assign to first path
+		(*ant)->path = first;
+		first->ants_amount += 1;
+		(*cur) = first;
+	}
+	else
+	{
+		// assign ant to next path
+		(*ant)->path = next;
+		next->ants_amount += 1;
+		(*cur) = next;
+	}
+}
+
+/*
+** We compare the total_size (path_size + ants_amount) of current_path,
+** next_path and first_path and we decide in which path to assign the ant.
+*/
+
+void				ft_compare_sizes(t_ant_farm *ant_farm, t_paths **cur, \
+									size_t i)
+{
+	t_paths			*first;
+	t_paths			*next;
+	t_ants			*ant;
+
+	ant = (t_ants *)ft_memalloc(sizeof(t_ants));
+	ant->ant_id = i;
+	first = ant_farm->paths;
+	while (first != NULL && first->run != ant_farm->best_run)
+		first = first->next;
+	// ft_printf(">> Compare sizes best run %d next \n", ant_farm->best_run);
+	if ((*cur)->next != NULL && (*cur)->next->run == ant_farm->best_run)
+		next = (*cur)->next;
+	else
+	{
+		next = ant_farm->paths;
+		while (next != NULL && next->run != ant_farm->best_run)
+			next = next->next;
+	}
+	// ft_printf(ANSI_COLOR_BLUE"cur_pathid: %d, size = %d\n"ANSI_COLOR_RESET, 
+	// (*cur)->path_id, (*cur)->path_size + (*cur)->ants_amount);
+	// if ((*cur)->next != NULL && (*cur)->next->run == ant_farm->best_run)
+	// {
+			// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" 
+			// ANSI_COLOR_RESET, next->path_id, next_size);
+	// }
+	// else
+	// {
+			// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n" 
+			// ANSI_COLOR_RESET, next->path_id, next_size);
+	// }
+	ft_assign_based_on_size(&ant, cur, first, next);
+	ft_add_ant_to_antslist(&(ant->path->ants_lst), ant);
+	// ft_printf("ant_id:%d,path_id=%d\n\n", ant->ant_id, ant->path->path_id);
 }
 
 int					ft_ants_to_paths(t_ant_farm *ant_farm)
 {
 	t_paths			*tmp;
-	t_path_list		*tmp_lst;
 	size_t			i;
-	t_paths			*cur;
-	t_paths			*next;
-	t_ants			*ant;
 
-	ft_printf("\nAssigning Ants to Paths\n");
-	ft_printf("========================\n");
+	// ft_printf("\nAssigning Ants to Paths\n");
 	// ft_printf("Number of ants : %d \n", ant_farm->ants);
 	// ft_printf("Max paths : %d \n", ant_farm->max_paths);
 	// ft_printf("Discovered paths : %d \n", ant_farm->discovered_paths);
 	// ft_print_paths_list(ant_farm);
-	if (ant_farm->ants == 0)
-		return (0);
-	if (ant_farm->discovered_paths == 0)
-		return (0);
-	if (ant_farm->discovered_paths == 1)
+	if ((ant_farm->ants == 0) || (ant_farm->discovered_paths == 0))
+		return (SUCCESS);
+	// if (ant_farm->discovered_paths == 0)
+	// 	return (SUCCESS);
+	if ((ant_farm->discovered_paths == 1) || (ant_farm->ants == 1))
 	{
+		// ft_printf("all ants in same path \n");
 		ft_all_ants_in_same_path(ant_farm);
-		return (0);
+		ft_calculate_lines(ant_farm);
+		return (SUCCESS);
 	}
 	i = 1;
-	while ((i <= ant_farm->ants) && (ant_farm->discovered_paths > 1))
+	while (i <= ant_farm->ants)
 	{
 		tmp = ant_farm->paths;
-		tmp_lst = tmp->path_lst->next;
-		while ((tmp != NULL) && (i <= ant_farm->ants))
+		while (tmp != NULL && tmp->next != NULL && tmp->run != ant_farm->best_run)
+			tmp = tmp->next;
+		// ft_printf("I am at path id %d and in ant %d\n", tmp->path_id, i);
+		// tmp_lst = tmp->path_lst->next;
+		while ((tmp != NULL && tmp->run == ant_farm->best_run && i <= ant_farm->ants))
 		{
-			ant = (t_ants *)ft_memalloc(sizeof(t_ants));
-			ant->ant_id = i;
-			cur = tmp;
-			if (cur->next != NULL)
-				next = cur->next;
-			else
-				next = ant_farm->paths;
-			// ft_printf(ANSI_COLOR_BLUE"cur_pathid: %d, size = %d\n"ANSI_COLOR_RESET, cur->path_id, cur->path_size + cur->ants_amount);
-			if (tmp->next != NULL)
-				;
-				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n"ANSI_COLOR_RESET, next->path_id, next->path_size + next->ants_amount);
-			else
-				;
-				// ft_printf(ANSI_COLOR_YELLOW_PAST"next_pathid: %d, size = %d\n"ANSI_COLOR_RESET, ant_farm->paths->path_id, ant_farm->paths->path_size + ant_farm->paths->ants_amount);
-			if (cur->path_size + cur->ants_amount <= next->path_size + next->ants_amount)
-			{
-				// assign to current path
-				ant->path = cur;
-				cur->ants_amount += 1;
-			}
-			else
-			{
-				// assign ant to next path
-				ant->path = next;
-				next->ants_amount += 1;
-				tmp = next;
-			}
-			// ft_ants_addend(&(tmp_lst->room->ants), ant);
-			ft_ants_to_pathlst_addend(&(ant->path->ants_lst), ant);
-			// ft_printf(ANSI_COLOR_GREEN_EMER"ant_id: %d, path_id = %d\n\n"ANSI_COLOR_RESET, ant->ant_id, ant->path->path_id);
+			// ft_printf("I am at path id %d and in ant %d\n", tmp->path_id, i);
+			ft_compare_sizes(ant_farm, &tmp, i);
 			i += 1;
 		}
 	}
-	ft_print_ants(ant_farm);
-	ft_move_ants(ant_farm);
-	// ft_keep_ants_moving(ant_farm);
+	ft_calculate_lines(ant_farm);
 	return (0);
 }
