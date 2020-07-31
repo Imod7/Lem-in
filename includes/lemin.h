@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 19:27:47 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/31 06:23:11 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LEMIN_H
 
 # include "libft.h"
-# include <stdio.h>
+// # include <stdio.h>
 # include <errno.h>
 
 typedef enum			e_prgm_signal

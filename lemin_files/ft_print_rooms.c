@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 10:48:46 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 18:49:54 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/31 06:03:34 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void			ft_print_header(void)
 {
 	ft_printf("\n                      Rooms (Linked List)                \n");
-	ft_printf("--------------------------------------------------------------");
-	ft_printf("---------------------------------------------------\n");
+	ft_printf("-------------------------------------------------------------");
+	ft_printf("------------------------------------------------------------\n");
 	ft_printf("|room_name\tx_coord\ty_coord\tpos\tstate\tlvl_source\t");
 	ft_printf("lvl_sink\tscore\tpath_id\tparent_room\tnext_room|\n");
 }
 
 static void			ft_print_footer(void)
 {
-	ft_printf("--------------------------------------------------------------");
-	ft_printf("---------------------------------------------------\n");
+	ft_printf("-------------------------------------------------------------");
+	ft_printf("------------------------------------------------------------\n");
 }
 
 void				ft_print_rooms_list(t_room *rooms_lst)
@@ -37,8 +37,8 @@ void				ft_print_rooms_list(t_room *rooms_lst)
 	{
 		ft_printf("|%s\t\t%d\t%d", temp->name, temp->x_coord, temp->y_coord);
 		ft_printf("\t%d\t%d\t", temp->position, temp->state);
-		ft_printf("%d\t\t%d", temp->level_source, temp->level_sink);
-		ft_printf("\t\t%d\t", temp->score);
+		ft_printf("%d\t\t%d\t", temp->level_source, temp->level_sink);
+		ft_printf("\t%d\t", temp->score);
 		if (temp->path != NULL)
 			ft_printf("%d\t", temp->path->path_id);
 		else

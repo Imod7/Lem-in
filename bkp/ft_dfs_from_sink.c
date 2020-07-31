@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/22 19:29:36 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/30 14:22:41 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t				ft_push_neighbors_dfs_sink(t_ant_farm *ant_farm, \
 	t_neighbor		*neighb_tmp;
 
 	neighb_tmp = neighbors;
-	ft_printf(" Neighbors of temp %s , level_source %d, lvl_sink %d\n", temp->name, temp->level_source, temp->level_sink);
+	// ft_printf(" Neighbors of temp %s , level_source %d, lvl_sink %d\n", temp->name, temp->level_source, temp->level_sink);
 	if (temp->position == START)
 		return (-1);
 	flag = 0;

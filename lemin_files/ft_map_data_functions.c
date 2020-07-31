@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:29 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 20:25:33 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/30 11:16:10 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 /*
 ** Functions ft_input_newnode & ft_input_addend
-** are used to save the lines of the input file
-** into a linked list
+** are used to save the lines of the input file/map
+** into a linked list.
 ** Should I put here ft_memalloc instead of malloc ?
 */
 
-t_input				*ft_input_newnode(char *line)
+t_input			*ft_input_newnode(char *line)
 {
-	t_input			*newnode;
+	t_input		*newnode;
 
 	newnode = malloc(sizeof(t_input));
 	if (newnode == NULL)
@@ -31,9 +31,9 @@ t_input				*ft_input_newnode(char *line)
 	return (newnode);
 }
 
-void				ft_input_addend(t_input **lst, t_input *new)
+void			ft_input_addend(t_input **lst, t_input *new)
 {
-	t_input			*temp;
+	t_input		*temp;
 
 	if (*lst == NULL)
 	{
@@ -51,9 +51,9 @@ void				ft_input_addend(t_input **lst, t_input *new)
 ** that we retrieved from the map
 */
 
-void				print_input_list(t_input *input_data)
+void			print_input_list(t_input *input_data)
 {
-	t_input			*temp;
+	t_input		*temp;
 
 	temp = input_data;
 	ft_printf("\n   Linked List with Raw Input Lines      \n");

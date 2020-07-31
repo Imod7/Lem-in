@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 16:01:56 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 19:06:12 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/30 14:22:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static size_t		ft_add_neighbors_of_room_again(t_ant_farm *ant_farm, \
 
 	flag = 0;
 	neighb_tmp = neighbors;
-	ft_printf(" Neighbors of Front Room %s , lvl_source %d, lvl_sink %d, pos %d\n", front_room->name, front_room->level_source, front_room->level_sink, front_room->position);
+	// ft_printf(" Neighbors of Front Room %s , lvl_source %d, lvl_sink %d, pos %d\n", front_room->name, front_room->level_source, front_room->level_sink, front_room->position);
 	if (front_room->position == START)
 		return (-1);
 	while (neighb_tmp != NULL)

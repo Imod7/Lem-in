@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_save_rooms.c                                    :+:    :+:            */
+/*   ft_rooms_functions.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 14:21:56 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/31 04:50:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,43 @@ void				ft_room_addend(t_room **lst, t_room *new)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
+}
+
+/*
+** Function that returns the source.
+** It iterates through the rooms_list and if the position
+** of the room is START, then it means this room is the source.
+*/
+
+t_room				*ft_get_start_room(t_room *temp)
+{
+	while (temp != NULL)
+	{
+		if (temp->position == START)
+			break ;
+		temp = temp->next;
+	}
+	return (temp);
+}
+
+/*
+** Function that returns the sink.
+** It iterates through the rooms_list and if the position
+** of the room is END, then it means this room is the sink
+*/
+
+t_room				*ft_get_end_room(t_ant_farm *ant_farm)
+{
+	t_room			*temp;
+
+	temp = ant_farm->rooms_lst;
+	while (temp != NULL)
+	{
+		if (temp->position == END)
+			break ;
+		temp = temp->next;
+	}
+	return (temp);
 }
 
 int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
