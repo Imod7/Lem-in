@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 19:59:49 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 12:15:51 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int			ft_retrieve_and_save(t_ant_farm *ant_farm, char *room_a, \
 	// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 	neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, room_b);
 	if (neighbor_item == NULL)
-		return (ft_exit_msg(error_in_link));
+		return (ft_exit_msg(ant_farm, error_in_link));
 	// ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
 	// neighbor = ft_neighbor_newnode(neighbor_item);
 	neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
@@ -96,7 +96,7 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 			// neighbor->hash_item = neighbor_item;
 			// // neighbor = ft_neighbor_newnode(neighbor_item);
 			// ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
-			ft_free_line(array, 2);
+			ft_free_string(array, 2);
 		}
 		temp = temp->next;
 	}

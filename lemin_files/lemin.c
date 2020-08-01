@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 05:55:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 15:46:32 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int			read_input(t_ant_farm *ant_farm)
 			{
 				j += 1;
 			}
-			else if ((ant_farm->signal != SUCCESS) && \
-			(ant_farm->signal != CONTINUE))
+			else if (ant_farm->signal != SUCCESS && \
+			ant_farm->signal != CONTINUE)
 			{
 				return (ERROR);
 			}
@@ -63,7 +63,7 @@ int					main(int argc, char **argv)
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	ft_bfs_level_sink(ant_farm);
 	ft_bfs_level_source(ant_farm);
-	ft_print_rooms_list(ant_farm->rooms_lst);
+	// ft_print_rooms_list(ant_farm->rooms_lst);
 	ft_bfs_runs(ant_farm);
 	ft_free_paths_ants_lst(ant_farm);
 	ft_ants_to_paths(ant_farm);

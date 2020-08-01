@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 04:50:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 15:27:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 	return (temp);
 }
 
+/*
+** Function that checks if the line that we check from the input file
+** (with the map data) is a start / end  / intermediate room.
+*/
+
 int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 										char *link)
 {
@@ -96,6 +101,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 			ant_farm->signal = error_invalid_intermediate_room;
 		else
 			ant_farm->signal = SUCCESS;
+		// ft_print_rooms_list(ant_farm->rooms_lst);
 	}
 	else
 		ant_farm->signal = CONTINUE;

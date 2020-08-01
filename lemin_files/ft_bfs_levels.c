@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:24:38 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 06:10:04 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 11:09:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void				ft_bfs_level_source(t_ant_farm *ant_farm)
 	temp = ft_get_start_room(ant_farm->rooms_lst);
 	temp->level_source = -1;
 	// ft_printf("temp %s lvl source %d \n", temp->name, temp->level_source);
+	ft_free_queue(ant_farm->queue);
 	ft_bfs_fullreset(ant_farm);
 }
 
@@ -131,5 +132,6 @@ void				ft_bfs_level_sink(t_ant_farm *ant_farm)
 	temp = ft_get_end_room(ant_farm);
 	temp->level_sink = -1;
 	// ft_printf("temp %s lvl sink %d \n", temp->name, temp->level_sink);
+	ft_free_queue(ant_farm->queue);
 	ft_bfs_fullreset(ant_farm);
 }
