@@ -1,0 +1,27 @@
+hallo122
+#hoi
+##start
+start 11 4
+##end
+end 12 3
+b 3 4
+g 5 6
+c 1 2
+f 1 1
+w 12 12
+d 6 6
+a 3 3
+e 7 7
+#bbbbb
+start-a
+b-w
+e-end
+f-end
+g-c
+b-start
+end-d
+c-start
+b-a
+g-e
+d-w
+e-b

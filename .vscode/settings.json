@@ -1,5 +1,6 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "libft.h": "c",
         "ft_printf.h": "c",
         "lemin.h": "c",
@@ -7,3 +8,15 @@
         "stdlib.h": "c"
     }
 }
+=======
+        "fcntl.h": "c",
+        "complex": "c",
+        "ft_printf.h": "c",
+    },
+    "editor.rulers": [
+        80
+    ],
+    "codamheader.CodamEmail": "marvin@codam.nl",
+    "codamheader.CodamUsername": "dsaripap"
+}
+>>>>>>> 7cd2bb909661df4d97ba60bb1c79afde3a24a5bc

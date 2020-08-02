@@ -6,7 +6,11 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
+<<<<<<< HEAD
 #    Updated: 2020/07/03 10:15:41 by svan-der      ########   odam.nl          #
+=======
+#    Updated: 2020/07/31 05:30:36 by dsaripap      ########   odam.nl          #
+>>>>>>> 7cd2bb909661df4d97ba60bb1c79afde3a24a5bc
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,29 +29,41 @@ NC=\033[0m # No Color
 
 SRC_LEMIN =	\
 		lemin.c \
-		ft_input_validation.c \
-		ft_save_input.c \
-		ft_save_inputlines.c \
-		ft_save_hash_items.c \
-		ft_save_rooms.c \
-		ft_save_neighbors.c \
-		ft_prgm_functions.c \
-		ft_free_lists_tables.c \
-		ft_free_other.c \
-		ft_hashing.c \
-		ft_bfs.c \
-		ft_bfs_queue_func.c \
-		ft_dfs.c \
-		ft_dfs_stack_func.c \
-		ft_paths_auxfunc.c \
-		ft_paths_save.c \
-		ft_paths_free.c \
-		ft_sort_neighbors.c \
 		ft_ants_to_paths.c \
 		ft_ants_move.c \
-		ft_print_list_tables.c \
+		ft_ants_functions.c \
+		ft_bfs.c \
+		ft_bfs_queue_func.c \
+		ft_bfs_levels.c \
+		ft_bfs_reset.c \
+		ft_bfs_sink.c \
+		ft_dead_ends.c \
+		ft_free_lists_tables.c \
+		ft_free_other.c \
+		ft_free_paths.c \
+		ft_hashing.c \
+		ft_input_parsing.c \
+		ft_input_checking.c \
+		ft_lines_move.c \
+		ft_min_cut.c \
+		ft_min_cut_sink.c \
+		ft_map_data_functions.c \
+		ft_paths_commonfunc.c \
+		ft_paths_mainfunc.c \
+		ft_print_ants_move.c \
+		ft_print_hash_table.c \
+		ft_print_neighbors.c \
+		ft_print_rooms.c \
 		ft_print_paths.c \
 		ft_print_ants.c \
+		ft_prgm_functions.c \
+		ft_prgm_options.c \
+		ft_rooms_functions.c \
+		ft_save_hash_items.c \
+		ft_save_neighbors.c \
+		ft_save_paths.c \
+		ft_sort_neighbors.c \
+		ft_sort_paths.c \
 
 OBJ_LEMIN = $(SRC_LEMIN:%.c=$(LEMIN_OBJDIR)/%.o)
 
