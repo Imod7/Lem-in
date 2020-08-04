@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 21:19:26 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/04 20:44:33 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ typedef enum			e_prgm_signal
 	error_in_link = -7,
 	KO = -8,
 	error_invalid_ants_amount = -9,
-	error_invalid_room_data = -10
+	error_invalid_room_data = -10,
+	error_end_room_exists = -11,
+	error_start_room_exists = -12,
+	error_end_room_missing = -13,
+	error_start_room_missing = -14,
+	error_empty_file = -15,
+	error_coord_not_number = -16
 }						t_prgm_signal;
 
 typedef enum		e_position
@@ -203,6 +209,8 @@ typedef struct			s_paths
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
 int						ft_is_number(char *str);
+int						check_argv(int *signal, char *str);
+int						add_num(char *str, int sign);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 											char *link);
