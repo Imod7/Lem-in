@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 12:15:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 09:23:01 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,16 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 	{
 		if (ft_strchr(temp->line, '-') != NULL)
 		{
+			if (ft_get_end_room(ant_farm) == NULL)
+			{
+				// ft_printf("end exists \n");
+				return (ft_exit_msg(ant_farm, error_end_room_missing));
+			}
+			if (ft_get_start_room(ant_farm->rooms_lst) == NULL)
+			{
+				// ft_printf("end exists \n");
+				return (ft_exit_msg(ant_farm, error_start_room_missing));
+			}
 			// ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
 			array = ft_strsplit(temp->line, '-');
 			ft_retrieve_and_save(ant_farm, array[0], array[1]);

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:46:05 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 14:19:59 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 {
 	ft_printf(ANSI_COLOR_RED_CINA);
+	ant_farm->signal = signal;
 	if (signal == ERROR)
 		ft_putendl_fd("Error", 2);
 		// write(2, "Error\n", 6);
@@ -25,6 +26,36 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 	else if (signal == error_invalid_end_room)
 		// write(2, "Invalid End Room\n", 17);
 		ft_putendl_fd("Invalid End Room", 2);
+	else if (signal == error_end_room_exists)
+	{
+		// ant_farm->signal = error_end_room_exists;
+		ft_putendl_fd("End Room already exists", 2);
+	}
+	else if (signal == error_start_room_exists)
+	{
+		// ant_farm->signal = error_start_room_exists;
+		ft_putendl_fd("Start Room already exists", 2);
+	}
+	else if (signal == error_end_room_missing)
+	{
+		// ant_farm->signal = error_end_room_missing;
+		ft_putendl_fd("End Room missing", 2);
+	}
+	else if (signal == error_start_room_missing)
+	{
+		// ant_farm->signal = error_start_room_missing;
+		ft_putendl_fd("Start Room missing", 2);
+	}
+	else if (signal == error_empty_file)
+	{
+		// ant_farm->signal = error_start_room_missing;
+		ft_putendl_fd("Empty File", 2);
+	}
+	else if (signal == error_invalid_intermediate_room)
+	{
+		ft_putendl_fd("Invalid Intermediate Room", 2);
+		// write(2, "Invalid Intermediate Room\n", 26);
+	}
 	else if (signal == error_invalid_intermediate_room)
 	{
 		ft_putendl_fd("Invalid Intermediate Room", 2);
@@ -32,30 +63,35 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 	}
 	else if (signal == error_L_beginning_of_line)
 	{
-		ant_farm->signal = error_L_beginning_of_line;
+		// ant_farm->signal = error_L_beginning_of_line;
 		ft_putendl_fd("L in beginning of line", 2);
 		// write(2, "L in beginning of line\n", 23);
 	}
 	else if (signal == error_empty_line)
 	{
-		ant_farm->signal = error_empty_line;
+		// ant_farm->signal = error_empty_line;
 		ft_putendl_fd("Empty line", 2);
 		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
 	}
 	else if (signal == error_in_link)
 	{
-		ant_farm->signal = error_in_link;
+		// ant_farm->signal = error_in_link;
 		ft_putendl_fd("Error in Link", 2);
 	}
 	else if (signal == error_invalid_ants_amount)
 	{
-		ant_farm->signal = error_invalid_ants_amount;
+		// ant_farm->signal = error_invalid_ants_amount;
 		ft_putendl_fd("Error in Ants Amount", 2);
 	}
 	else if (signal == error_invalid_room_data)
 	{
-		ant_farm->signal = error_invalid_room_data;
-		ft_putendl_fd("Error in Room Data (maybe missing coordinates)", 2);
+		// ant_farm->signal = error_invalid_room_data;
+		ft_putendl_fd("Error in Room Data (missing/more than necessary coordinates)", 2);
+	}
+	else if (signal == error_coord_not_number)
+	{
+		// ant_farm->signal = error_invalid_room_data;
+		ft_putendl_fd("Error in Room Coordinates (coordinates are not numbers)", 2);
 	}
 	// ft_printf("in exit msg signal = %d \n", signal);
 	// ft_printf("error number \t : %d\n", errno);
@@ -67,7 +103,7 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 
 int					ft_exitprogram(t_ant_farm *ant_farm)
 {
-	ft_printf("Exit Function called");
+	// ft_printf("Exit Function called");
 	// ft_printf("exit prgm \n");
 	// print_input_list(ant_farm->input);
 	ft_free_inputlst(ant_farm->input);

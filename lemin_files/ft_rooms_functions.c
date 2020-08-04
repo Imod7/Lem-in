@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:27:31 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 14:39:33 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 {
 	if (!ft_strcmp(line, "##start"))
 	{
-		// ft_printf(ANSI_COLOR_CYAN"Start node\n"ANSI_COLOR_RESET);
+		if (ft_get_start_room(ant_farm->rooms_lst) != NULL)
+		{
+			// ft_printf("start exists %s\n", line);
+			return (ft_exit_msg(ant_farm, error_start_room_exists));
+		}
 		if (ft_save_inputline(ant_farm, line, 1) != SUCCESS)
 			ant_farm->signal = error_invalid_start_room;
 		else
@@ -89,7 +93,12 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	else if (!ft_strcmp(line, "##end"))
 	{
 		// ft_printf(ANSI_COLOR_CYAN"End node\n"ANSI_COLOR_RESET);
-		if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
+		if (ft_get_end_room(ant_farm) != NULL)
+		{
+			// ft_printf("end exists \n");
+			return (ft_exit_msg(ant_farm, error_end_room_exists));
+		}
+		else if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
 			ant_farm->signal = error_invalid_end_room;
 		else
 			ant_farm->signal = SUCCESS;

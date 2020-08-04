@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:04:15 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 14:30:56 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,20 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
 	line_items = ft_strsplit(line, ' ');
+	// if (line_items == NULL)
+	// 	ft_printf("line_items is NULL\n");
 	len = array_size(line_items);
-	if (len < 3)
+	// ft_printf("'%s'  len %d\n", line_items[0], len);
+	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
+	if (len < 3 || len > 3)
 	{
 		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_invalid_room_data));
 	}
 	// room = ft_room_newnode(line_items[0]);
-	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
+	if (ft_is_number(line_items[1]) != SUCCESS || \
+	ft_is_number(line_items[2]) != SUCCESS)
+		return (ft_exit_msg(ant_farm, error_coord_not_number));
 	// ft_printf("save input line  items = '%s' : x '%s'\n", line_items[0], line_items[1]);
 	room = (t_room *)ft_memalloc(sizeof(t_room));
 	room->name = ft_strdup(line_items[0]);
@@ -104,6 +110,8 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	room->position = pos;
 	room->x_coord = ft_atoi(line_items[1]);
 	room->y_coord = ft_atoi(line_items[2]);
+	// if (room->x_coord == 13)
+	// 	exit(0);
 	ant_farm->rooms++;
 	ft_free_string(line_items, 3);
 	return (SUCCESS);
@@ -145,7 +153,9 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 	}
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
+	{
 		return (ant_farm->signal);
+	}
 	else if (link != NULL)
 	{
 		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);

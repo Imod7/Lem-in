@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:24:17 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 12:10:12 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ typedef enum			e_prgm_signal
 	error_in_link = -7,
 	KO = -8,
 	error_invalid_ants_amount = -9,
-	error_invalid_room_data = -10
+	error_invalid_room_data = -10,
+	error_end_room_exists = -11,
+	error_start_room_exists = -12,
+	error_end_room_missing = -13,
+	error_start_room_missing = -14,
+	error_empty_file = -15,
+	error_coord_not_number = -16
 }						t_prgm_signal;
 
 typedef enum		e_position
