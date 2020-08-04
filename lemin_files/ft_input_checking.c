@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:44:59 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 16:07:25 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int				ft_is_number(char *str)
 {
 	int			i;
+	int			sign;
 
 	i = 0;
+	sign = 0;
 	while (str[i] != '\0')
 	{
 		if ((i == 0) && (str[0] == '+' || str[0] == '-'))

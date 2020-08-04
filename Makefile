@@ -6,11 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-<<<<<<< HEAD
-#    Updated: 2020/07/03 10:15:41 by svan-der      ########   odam.nl          #
-=======
-#    Updated: 2020/07/31 05:30:36 by dsaripap      ########   odam.nl          #
->>>>>>> 7cd2bb909661df4d97ba60bb1c79afde3a24a5bc
+#    Updated: 2020/08/03 17:04:04 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 

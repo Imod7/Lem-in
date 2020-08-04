@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:46:05 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 17:24:16 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 	}
 	else if (signal == error_in_link)
 	{
+		ft_printf("line:%s\n", ant_farm->input->line);
 		ant_farm->signal = error_in_link;
 		ft_putendl_fd("Error in Link", 2);
 	}
@@ -68,6 +69,8 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 int					ft_exitprogram(t_ant_farm *ant_farm)
 {
 	ft_printf("Exit Function called");
+	if (ant_farm->signal == -7)
+		ft_printf("signal = %d\n", ant_farm->signal);
 	// ft_printf("exit prgm \n");
 	// print_input_list(ant_farm->input);
 	ft_free_inputlst(ant_farm->input);

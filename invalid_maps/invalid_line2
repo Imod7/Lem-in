@@ -4,7 +4,7 @@ Pdc0 0 0
 ##end
 Hk_8 3 3
 Ibr3 5 5
-Jaj7 8 --8
+Jaj7 8 -8
 Rlk1 11 11
 Enp4 13 13
 Eeb9 16 16
@@ -561,7 +561,7 @@ V_p3 1711 1711
 Bvo9 1713 1713
 Pia3 1716 1716
 Obn1 1719 1719
-Sld2-Jaj7
+Sld2--Jaj7
 Ocb5-V_p3
 Tdf6-Yrc6
 Mwm9-Gaa8

@@ -6,11 +6,27 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/03/30 14:23:52 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/05/02 13:27:49 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 19:30:13 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+
+size_t	ft_strchri(const char *str, char c)
+{
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j++;
+		i++;
+	}
+	return (j);
+}
 
 char		*ft_strchr(const char *s, int c)
 {

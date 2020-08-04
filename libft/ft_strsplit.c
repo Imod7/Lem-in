@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/02 17:50:21 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/05/02 13:33:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 16:29:28 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	fill_array(char **array, char const *s, char c, int words)
 	}
 }
 
-static int	count_words(char const *s, char c)
+int	count_words(char const *s, char c)
 {
 	int		words;
 	int		i;
