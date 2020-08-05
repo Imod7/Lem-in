@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   count_words.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
+/*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/03/30 14:23:52 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/05 17:05:38 by svan-der      ########   odam.nl         */
+/*   Created: 2020/08/05 17:06:54 by svan-der      #+#    #+#                 */
+/*   Updated: 2020/08/05 17:07:44 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
-
-char		*ft_strchr(const char *s, int c)
+int		count_words(char const *s, char c)
 {
-	char	c1;
-	char	*s1;
+	int		words;
 	int		i;
 
-	s1 = (char *)s;
-	c1 = (char)c;
 	i = 0;
-	while (s1[i] != c1 && s1[i] != '\0')
+	words = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
+			words++;
 		i++;
-	if (s1[i] == c)
-		return (&s1[i]);
-	else
-		return (NULL);
+	}
+	if ((s[0] != c) && (s[0] != '\0'))
+		words++;
+	return (words);
 }

@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
+/*   ft_strchri.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
+/*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/03/30 14:23:52 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/05 17:05:38 by svan-der      ########   odam.nl         */
+/*   Created: 2020/08/05 17:05:52 by svan-der      #+#    #+#                 */
+/*   Updated: 2020/08/05 17:06:04 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char		*ft_strchr(const char *s, int c)
+size_t	ft_strchri(const char *str, char c)
 {
-	char	c1;
-	char	*s1;
-	int		i;
+	size_t		i;
+	size_t		j;
 
-	s1 = (char *)s;
-	c1 = (char)c;
 	i = 0;
-	while (s1[i] != c1 && s1[i] != '\0')
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j++;
 		i++;
-	if (s1[i] == c)
-		return (&s1[i]);
-	else
-		return (NULL);
+	}
+	return (j);
 }
