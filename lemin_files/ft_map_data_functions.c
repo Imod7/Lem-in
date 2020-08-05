@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:29 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/30 11:16:10 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/07/31 22:19:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 ** Functions ft_input_newnode & ft_input_addend
 ** are used to save the lines of the input file/map
 ** into a linked list.
-** Should I put here ft_memalloc instead of malloc ?
 */
 
 t_input			*ft_input_newnode(char *line)
 {
 	t_input		*newnode;
 
-	newnode = malloc(sizeof(t_input));
+	newnode = ft_memalloc(sizeof(t_input));
 	if (newnode == NULL)
 		return (NULL);
 	newnode->line = line;

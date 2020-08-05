@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 14:38:09 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 10:58:25 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,23 @@ void				ft_free_paths_ants_lst(t_ant_farm *ant_farm)
 		ft_free_ants_lst(&(curr_node->ants_lst));
 		curr_node->ants_amount = 0;
 		curr_node = curr_node->next;
+	}
+}
+
+/*
+** Function that frees/deletes the mallocked t_lines struct
+** where we save just the number of lines of every path in a
+** doubly linked list.
+*/
+
+void				ft_free_path_lines(t_lines *lines_head)
+{
+	t_lines 		*tmp;
+
+	while (lines_head != NULL)
+	{
+		tmp = lines_head;
+		lines_head = lines_head->next;
+		free(tmp);
 	}
 }

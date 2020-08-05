@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 05:55:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 11:07:25 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,28 @@ static int			read_input(t_ant_farm *ant_farm)
 		i = get_next_line(0, &returned_line);
 		if (i != 0)
 		{
-			// ft_printf("line = %s\n", returned_line);
+			// ft_printf("line = %s , i = %d, j = %d\n", returned_line, i, j);
 			ft_saveinput(ant_farm, returned_line, &j);
 			// ft_printf("signal = %d\n", ant_farm->signal);
 			if (ant_farm->signal == success_ants_saved)
 			{
 				j += 1;
 			}
-			else if ((ant_farm->signal != SUCCESS) && \
-			(ant_farm->signal != CONTINUE))
+			else if (ant_farm->signal != SUCCESS && \
+			ant_farm->signal != CONTINUE)
 			{
 				return (ERROR);
 			}
 		}
+		else if (i == 0 && j == 0)
+		{
+			// ft_printf("empty file \n");
+			// ft_printf("i = %d , j = %d\n", i, j);
+			return (ft_exit_msg(ant_farm, error_empty_file));
+		}
 		// free(returned_line);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int					main(int argc, char **argv)
@@ -51,7 +57,7 @@ int					main(int argc, char **argv)
 	ant_farm = (t_ant_farm *)(ft_memalloc(sizeof(t_ant_farm)));
 	if ((argc > 1) && (set_prgm_options(argv[1], ant_farm) != CONTINUE))
 		return (SUCCESS);
-	if (read_input(ant_farm) == ERROR)
+	if (read_input(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
 	// print_input_list(ant_farm->input);
 	ft_hashing_process(ant_farm);
@@ -63,7 +69,7 @@ int					main(int argc, char **argv)
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	ft_bfs_level_sink(ant_farm);
 	ft_bfs_level_source(ant_farm);
-	ft_print_rooms_list(ant_farm->rooms_lst);
+	// ft_print_rooms_list(ant_farm->rooms_lst);
 	ft_bfs_runs(ant_farm);
 	ft_free_paths_ants_lst(ant_farm);
 	ft_ants_to_paths(ant_farm);

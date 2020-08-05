@@ -6,14 +6,14 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 15:04:22 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 14:30:56 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
 /*
-** This function can return 1 one of the 3 following values :
+** This function can return one of the 3 following values :
 ** ERROR (-1) : returns -1 to main and stops the prgm
 ** CONTINUE (1) : returns 1 to main and continues on the next line
 ** SUCCESS (0) : does not return to main and checks next ifs
@@ -23,21 +23,37 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 {
 	if ((str[0] == '#') && (str[1] != '#'))
 	{
-		// ft_printf(ANSI_COLOR_CYAN"Comment\n"ANSI_COLOR_RESET);
+		// ft_printf("Comment line %s\n", str);
 		return (CONTINUE);
 	}
 	else if (str[0] == 'L')
 	{
-		ant_farm->signal = error_L_beginning_of_line;
-		return (ft_exit_msg(ant_farm->signal));
+		return (ft_exit_msg(ant_farm, error_L_beginning_of_line));
 	}
 	else if (!ft_strcmp(str, ""))
 	{
-		ant_farm->signal = error_empty_line;
+		// ant_farm->signal = error_empty_line;
 		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
-		return (ft_exit_msg(ant_farm->signal));
+		return (ft_exit_msg(ant_farm, error_empty_line));
 	}
 	return (SUCCESS);
+}
+
+/*
+** Function that returns the size of the array
+*/
+
+static size_t		array_size(char **array)
+{
+	size_t 			i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		// ft_printf("array %s\n", array[i]);
+		i += 1;
+	}
+	return (i);
 }
 
 /*
@@ -53,6 +69,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	t_input			*input_line;
 	t_room			*room;
 	char			**line_items;
+	size_t			len;
 
 	// valid = check_if_valid(ant_farm, line);
 	// if (check_if_valid(ant_farm, line) == ERROR)
@@ -71,22 +88,41 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
 	line_items = ft_strsplit(line, ' ');
+	// if (line_items == NULL)
+	// 	ft_printf("line_items is NULL\n");
+	len = array_size(line_items);
+	// ft_printf("'%s'  len %d\n", line_items[0], len);
+	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
+	if (len < 3 || len > 3)
+	{
+		ft_free_string(line_items, len);
+		return (ft_exit_msg(ant_farm, error_invalid_room_data));
+	}
 	// room = ft_room_newnode(line_items[0]);
+	if (ft_is_number(line_items[1]) != SUCCESS || \
+	ft_is_number(line_items[2]) != SUCCESS)
+		return (ft_exit_msg(ant_farm, error_coord_not_number));
+	// ft_printf("save input line  items = '%s' : x '%s'\n", line_items[0], line_items[1]);
 	room = (t_room *)ft_memalloc(sizeof(t_room));
 	room->name = ft_strdup(line_items[0]);
+	// ft_printf("save input room = '%s'\n", line_items[0]);
 	ft_room_addend(&(ant_farm->rooms_lst), room);
 	room->position = pos;
 	room->x_coord = ft_atoi(line_items[1]);
 	room->y_coord = ft_atoi(line_items[2]);
+	// if (room->x_coord == 13)
+	// 	exit(0);
 	ant_farm->rooms++;
-	ft_free_line(line_items, 3);
+	ft_free_string(line_items, 3);
 	return (SUCCESS);
 }
 
 /*
-** First checks if it is a non valid line (returns ERROR)
+** Function ft_saveinput first checks if it is a non valid line (returns ERROR)
 ** or a comment (returns CONTINUE) so it will move on the next line
-** If non of the above, it will continue on the next checks
+** If non of the above, it will continue on the next checks.
+** We keep j as a flag so if ants are saved (j != 0) then it will not
+** check again for the ants_amount (function call ft_check_if_ants_amount)
 */
 
 t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
@@ -108,10 +144,18 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
-	else if (ft_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
+	// ft_printf(" j = %d \n", )
+	else if (*j == 0 && ft_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
 		return (ant_farm->signal);
+	else if (*j != 0 && ft_is_number(line) == SUCCESS)
+	{
+		// ft_printf(" here it is \n");
+		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
+	}
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
+	{
 		return (ant_farm->signal);
+	}
 	else if (link != NULL)
 	{
 		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);

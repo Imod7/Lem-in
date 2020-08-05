@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 05:26:22 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/01 11:38:03 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,15 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 	// t_hash_item		*temp_item;
 	t_room			*temp;
 
+	ht_item = NULL;
 	temp = ant_farm->rooms_lst;
 	ant_farm->hash_table = ft_create_hash_table(ant_farm->rooms);
 	while (temp != NULL)
 	{
 		// ft_printf("Room : '%s'\n", temp->name);
 		// ht_item = ft_memalloc(sizeof(ht_item));
-		if (ht_item == NULL)
-			return (-1);
+		// if (ht_item == NULL)
+		// 	return (-1);
 		key = ft_hash_function(temp->name, ant_farm->hash_table->size);
 		if (ant_farm->hash_table->array[key] == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 06:23:11 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 12:10:12 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,15 @@ typedef enum			e_prgm_signal
 	error_invalid_end_room = -5,
 	error_invalid_intermediate_room = -6,
 	error_in_link = -7,
-	KO = -8
+	KO = -8,
+	error_invalid_ants_amount = -9,
+	error_invalid_room_data = -10,
+	error_end_room_exists = -11,
+	error_start_room_exists = -12,
+	error_end_room_missing = -13,
+	error_start_room_missing = -14,
+	error_empty_file = -15,
+	error_coord_not_number = -16
 }						t_prgm_signal;
 
 typedef enum		e_position
@@ -60,6 +68,12 @@ typedef enum			e_option
 	OPTION_C = (1 << 3)
 }						t_option;
 
+/*
+** Struct t_lines saves the number of lines
+** each path requires in order to compare
+** more easily and choose the more efficient one.
+*/
+
 typedef struct			s_lines
 {
 	size_t				lines;
@@ -68,7 +82,8 @@ typedef struct			s_lines
 }						t_lines;
 
 /*
-** Struct t_ant_farm
+** Struct t_ant_farm with all the main information
+** of the program like the rooms, neighbors, ants and paths.
 */
 
 typedef struct			s_ant_farm
@@ -192,6 +207,7 @@ typedef struct			s_paths
 
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
+int						ft_is_number(char *str);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 											char *link);
@@ -206,7 +222,7 @@ void					delete_dead_ends(t_hash_table *hash_table);
 ** Functions to Exit the program
 */
 
-int						ft_exit_msg(t_prgm_signal signal);
+int						ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal);
 int						ft_exitprogram(t_ant_farm *ant_farm);
 
 /*
@@ -248,14 +264,13 @@ void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 void					ft_free_inputlst(t_input *input_lst);
 void					ft_free_roomslst(t_room *rooms_lst);
 void					ft_free_hashtable(t_hash_table *hash_table);
-void					ft_free_line(char **line_items, size_t size);
+void					ft_free_string(char **string, size_t size);
 void					ft_free_paths(t_ant_farm *ant_farm);
 void					ft_free_pathlst(t_path_list *path_lst);
 // void					ft_path_del_last(t_ant_farm *ant_farm);
 void					ft_free_path_on_pathid(t_ant_farm *ant_farm, \
 												int path_id);
-t_paths					*ft_mergesort(t_ant_farm *ant_farm, \
-									t_paths **completelist);
+void					ft_free_path_lines(t_lines *lines_head);
 
 /*
 ** Functions related to the hashing process and
@@ -309,6 +324,8 @@ t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);
 void					ft_sort_paths_on_size(t_ant_farm *ant_farm);
+t_paths					*ft_mergesort(t_ant_farm *ant_farm, \
+									t_paths **completelist);
 size_t					ft_path_size(t_paths *lst);
 void					check_if_valid_path(t_ant_farm *ant_farm);
 
@@ -340,8 +357,8 @@ int						ft_sort_neighbors(t_neighbor **completelist, \
 ** of cutting an edge
 */
 
-size_t				ft_check_cut_edge(t_ant_farm *ant_farm, \
-									t_neighbor *neighbors, t_room *temp);
+size_t					ft_check_cut_edge(t_ant_farm *ant_farm, \
+										t_neighbor *neighbors, t_room *temp);
 
 /*
 ** Functions related to ants
