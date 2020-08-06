@@ -6,7 +6,7 @@
 #    By: dsaripap <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/27 14:38:43 by dsaripap      #+#    #+#                  #
-#    Updated: 2020/04/29 16:29:45 by dominique     ########   odam.nl          #
+#    Updated: 2020/08/05 17:12:59 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 NC=\033[0m # No Color
 
-SRC = ft_atoi.c \
+SRC = count_words.c\
+	  ft_atoi.c \
 	  ft_atoll.c \
 	  ft_bzero.c \
 	  ft_del.c \
@@ -66,6 +67,7 @@ SRC = ft_atoi.c \
 	  ft_strncat.c \
 	  ft_strlcat.c \
 	  ft_strchr.c \
+	  ft_strchri.c\
 	  ft_strrchr.c \
 	  ft_strstr.c \
 	  ft_strnstr.c \
@@ -132,7 +134,7 @@ $(NAME): $(OBJLIBFT) $(OBJPRINTF)
 # Object Files of printf
 $(PRINTF_OBJDIR)/%.o: $(OBJDIR)/%.c $(INCL)
 	@mkdir -p $(PRINTF_OBJDIR)
-	@$(CC) -c -o $@ $<
+	# @$(CC) -c -o $@ $<
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 # Object Files of libft

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 14:39:33 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 19:49:02 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 	return (temp);
 }
 
+
 /*
 ** Function that checks if the line that we check from the input file
 ** (with the map data) is a start / end  / intermediate room.
@@ -78,6 +79,9 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 										char *link)
 {
+	int ret;
+
+	ret = -1;
 	if (!ft_strcmp(line, "##start"))
 	{
 		if (ft_get_start_room(ant_farm->rooms_lst) != NULL)
@@ -106,11 +110,21 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	else if (link == NULL)
 	{
 		// ft_printf(ANSI_COLOR_CYAN"Intermediate room\n"ANSI_COLOR_RESET);
+		// if (ft_strchri(line, '-') && ft_strequ(line, "Jaj7 8 --8"))
+		// {
+		// 	ret = ft_save_inputline(ant_farm, line, 0);
+		// 	ft_printf("ret is:%i\n", ret);
+		// 	ft_printf("ptr:%p\n", link);
+		// 	ft_printf("%i\n", ant_farm->signal);
+		// 	exit(0);
+		// }
 		if (ft_save_inputline(ant_farm, line, 0) != SUCCESS)
+		{
 			ant_farm->signal = error_invalid_intermediate_room;
+			ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
+		}
 		else
 			ant_farm->signal = SUCCESS;
-		// ft_print_rooms_list(ant_farm->rooms_lst);
 	}
 	else
 		ant_farm->signal = CONTINUE;

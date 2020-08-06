@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   ft_strchri.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <marvin@codam.nl>                   +#+                     */
+/*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/03/25 15:40:40 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/04/24 18:25:20 by svan-der      ########   odam.nl         */
+/*   Created: 2020/08/05 17:05:52 by svan-der      #+#    #+#                 */
+/*   Updated: 2020/08/05 17:06:04 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void				ft_bzero(void *s, size_t len)
+size_t	ft_strchri(const char *str, char c)
 {
-	size_t			i;
-	unsigned char	*str;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
-	str = (unsigned char *)s;
-	while (i < len)
+	j = 0;
+	while (str[i])
 	{
-		str[i] = 0;
+		if (str[i] == c)
+			j++;
 		i++;
 	}
+	return (j);
 }

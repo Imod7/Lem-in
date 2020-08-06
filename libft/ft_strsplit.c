@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/02 17:50:21 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/05/02 13:33:48 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/05 17:06:42 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ static void	fill_array(char **array, char const *s, char c, int words)
 			array[j] = ft_strsub(s, i - len - 1, len);
 		j++;
 	}
-}
-
-static int	count_words(char const *s, char c)
-{
-	int		words;
-	int		i;
-
-	i = 0;
-	words = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			words++;
-		i++;
-	}
-	if ((s[0] != c) && (s[0] != '\0'))
-		words++;
-	return (words);
 }
 
 char		**ft_strsplit(char const *s, char c)

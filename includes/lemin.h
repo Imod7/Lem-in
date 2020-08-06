@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 12:10:12 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 20:44:33 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ typedef struct			s_paths
 	size_t				ants_amount;
 	size_t				run;
 	struct s_path_list	*path_lst;
+	struct s_path_list  *tail;
 	struct s_ants		*ants_lst;
 	struct s_paths		*next;
 	struct s_paths		*prev;
@@ -208,6 +209,8 @@ typedef struct			s_paths
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 										size_t *j);
 int						ft_is_number(char *str);
+int						check_argv(int *signal, char *str);
+int						add_num(char *str, int sign);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 											char *link);
@@ -364,6 +367,7 @@ size_t					ft_check_cut_edge(t_ant_farm *ant_farm, \
 ** Functions related to ants
 */
 
+void					ft_add_ants_to_list(t_ants **lst, t_ants *new);
 int						ft_ants_to_paths(t_ant_farm *ant_farm);
 int						choose_ant(t_paths *path, int ant_id);
 void					ft_move_ants(t_ant_farm *ant_farm);

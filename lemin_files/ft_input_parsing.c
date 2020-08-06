@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 14:30:56 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 20:58:51 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
 		return (ft_exit_msg(ant_farm, error_empty_line));
 	}
+	else if (str[0] == ' ')
+		return (ft_exit_msg(ant_farm, ERROR));
 	return (SUCCESS);
 }
 
@@ -66,6 +68,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 									t_position pos)
 {
 	int				i;
+	int				space;
 	t_input			*input_line;
 	t_room			*room;
 	char			**line_items;
@@ -87,13 +90,15 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		input_line = ft_input_newnode(line);
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
+	space = ft_strchri(line, ' ');
+	i = ft_strchri(line, '-');
 	line_items = ft_strsplit(line, ' ');
 	// if (line_items == NULL)
 	// 	ft_printf("line_items is NULL\n");
 	len = array_size(line_items);
 	// ft_printf("'%s'  len %d\n", line_items[0], len);
 	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
-	if (len < 3 || len > 3)
+	if (len < 3 || i > 1 || len > 3 || space > 2)
 	{
 		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_invalid_room_data));
@@ -108,10 +113,10 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	// ft_printf("save input room = '%s'\n", line_items[0]);
 	ft_room_addend(&(ant_farm->rooms_lst), room);
 	room->position = pos;
-	room->x_coord = ft_atoi(line_items[1]);
-	room->y_coord = ft_atoi(line_items[2]);
-	// if (room->x_coord == 13)
-	// 	exit(0);
+	room->x_coord = check_argv(&ant_farm->signal, line_items[1]);
+	room->y_coord = check_argv(&ant_farm->signal, line_items[2]);
+	if (ant_farm->signal < 0)
+		return (ft_exit_msg(ant_farm, error_invalid_room_data));
 	ant_farm->rooms++;
 	ft_free_string(line_items, 3);
 	return (SUCCESS);
@@ -129,8 +134,10 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 {
 	char			*link;
 	t_input			*input_line;
+	int				ret;
 
-	link = ft_strchr(line, '-');
+	ret = count_words(line, ' ');
+	link = (ret == 1) ? ft_strchr(line, '-') : NULL;
 	input_line = ft_input_newnode(line);
 	ft_input_addend(&(ant_farm->input), input_line);
 	if (check_if_valid(ant_farm, line) != SUCCESS)
@@ -141,6 +148,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if ((line[0] == '#') && (line[1] == '#') && \
 	(!(!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))))
 	{
+		// ft_printf("line:%s\n", line);
 		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
@@ -150,7 +158,18 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (*j != 0 && ft_is_number(line) == SUCCESS)
 	{
 		// ft_printf(" here it is \n");
+		ft_printf("invalid ants amount\n");
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
+	}
+	else if (link)
+	{
+		ret = ft_strchri(line, '-');
+		if (ret != 1)
+		{
+			ant_farm->signal = error_in_link;
+			ft_printf("error found:%s\n", line);
+			return (ft_exit_msg(ant_farm, error_in_link));
+		}
 	}
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
 	{
@@ -158,7 +177,8 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	}
 	else if (link != NULL)
 	{
-		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf("line:%s\n", line);
+		ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 14:19:59 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/04 20:08:02 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 	{
 		// ant_farm->signal = error_start_room_missing;
 		ft_putendl_fd("Empty File", 2);
-	}
-	else if (signal == error_invalid_intermediate_room)
-	{
-		ft_putendl_fd("Invalid Intermediate Room", 2);
-		// write(2, "Invalid Intermediate Room\n", 26);
 	}
 	else if (signal == error_invalid_intermediate_room)
 	{
