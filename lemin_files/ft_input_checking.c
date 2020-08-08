@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/07 18:43:34 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 11:43:19 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int		check_argv(int *signal, char *str)
 		{
 			if (str[i] == '-')
 				sign = -1;
+			if (!ft_isdigit(str[i + 1]))
+				return (ERROR);
 			i++;
 		}
 	while (str[i])
