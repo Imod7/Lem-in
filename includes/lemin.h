@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 11:42:16 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 12:00:51 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ int						ft_save_neighbors(t_ant_farm *ant_farm);
 void					delete_dead_ends(t_hash_table *hash_table);
 int						ft_check_links(t_ant_farm *ant_farm);
 size_t					array_size(char **array);
+int						ft_check_str_length(char *str);
 
 /*
 ** Functions to Exit the program
