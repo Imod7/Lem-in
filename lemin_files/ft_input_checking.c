@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/07 15:52:54 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/08 12:00:02 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,57 @@ int				ft_is_number(char *str)
 int			ft_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
 {
 	ant_farm->signal = CONTINUE;
-	// ft_printf("Ants amount : '%s'\n", line);
+	// ft_printf("line : %s j : %d Ants amount : '%d'\n", line, j, ant_farm->ants);
 	if (ant_farm->ants != 0 || ft_is_number(line) != SUCCESS || j != 0)
 	{
+		// ft_printf("--- Ants amount : '%s'\n", line);
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 	}
 	else
 	{
-		ant_farm->ants = ft_atoi(line);
+		if (ft_check_str_length(line) == ERROR)
+			return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
+		ant_farm->ants = ft_atoll(line);
+		// ft_printf("____Ants amount : '%lld' \n", ant_farm->ants);
+		if (ant_farm->ants <= 0 || ant_farm->ants < -2147483648 || \
+		ant_farm->ants > 2147483647)
+		{
+			// ft_printf("____Ants amount : '%d' \n", ant_farm->ants);
+			return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
+		}
 		// ft_printf(ANSI_COLOR_CYAN"Ants=%d\n"ANSI_COLOR_RESET, ant_farm->ants);
 		ant_farm->signal = success_ants_saved;
 	}
 	return (ant_farm->signal);
+}
+
+/*
+** Function that checks if we have no links at all
+*/
+
+int					ft_check_links(t_ant_farm *ant_farm)
+{
+	t_hash_item		**hash_item;
+	size_t			i;
+
+	hash_item = ant_farm->hash_table->array;
+	i = 0;
+	while (i < ant_farm->hash_table->size)
+	{
+		if (hash_item[i] != NULL)
+		{
+			if (hash_item[i]->room->position == START && \
+			hash_item[i]->room->neighbors == NULL)
+				return (ft_exit_msg(ant_farm, error_start_room_con));
+			if (hash_item[i]->room->position == END && \
+			hash_item[i]->room->neighbors == NULL)
+				return (ft_exit_msg(ant_farm, error_end_room_con));
+			else if (hash_item[i]->room->neighbors != NULL)
+			{
+				return (SUCCESS);
+			}
+		}
+		i += 1;
+	}
+	return (ft_exit_msg(ant_farm, error_no_links));
 }

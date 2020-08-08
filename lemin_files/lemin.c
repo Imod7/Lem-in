@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:37:15 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/08 11:45:13 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int			read_input(t_ant_farm *ant_farm)
 			// ft_printf("line = %s , i = %d, j = %d\n", returned_line, i, j);
 			ft_saveinput(ant_farm, returned_line, &j);
 			// if (ant_farm->signal == -7)
-			// 	ft_printf("signal = %d\n", ant_farm->signal);
+			// ft_printf("signal = %d\n", ant_farm->signal);
 			if (ant_farm->signal == success_ants_saved)
 			{
 				j += 1;
@@ -65,6 +65,12 @@ int					main(int argc, char **argv)
 	if (read_input(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
 	// print_input_list(ant_farm->input);
+	// ft_print_rooms_list(ant_farm->rooms_lst);
+	if (ant_farm->rooms_lst == NULL)
+	{
+		ft_exit_msg(ant_farm, error_no_rooms);
+		return (ft_exitprogram(ant_farm));
+	}
 	ft_hashing_process(ant_farm);
 	// print_hash_table(ant_farm->hash_table);
 	if (ft_save_neighbors(ant_farm) != SUCCESS)
@@ -72,9 +78,10 @@ int					main(int argc, char **argv)
 	// ft_print_neighbors_list(ant_farm->hash_table);
 	// delete_dead_ends(ant_farm->hash_table);
 	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
+	if (ft_check_links(ant_farm) != SUCCESS)
+		return (ft_exitprogram(ant_farm));
 	ft_bfs_level_sink(ant_farm);
 	ft_bfs_level_source(ant_farm);
-	// ft_print_rooms_list(ant_farm->rooms_lst);
 	ft_bfs_runs(ant_farm);
 	ft_free_paths_ants_lst(ant_farm);
 	ft_ants_to_paths(ant_farm);
