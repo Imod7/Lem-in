@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:44 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/02 14:06:35 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/07 19:46:11 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int					ft_all_ants_in_same_path(t_ant_farm *ant_farm)
 {
 	t_paths			*tmp;
 	t_ants			*ant;
-	size_t			i;
+	long long		i;
 
 	i = 1;
 	tmp = ant_farm->paths;
@@ -114,7 +114,7 @@ void				ft_compare_sizes(t_ant_farm *ant_farm, t_paths **cur, \
 int					ft_ants_to_paths(t_ant_farm *ant_farm)
 {
 	t_paths			*tmp;
-	size_t			i;
+	long long		i;
 
 	// ft_printf("\nAssigning Ants to Paths\n");
 	// ft_printf("Number of ants : %d \n", ant_farm->ants);

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 20:44:33 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/07 19:09:36 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ typedef enum			e_prgm_signal
 	error_end_room_missing = -13,
 	error_start_room_missing = -14,
 	error_empty_file = -15,
-	error_coord_not_number = -16
+	error_coord_not_number = -16,
+	error_no_links = -17,
+	error_no_rooms = -18,
+	error_start_room_con = -19,
+	error_end_room_con = -20
 }						t_prgm_signal;
 
 typedef enum		e_position
@@ -88,7 +92,7 @@ typedef struct			s_lines
 
 typedef struct			s_ant_farm
 {
-	size_t				ants;
+	long long			ants;
 	size_t				rooms;
 	struct s_hash_table	*hash_table;
 	struct s_input		*input;
@@ -220,6 +224,8 @@ int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 											t_position pos);
 int						ft_save_neighbors(t_ant_farm *ant_farm);
 void					delete_dead_ends(t_hash_table *hash_table);
+int						ft_check_links(t_ant_farm *ant_farm);
+size_t					array_size(char **array);
 
 /*
 ** Functions to Exit the program
@@ -321,8 +327,8 @@ void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_sizes(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
 // void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
-void					ft_save_room_to_dfs_path(t_path_list **path_lst, \
-												t_room *room);
+// void					ft_save_room_to_dfs_path(t_path_list **path_lst, 
+												// t_room *room);
 t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);

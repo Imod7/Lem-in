@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 20:58:51 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/07 20:21:46 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,6 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 }
 
 /*
-** Function that returns the size of the array
-*/
-
-static size_t		array_size(char **array)
-{
-	size_t 			i;
-
-	i = 0;
-	while (array[i] != NULL)
-	{
-		// ft_printf("array %s\n", array[i]);
-		i += 1;
-	}
-	return (i);
-}
-
-/*
 ** Saves the line as it is in the linked list ant_farm->input
 ** Saves also the room in the linked list ant_farm->rooms
 ** CAUTION : remember to free memory allocated from ft_strsplit
@@ -84,7 +67,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 			return (0);
 		if (check_if_valid(ant_farm, line) != SUCCESS)
 		{
-			// ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
+			ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
 			return (ant_farm->signal);
 		}
 		input_line = ft_input_newnode(line);
@@ -148,8 +131,8 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if ((line[0] == '#') && (line[1] == '#') && \
 	(!(!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))))
 	{
-		// ft_printf("line:%s\n", line);
-		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
+		ft_printf("line:%s\n", line);
+		ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
 	// ft_printf(" j = %d \n", )
@@ -157,17 +140,18 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 		return (ant_farm->signal);
 	else if (*j != 0 && ft_is_number(line) == SUCCESS)
 	{
-		// ft_printf(" here it is \n");
-		ft_printf("invalid ants amount\n");
+		// ft_printf("invalid ants amount\n");
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 	}
 	else if (link)
 	{
+		// ft_printf("line:%s\n", line);
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
 		ret = ft_strchri(line, '-');
 		if (ret != 1)
 		{
 			ant_farm->signal = error_in_link;
-			ft_printf("error found:%s\n", line);
+			// ft_printf("error found:%s\n", line);
 			return (ft_exit_msg(ant_farm, error_in_link));
 		}
 	}
@@ -178,7 +162,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (link != NULL)
 	{
 		// ft_printf("line:%s\n", line);
-		ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
 	}
 	return (SUCCESS);
 }

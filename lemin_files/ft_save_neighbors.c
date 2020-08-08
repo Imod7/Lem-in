@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 09:23:01 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/07 19:20:46 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ static int			ft_retrieve_and_save(t_ant_farm *ant_farm, char *room_a, \
 	room_item = ft_retrieve_hash_item(ant_farm->hash_table, room_a);
 	// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 	neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, room_b);
-	if (neighbor_item == NULL)
+	if (room_item == NULL || neighbor_item == NULL)
+	{
+		// ft_printf("retrieve and save : %s %s\n", room_a, room_b);
 		return (ft_exit_msg(ant_farm, error_in_link));
+	}
 	// ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
-	// neighbor = ft_neighbor_newnode(neighbor_item);
 	neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
 	neighbor->hash_item = neighbor_item;
 	ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
@@ -61,51 +63,36 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 {
 	t_input			*temp;
 	char			**array;
-	// unsigned int	key_room;
-	// char			*neighbor_name;
-	// t_neighbor		*neighbor;
-	// t_hash_item		*room_item;
-	// t_hash_item		*neighbor_item;
+	size_t			len;
 
+	// ft_printf("save neighbors function \n");
 	temp = ant_farm->input;
+	len = 0;
 	while (temp != NULL)
 	{
-		if (ft_strchr(temp->line, '-') != NULL)
+		if (ft_strchr(temp->line, '-') != NULL && temp->line[0] != '#')
 		{
+			if (ft_get_start_room(ant_farm->rooms_lst) == NULL)
+			{
+				// ft_printf("start exists \n");
+				return (ft_exit_msg(ant_farm, error_start_room_missing));
+			}
 			if (ft_get_end_room(ant_farm) == NULL)
 			{
 				// ft_printf("end exists \n");
 				return (ft_exit_msg(ant_farm, error_end_room_missing));
 			}
-			if (ft_get_start_room(ant_farm->rooms_lst) == NULL)
-			{
-				// ft_printf("end exists \n");
-				return (ft_exit_msg(ant_farm, error_start_room_missing));
-			}
 			// ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
 			array = ft_strsplit(temp->line, '-');
-			ft_retrieve_and_save(ant_farm, array[0], array[1]);
-			ft_retrieve_and_save(ant_farm, array[1], array[0]);
-			// room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);
-			// // ft_printf("Retrieved Room '%s'\n", room_item->room_name);
-			// neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
-			// if (neighbor_item == NULL)
-			// 	return (ft_exit_msg(error_in_link));
-			// // ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
-			// // neighbor = ft_neighbor_newnode(neighbor_item);
-			// neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
-			// neighbor->hash_item = neighbor_item;
-			// ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
-			// if (neighbor_item == NULL)
-			// 	return (ft_exit_msg(error_in_link));
-			// room_item = ft_retrieve_hash_item(ant_farm->hash_table, array[1]);
-			// // ft_printf("Retrieved Room '%s'\n", room_item->room_name);
-			// neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, array[0]);
-			// // ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
-			// neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
-			// neighbor->hash_item = neighbor_item;
-			// // neighbor = ft_neighbor_newnode(neighbor_item);
-			// ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
+			if (ft_retrieve_and_save(ant_farm, array[0], array[1]) != SUCCESS)
+			{
+				ft_printf("save neighbors : signal %d, %s len %d\n", ant_farm->signal, array[0], len);
+				len = array_size(array);
+				ft_free_string(array, len);
+				return (ant_farm->signal);
+			}
+			if (ft_retrieve_and_save(ant_farm, array[1], array[0]) != SUCCESS)
+				return (ant_farm->signal);
 			ft_free_string(array, 2);
 		}
 		temp = temp->next;

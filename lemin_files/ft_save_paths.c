@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 20:39:18 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/07 17:07:08 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,27 +155,27 @@ t_paths				*ft_create_path(t_ant_farm *ant_farm)
 ** room in the path
 */
 
-void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
-											t_room *room)
-{
-	t_path_list		*path;
-	t_path_list		*last_node;
-	t_path_list		*prevlast_node;
+// void				ft_save_room_to_dfs_path(t_path_list **path_lst, \
+// 											t_room *room)
+// {
+// 	t_path_list		*path;
+// 	t_path_list		*last_node;
+// 	t_path_list		*prevlast_node;
 
-	last_node = *path_lst;
-	prevlast_node = *path_lst;
-	// ft_printf("Saving room %s to path\n", room->name);
-	while (last_node != NULL)
-	{
-		prevlast_node = last_node;
-		// ft_printf("prev room  %s \n", prevlast_node->room->name);
-		last_node = last_node->next;
-	}
-	path = (t_path_list *)ft_memalloc(sizeof(t_path_list));
-	path->room = room;
-	if (prevlast_node != NULL)
-		path->room->parent = prevlast_node->room;
-	else
-		path->room->parent = NULL;
-	ft_pathlst_addend(path_lst, path);
-}
+// 	last_node = *path_lst;
+// 	prevlast_node = *path_lst;
+// 	// ft_printf("Saving room %s to path\n", room->name);
+// 	while (last_node != NULL)
+// 	{
+// 		prevlast_node = last_node;
+// 		// ft_printf("prev room  %s \n", prevlast_node->room->name);
+// 		last_node = last_node->next;
+// 	}
+// 	path = (t_path_list *)ft_memalloc(sizeof(t_path_list));
+// 	path->room = room;
+// 	if (prevlast_node != NULL)
+// 		path->room->parent = prevlast_node->room;
+// 	else
+// 		path->room->parent = NULL;
+// 	ft_pathlst_addend(path_lst, path);
+// }
