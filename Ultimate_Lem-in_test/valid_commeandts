@@ -1,0 +1,18 @@
+# map 01
+2
+# the rooms
+bla 3 646
+##HELLO
+##start
+blu -54 20
+some_room 32 5
+##end
+3 9 24
+devil 20 20
+room 10 3
+# the links
+bla-some_room
+room-3
+devil-3
+some_room-room
+blu-some_room

@@ -1,0 +1,13 @@
+# this file does not have 2 starts, the first is start00 so it is ignored
+3
+##start00
+start 4 4
+##end
+end 7 7
+##start
+a 8 8
+b 10 10
+start-a
+b-a
+end-a
+b-end

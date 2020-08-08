@@ -1,0 +1,11 @@
+#this is a map that its comment has a dash blou-bla
+132
+##start
+a 0 0
+##end
+b 3 3
+c 5 5
+d 8 8
+e 11 11
+a-b
+c-d

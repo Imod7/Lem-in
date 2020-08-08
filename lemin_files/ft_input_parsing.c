@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 11:43:58 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 15:50:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		if (check_if_valid(ant_farm, line) != SUCCESS)
 		{
 			ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
+			free(line);
 			return (ant_farm->signal);
 		}
 		input_line = ft_input_newnode(line);
@@ -131,8 +132,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if ((line[0] == '#') && (line[1] == '#') && \
 	(!(!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))))
 	{
-		ft_printf("line:%s\n", line);
-		ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"Invalid command\n"ANSI_COLOR_RESET);
 		return (CONTINUE);
 	}
 	// ft_printf(" j = %d \n", )
@@ -146,7 +146,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (link)
 	{
 		// ft_printf("line:%s\n", line);
-		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link %s \n"ANSI_COLOR_RESET, line);
 		ret = ft_strchri(line, '-');
 		if (ret != 1)
 		{
@@ -157,6 +157,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	}
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
 	{
+		// ft_printf("This is a room - line:%s\n", line);
 		return (ant_farm->signal);
 	}
 	else if (link != NULL)

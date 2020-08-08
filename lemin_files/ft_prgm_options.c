@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 14:22:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/07 17:34:58 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 15:04:06 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int				set_prgm_options(char *argv, t_ant_farm *ant_farm)
 				ant_farm->options |= OPTION_M;
 			else if (argv[i] == 'a')
 				ant_farm->options |= OPTION_A;
-			else if (argv[i] == 'c')
-				ant_farm->options |= OPTION_C;
+			else if (argv[i] == 'l')
+				ant_farm->options |= OPTION_L;
 			else
 				return (ft_print_usage(ant_farm, ERROR));
 			i += 1;

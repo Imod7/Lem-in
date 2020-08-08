@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 11:45:13 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 17:18:28 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,13 @@ int					main(int argc, char **argv)
 		return (ft_exitprogram(ant_farm));
 	ft_bfs_level_sink(ant_farm);
 	ft_bfs_level_source(ant_farm);
-	ft_bfs_runs(ant_farm);
+	if (ft_bfs_runs(ant_farm) != SUCCESS)
+		return (ft_exitprogram(ant_farm));
 	ft_free_paths_ants_lst(ant_farm);
 	ft_ants_to_paths(ant_farm);
-	// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-	// ft_printf(" ****** BEST RUN %d - Lines needed %d ********** \n", ant_farm->best_run, ant_farm->lines);
-	// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
+	ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
+	ft_printf(" ****** BEST RUN %d - Lines needed %d ********** \n", ant_farm->best_run, ant_farm->lines);
+	ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
 	// ft_print_paths(ant_farm);
 	// ft_print_paths_sizes(ant_farm);
 	// ft_bfs_again(ant_farm, 2);
@@ -108,6 +109,9 @@ int					main(int argc, char **argv)
 	// else
 	// 	ft_printf("its set %d\n", ant_farm->options & OPTION_M);
 	ft_move_ants(ant_farm);
+	if (ant_farm->options & OPTION_L)
+		ft_printf(ANSI_COLOR_BLUE"\nNumber of lines %d\n"ANSI_COLOR_RESET, \
+		ant_farm->lines);
 	// ft_print_paths_list(ant_farm);
 	// ft_print_paths_list_detail(ant_farm);
 	ft_exitprogram(ant_farm);

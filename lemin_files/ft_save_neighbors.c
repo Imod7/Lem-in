@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/07 19:20:46 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 15:50:59 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 	len = 0;
 	while (temp != NULL)
 	{
-		if (ft_strchr(temp->line, '-') != NULL && temp->line[0] != '#')
+		if (ft_strchr(temp->line, '-') != NULL && temp->line[0] != '#' && \
+		ft_strchr(temp->line, ' ') == NULL)
 		{
 			if (ft_get_start_room(ant_farm->rooms_lst) == NULL)
 			{
@@ -84,10 +85,16 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 			}
 			// ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
 			array = ft_strsplit(temp->line, '-');
+			len = array_size(array);
+			// ft_printf("save neighbors : %s len %d\n", array[0], len);
+			if (len < 2 || len > 2)
+			{
+				ft_free_string(array, len);
+				return (ft_exit_msg(ant_farm, error_in_link));
+			}
 			if (ft_retrieve_and_save(ant_farm, array[0], array[1]) != SUCCESS)
 			{
-				ft_printf("save neighbors : signal %d, %s len %d\n", ant_farm->signal, array[0], len);
-				len = array_size(array);
+				// ft_printf("save neighbors : signal %d, %s len %d\n", ant_farm->signal, array[0], len);
 				ft_free_string(array, len);
 				return (ant_farm->signal);
 			}

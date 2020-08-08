@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 12:00:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 17:10:34 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum			e_prgm_signal
 	error_no_links = -17,
 	error_no_rooms = -18,
 	error_start_room_con = -19,
-	error_end_room_con = -20
+	error_end_room_con = -20,
+	error_no_solution = -21
 }						t_prgm_signal;
 
 typedef enum		e_position
@@ -69,7 +70,7 @@ typedef enum			e_option
 	OPTION_U = (1 << 0),
 	OPTION_M = (1 << 1),
 	OPTION_A = (1 << 2),
-	OPTION_C = (1 << 3)
+	OPTION_L = (1 << 3)
 }						t_option;
 
 /*
@@ -81,6 +82,7 @@ typedef enum			e_option
 typedef struct			s_lines
 {
 	size_t				lines;
+	size_t				run;
 	struct s_lines		*next;
 	struct s_lines		*prev;
 }						t_lines;
@@ -297,7 +299,7 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 ** Functions related to BFS exploration of the graph
 */
 
-void					ft_bfs_runs(t_ant_farm *ant_farm);
+int						ft_bfs_runs(t_ant_farm *ant_farm);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
 void					ft_bfs_level_sink(t_ant_farm *ant_farm);
