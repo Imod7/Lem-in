@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 20:58:51 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/05 20:05:37 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (*j != 0 && ft_is_number(line) == SUCCESS)
 	{
 		// ft_printf(" here it is \n");
-		ft_printf("invalid ants amount\n");
+		// ft_printf("invalid ants amount\n");
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 	}
 	else if (link)
@@ -167,7 +167,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 		if (ret != 1)
 		{
 			ant_farm->signal = error_in_link;
-			ft_printf("error found:%s\n", line);
+			// ft_printf("error found:%s\n", line);
 			return (ft_exit_msg(ant_farm, error_in_link));
 		}
 	}
@@ -178,7 +178,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (link != NULL)
 	{
 		// ft_printf("line:%s\n", line);
-		ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
 	}
 	return (SUCCESS);
 }

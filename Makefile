@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/03 17:04:04 by svan-der      ########   odam.nl          #
+#    Updated: 2020/08/07 16:28:22 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_LEMIN =	\
 		ft_bfs_levels.c \
 		ft_bfs_reset.c \
 		ft_bfs_sink.c \
+		ft_check_dup_rooms.c\
 		ft_dead_ends.c \
 		ft_free_lists_tables.c \
 		ft_free_other.c \

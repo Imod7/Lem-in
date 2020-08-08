@@ -6,7 +6,7 @@
 #    By: dsaripap <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/27 14:38:43 by dsaripap      #+#    #+#                  #
-#    Updated: 2020/08/05 17:12:59 by svan-der      ########   odam.nl          #
+#    Updated: 2020/08/07 14:06:28 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,7 @@ $(NAME): $(OBJLIBFT) $(OBJPRINTF)
 # Object Files of printf
 $(PRINTF_OBJDIR)/%.o: $(OBJDIR)/%.c $(INCL)
 	@mkdir -p $(PRINTF_OBJDIR)
-	# @$(CC) -c -o $@ $<
+	@$(CC) -c -o $@ $<
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 # Object Files of libft

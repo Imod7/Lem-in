@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/04 19:49:02 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/05 20:06:15 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		if (ft_save_inputline(ant_farm, line, 0) != SUCCESS)
 		{
 			ant_farm->signal = error_invalid_intermediate_room;
-			ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
+			// ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
 		}
 		else
 			ant_farm->signal = SUCCESS;
