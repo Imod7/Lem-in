@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 11:43:58 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 16:32:28 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	// room = ft_room_newnode(line_items[0]);
 	if (ft_is_number(line_items[1]) != SUCCESS || \
 	ft_is_number(line_items[2]) != SUCCESS)
+	{
+		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_coord_not_number));
+	}
 	// ft_printf("save input line  items = '%s' : x '%s'\n", line_items[0], line_items[1]);
 	room = (t_room *)ft_memalloc(sizeof(t_room));
 	room->name = ft_strdup(line_items[0]);
@@ -99,9 +102,12 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	room->x_coord = check_argv(&ant_farm->signal, line_items[1]);
 	room->y_coord = check_argv(&ant_farm->signal, line_items[2]);
 	if (ant_farm->signal < 0)
+	{
+		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_invalid_room_data));
+	}
 	ant_farm->rooms++;
-	ft_free_string(line_items, 3);
+	ft_free_string(line_items, len);
 	return (SUCCESS);
 }
 
