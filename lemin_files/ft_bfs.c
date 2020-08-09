@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 18:36:19 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 10:13:40 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ size_t				ft_bfs_algorithm(t_ant_farm *ant_farm, size_t run)
 {
 	t_room			*temp;
 	size_t			i;
-	size_t			flag;
+	int				flag;
 
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
 	ant_farm->queue = (t_queue *)ft_memalloc(sizeof(t_queue));
@@ -196,44 +196,49 @@ int					ft_bfs_runs(t_ant_farm *ant_farm)
 	while (!(ant_farm->discovered_paths == ant_farm->max_paths ||
 	flag == 1 || ant_farm->discovered_paths == 0))
 	// while (flag == 0)
-	// while (i <= 8)
+	// while (i <= 20)
 	{
 		// ft_printf("discovered paths = %d \n", ant_farm->discovered_paths);
 		ant_farm->best_run = i;
 		result = ft_bfs_algorithm(ant_farm, i);
-		ft_printf(">> Current Run : %d - BFS Result %d\n", ant_farm->best_run, result);
+		// ft_printf("BFS : %d - BFS Result %d\n", ant_farm->best_run, result);
 		if (result != 0)
 		{
 			ft_sort_paths_on_size(ant_farm);
 			ft_ants_to_paths(ant_farm);
-			ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-			ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
-			ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
+			// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
+			// ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
+			// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
 			// ft_print_paths(ant_farm);
 			temp = (t_lines *)ft_memalloc(sizeof(t_lines));
 			temp->lines = ant_farm->lines;
 			temp->run = i;
 			ft_lines_list_addend(&(ant_farm->lines_lst), temp);
-			ft_printf("flag stop %d best run %d lines %d last elem lines %d \n", flag_stop, ant_farm->best_run, ant_farm->lines, find_last_elem(ant_farm->lines_lst));
+			// ft_printf("flag stop %d best run %d lines %d last elem lines %d \n", flag_stop, ant_farm->best_run, ant_farm->lines, find_last_elem(ant_farm->lines_lst));
 			if (flag_stop == 0 && ant_farm->best_run != 1 && \
 			ant_farm->lines > find_last_elem(ant_farm->lines_lst))
 			{
+				ft_bfs_fullreset_and_score(ant_farm);
 				ft_bfs_level_sink(ant_farm);
 				ft_bfs_level_source(ant_farm);
 				i += 1;
-				ft_printf("Running BFS from sink - Run %d\n", i);
-				result = ft_bfs_sink(ant_farm, i);
-				ft_printf("RESULT %d from Running BFS from sink\n", result);
+				ant_farm->best_run = i;
+				result = ft_bfs_algorithm(ant_farm, i);
+				// result = ft_bfs_sink(ant_farm, i);
+				// ft_printf("BFS IN LOOP : %d - BFS Result %d\n", ant_farm->best_run, result);
+				// ft_print_paths(ant_farm);
 				ft_sort_paths_on_size(ant_farm);
 				ft_ants_to_paths(ant_farm);
-				ft_print_paths(ant_farm);
+				// ft_print_paths(ant_farm);
 				temp = (t_lines *)ft_memalloc(sizeof(t_lines));
 				temp->lines = ant_farm->lines;
 				temp->run = i;
 				ft_lines_list_addend(&(ant_farm->lines_lst), temp);
-				ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-				ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
-				ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
+				// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
+				// ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
+				// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
+				flag_stop = 1;
+				ft_paths_discovered(ant_farm);
 			}
 			// else
 			// {

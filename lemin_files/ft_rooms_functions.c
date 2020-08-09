@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 15:50:05 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 09:56:54 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 	}
 	return (temp);
 }
-
 
 /*
 ** Function that checks if the line that we check from the input file

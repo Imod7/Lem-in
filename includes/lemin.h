@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 17:10:34 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 07:20:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 int						ft_bfs_runs(t_ant_farm *ant_farm);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
+void					ft_bfs_fullreset_and_score(t_ant_farm *ant_farm);
 void					ft_bfs_level_sink(t_ant_farm *ant_farm);
 void					ft_bfs_level_source(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \

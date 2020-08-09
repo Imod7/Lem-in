@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:35 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 18:34:25 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 06:56:59 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void			ft_retrace_path(t_room *temp, size_t flag, \
 		temp->score = new_path->path_id;
 		path_list = (t_path_list *)ft_memalloc(sizeof(t_path_list));
 		path_list->room = temp;
-		ft_printf(" ++ save room %s \n", path_list->room->name);
+		// ft_printf(" ++ save room %s \n", path_list->room->name);
 		path_list->room->path = new_path;
 		// ft_pathlst_addstart(&(new_path->path_lst), path_list);
 		if (flag == 0)
