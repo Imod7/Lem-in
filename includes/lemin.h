@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 12:00:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 19:53:07 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@
 // # include <stdio.h>
 # include <errno.h>
 
+typedef struct			s_data
+{
+	int					valid;
+	char				*argument;
+}						t_data;
+
 typedef enum			e_prgm_signal
 {
 	SUCCESS = 0,
 	success_ants_saved = 1,
+	succes_room_saved = 4,
+	succes_link_saved = 5,
 	CONTINUE = 2,
 	BREAK = 3,
 	ERROR = -1,
@@ -211,14 +219,14 @@ typedef struct			s_paths
 */
 
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
-										size_t *j);
+										size_t *j, t_data *data);
 int						ft_is_number(char *str);
 int						check_argv(int *signal, char *str);
 int						add_num(char *str, int sign);
 int						check_dup_rooms_lst(t_room **rooms_lst);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
-											char *link);
+											char *link, t_data *data);
 int						ft_check_if_ants_amount(t_ant_farm *ant_farm, \
 												char *line, size_t j);
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \

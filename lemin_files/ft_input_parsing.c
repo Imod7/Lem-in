@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 16:32:28 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/09 22:32:08 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	char			**line_items;
 	size_t			len;
 
-	// valid = check_if_valid(ant_farm, line);
-	// if (check_if_valid(ant_farm, line) == ERROR)
-	// 	return (ERROR);
 	if ((pos == START) || (pos == END))
 	{
 		i = get_next_line(0, &line);
@@ -79,17 +76,19 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	// if (line_items == NULL)
 	// 	ft_printf("line_items is NULL\n");
 	len = array_size(line_items);
-	// ft_printf("'%s'  len %d\n", line_items[0], len);
-	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
+	ft_printf("'%s'  len %d\n", line_items[0], len);
+	ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
 	if (len < 3 || i > 1 || len > 3 || space > 2)
 	{
 		ft_free_string(line_items, len);
-		return (ft_exit_msg(ant_farm, error_invalid_room_data));
+		// return (ft_exit_msg(ant_farm, error_invalid_room_data));
+		return (-1);
 	}
 	// room = ft_room_newnode(line_items[0]);
 	if (ft_is_number(line_items[1]) != SUCCESS || \
 	ft_is_number(line_items[2]) != SUCCESS)
 	{
+		ft_printf("ANT+FARM signal ERR:%i\n", ant_farm->signal);
 		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_coord_not_number));
 	}
@@ -103,6 +102,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	room->y_coord = check_argv(&ant_farm->signal, line_items[2]);
 	if (ant_farm->signal < 0)
 	{
+		ft_printf("ANT+FARM signal:%i\n", ant_farm->signal);
 		ft_free_string(line_items, len);
 		return (ft_exit_msg(ant_farm, error_invalid_room_data));
 	}
@@ -119,7 +119,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 ** check again for the ants_amount (function call ft_check_if_ants_amount)
 */
 
-t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
+t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data *data)
 {
 	char			*link;
 	t_input			*input_line;
@@ -152,7 +152,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	else if (link)
 	{
 		// ft_printf("line:%s\n", line);
-		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"Thiss is a Link\n"ANSI_COLOR_RESET);
 		ret = ft_strchri(line, '-');
 		if (ret != 1)
 		{
@@ -160,15 +160,15 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 			// ft_printf("error found:%s\n", line);
 			return (ft_exit_msg(ant_farm, error_in_link));
 		}
+		ant_farm->signal = succes_link_saved;
 	}
-	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
+	else if (ft_check_if_is_room(ant_farm, line, link, data) != CONTINUE)
 	{
 		return (ant_farm->signal);
 	}
 	else if (link != NULL)
 	{
-		// ft_printf("line:%s\n", line);
-		// ft_printf(ANSI_COLOR_CYAN"This is a Link\n"ANSI_COLOR_RESET);
+		ant_farm->signal = succes_link_saved;
 	}
 	return (SUCCESS);
 }
