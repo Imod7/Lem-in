@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 15:50:31 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 21:14:47 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 {
 	if ((str[0] == '#') && (str[1] != '#'))
 	{
-		// ft_printf("Comment line %s\n", str);
+		ft_printf("Comment line %s\n", str);
 		return (CONTINUE);
 	}
 	else if (str[0] == 'L')
@@ -63,14 +63,15 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	if ((pos == START) || (pos == END))
 	{
 		i = get_next_line(0, &line);
+		ft_printf(" in save inputline %s\n", line);
 		if (i == 0)
 			return (0);
 		if (check_if_valid(ant_farm, line) != SUCCESS)
 		{
-			ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
 			free(line);
 			return (ant_farm->signal);
 		}
+		// ft_printf("save input line  ant_farm->signal = %d, line %s\n", ant_farm->signal, line);
 		input_line = ft_input_newnode(line);
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
@@ -157,7 +158,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j)
 	}
 	else if (ft_check_if_is_room(ant_farm, line, link) != CONTINUE)
 	{
-		// ft_printf("This is a room - line:%s\n", line);
+		ft_printf("This is a room - line:%s\n", line);
 		return (ant_farm->signal);
 	}
 	else if (link != NULL)

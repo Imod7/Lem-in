@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 21:20:08 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/09 20:37:32 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void				push_ant_to_next_room(t_paths *path)
 	{
 		if ((path_lst->room->ants_lst != NULL) && (path_lst->next != NULL))
 		{
-			// ft_printf("ant %d found in room %s\n", 
-			// path_lst->room->ants_lst->ant_id, path_lst->room->name);
 			// path_lst->next->room->ant = path_lst->room->ant;
 			check_ant_vs_room(path, path_lst->next->room, path_lst->room->ants_lst->ant_id);
 			// if ((path_lst->prev != NULL) && 
@@ -85,6 +83,15 @@ void				push_ant_to_next_room(t_paths *path)
 			}
 			// else
 			// 	path_lst->room->ants_lst->ant_id = 0;
+		}
+		else if (path_lst->room->ants_lst != NULL && path_lst->next == NULL && \
+		path_lst->prev->prev == NULL)
+		{
+			// ft_printf(" ant %d found in room %s %p\n", 
+			// path_lst->room->ants_lst->ant_id, path_lst->room->name, path_lst->next);
+			id = choose_ant(path, path_lst->room->ants_lst->ant_id);
+			// ft_printf(" chosen ant : %d for room %s\n", id, path_lst->room->name);
+			check_ant_vs_room(path, path_lst->room, id);
 		}
 		path_lst = path_lst->prev;
 	}

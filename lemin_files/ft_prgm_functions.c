@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 18:05:00 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 16:01:19 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int					ft_exitprogram(t_ant_farm *ant_farm)
 	ft_free_path_lines(ant_farm->lines_lst);
 	// ft_printf("after free queue\n");
 	free(ant_farm);
-	if (ant_farm->signal == ERROR)
-		return (ERROR);
+	// if (ant_farm->signal == ERROR)
+	// 	return (ERROR);
 	return (SUCCESS);
 }

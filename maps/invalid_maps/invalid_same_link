@@ -1,0 +1,12 @@
+#Invalid Map with same link at the end
+11
+##start
+0 1 0
+#Some more comments
+##end
+1 4 5
+2 9 0
+3-1
+3-1
+0-2
+2-3
