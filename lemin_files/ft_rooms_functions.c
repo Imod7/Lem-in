@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 21:13:42 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/10 02:32:01 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	ret = -1;
 	if (!ft_strcmp(line, "##start"))
 	{
-		ft_printf("FUNCTION ft_check_if_is_room %s\n", line);
+		// ft_printf("FUNCTION ft_check_if_is_room %s\n", line);
 		if (ft_get_start_room(ant_farm->rooms_lst) != NULL)
 		{
 			// ft_printf("start exists %s\n", line);

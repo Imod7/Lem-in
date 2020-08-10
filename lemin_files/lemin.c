@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 19:30:49 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/10 03:58:38 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int			read_input(t_ant_farm *ant_farm)
 	while (i > 0)
 	{
 		i = get_next_line(0, &returned_line);
-		if (i != 0)
+		if (i != 0 && i != -1)
 		{
 			// ft_printf("line = %s , i = %d, j = %d\n", returned_line, i, j);
 			ft_saveinput(ant_farm, returned_line, &j);
@@ -41,7 +41,7 @@ static int			read_input(t_ant_farm *ant_farm)
 				return (ERROR);
 			}
 		}
-		else if (i == 0 && j == 0)
+		else if ((i == 0 && j == 0) || (i == -1))
 		{
 			// ft_printf("empty file \n");
 			// ft_printf("i = %d , j = %d\n", i, j);
