@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/10 03:24:31 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:53:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 			if (ft_retrieve_and_save(ant_farm, array[0], array[1]) != SUCCESS)
 			{
 				// ft_printf("save neighbors : signal %d, %s len %d\n", ant_farm->signal, array[0], len);
+				// len = array_size(array);
 				ft_free_string(array, len);
 				return (ant_farm->signal);
 			}

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 16:01:19 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:47:18 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int					ft_exitprogram(t_ant_farm *ant_farm)
 	// ft_printf("Exit Function called \n");
 	// ft_printf("exit prgm \n");
 	// print_input_list(ant_farm->input);
+	ft_free_data(ant_farm->data);
 	ft_free_inputlst(ant_farm->input);
 	// ant_farm->input = NULL;
 	// ft_printf("ant_farm->input %p \n", ant_farm->input);

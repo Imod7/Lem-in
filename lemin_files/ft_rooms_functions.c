@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/10 02:32:01 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:51:23 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 */
 
 int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
-										char *link)
+										char *link, t_data *data)
 {
 	int ret;
 
 	ret = -1;
+	(void)data;
 	if (!ft_strcmp(line, "##start"))
 	{
 		// ft_printf("FUNCTION ft_check_if_is_room %s\n", line);
@@ -92,10 +93,11 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		if (ft_save_inputline(ant_farm, line, 1) != SUCCESS)
 		{
 			// ft_printf(" .. error found:%s error:%i\n", line, ant_farm->signal);
-			ant_farm->signal = error_invalid_start_room;
+			// ant_farm->signal = error_invalid_start_room;
+			return (ft_exit_msg(ant_farm, error_invalid_start_room));
 		}
 		else
-			ant_farm->signal = SUCCESS;
+			ant_farm->signal = succes_room_saved;
 	}
 	else if (!ft_strcmp(line, "##end"))
 	{
@@ -108,10 +110,11 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		else if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
 		{
 			// ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
-			ant_farm->signal = error_invalid_end_room;
+			// ant_farm->signal = error_invalid_end_room;
+			return (ft_exit_msg(ant_farm, error_invalid_end_room));
 		}
 		else
-			ant_farm->signal = SUCCESS;
+			ant_farm->signal = succes_room_saved;
 	}
 	else if (link == NULL)
 	{
@@ -124,15 +127,24 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		// 	ft_printf("%i\n", ant_farm->signal);
 		// 	exit(0);
 		// }
-		if (ft_save_inputline(ant_farm, line, 0) != SUCCESS)
+		if (ft_strequ(data->argument, "link"))
 		{
-			ant_farm->signal = error_invalid_intermediate_room;
-			// ft_printf("error found >> :%s error:%i\n", line, ant_farm->signal);
+			return (ft_exit_msg(ant_farm, error_in_link));
+		}
+		else if (ft_save_inputline(ant_farm, line, 0) != SUCCESS)
+		{
+			// ft_printf("line:%s error found >s> :%s error:%i data arg:%s\n", line, ant_farm->signal, data->argument);
+			if (ft_strequ(line, "Gyy5- Q_d0"))
+			{
+				ft_printf("ret is:%i\n", ret);
+				ft_printf("ptr:%p\n", link);
+				ft_printf("%i\n", ant_farm->signal);
+				// exit(1);
+			}
+			return (ft_exit_msg(ant_farm, error_invalid_intermediate_room));
 		}
 		else
-			ant_farm->signal = SUCCESS;
+			ant_farm->signal = succes_room_saved;
 	}
-	else
-		ant_farm->signal = CONTINUE;
-	return (ant_farm->signal);
+	return (SUCCESS);
 }
