@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 12:56:03 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 16:58:57 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef enum			e_prgm_signal
 	error_no_rooms = -18,
 	error_start_room_con = -19,
 	error_end_room_con = -20,
-	error_no_solution = -21
+	error_no_solution = -21,
+	error_file_missing = -22
 }						t_prgm_signal;
 
 typedef enum		e_position

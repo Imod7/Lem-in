@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 12:55:16 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 17:03:15 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,15 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 			}
 		}
 		else if (i == 0 && j == 0)
+		{
 			return (ft_exit_msg(ant_farm, error_empty_file));
 		}
-		else if (i == -1)
+		if (i == -1)
 		{
 			// free(ant_farm);
 			// free(returned_line);
 			// ft_printf("no file %s \n", returned_line);
-			return (ft_exit_msg(ant_farm, error_empty_file));
+			return (ft_exit_msg(ant_farm, error_file_missing));
 		}
 		ft_precheck_if_valid(ant_farm, *data, returned_line);
 		if ((*data)->valid == ERROR)

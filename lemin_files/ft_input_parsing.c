@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 12:46:50 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 16:22:24 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
 	space = ft_strchri(line, ' ');
-	i = ft_strchri(line, '-');
 	line_items = ft_strsplit(line, ' ');
+	i = ft_strchri(line_items[0], '-');
 	len = array_size(line_items);
 	// ft_printf("'%s'  len %d\n", line_items[0], len);
 	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
-	if (len < 3 || i > 1 || len > 3 || space > 2)
+	if (len < 3 || i > 0 || len > 3 || space > 2)
 	{
 		ft_free_string(line_items, len);
 		// return (ft_exit_msg(ant_farm, error_invalid_room_data));

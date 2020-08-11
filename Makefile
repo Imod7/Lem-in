@@ -6,13 +6,13 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/11 12:56:39 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/08/11 16:07:47 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
-CC = gcc
+CC = clang
 FLAGS = -Wall -Wextra -Werror -g
 # FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LEMIN_SRCDIR = lemin_files
