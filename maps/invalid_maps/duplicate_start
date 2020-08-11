@@ -1,0 +1,14 @@
+#Invalid Map 
+#More Comments
+11
+##start
+A 1 0
+A 1 0
+#Some more comments
+##end
+B 9 0
+C 13 0
+D 13 20
+A-C
+C-D
+D-B

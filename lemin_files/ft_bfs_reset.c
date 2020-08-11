@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:12:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 13:25:13 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 07:20:16 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ void				ft_bfs_fullreset(t_ant_farm *ant_farm)
 	while (temp != NULL)
 	{
 		temp->state = UNEXPLORED;
+		// temp->score = 0;
+		temp = temp->next;
+	}
+}
+
+/*
+** This function sets the state of all rooms of the graph
+** to state UNEXPLORED and score
+*/
+
+void				ft_bfs_fullreset_and_score(t_ant_farm *ant_farm)
+{
+	t_room			*temp;
+
+	temp = ant_farm->rooms_lst;
+	while (temp != NULL)
+	{
+		temp->state = UNEXPLORED;
+		temp->score = 0;
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 11:13:28 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 10:13:40 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ size_t				ft_bfs_algorithm(t_ant_farm *ant_farm, size_t run)
 {
 	t_room			*temp;
 	size_t			i;
-	size_t			flag;
+	int				flag;
 
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
 	ant_farm->queue = (t_queue *)ft_memalloc(sizeof(t_queue));
@@ -133,16 +133,62 @@ size_t				ft_bfs_algorithm(t_ant_farm *ant_farm, size_t run)
 	return (ant_farm->discovered_paths);
 }
 
-void				ft_bfs_runs(t_ant_farm *ant_farm)
+static size_t		find_last_elem(t_lines *lines_lst)
+{
+	t_lines			*lines;
+
+	lines = lines_lst;
+	if (lines == NULL || lines->next == NULL)
+		return (0);
+	while (lines->next != NULL)
+	{
+		// ft_printf("lines %d \n", lines->lines);
+		lines = lines->next;
+	}
+	// ft_printf("lines %d prev %d\n", lines->lines, lines->prev->lines);
+	// if (lines->next != NULL)
+	// 	lines = lines->prev;
+	// ft_printf("last element in lines %d \n", lines->lines);
+	return (lines->prev->lines);
+}
+
+static size_t		find_best_run(t_lines *lines_lst)
+{
+	t_lines			*temp;
+	size_t			min;
+	size_t			min_run;
+
+	temp = lines_lst;
+	min = 2147483647;
+	while (temp != NULL)
+	{
+		if (temp->lines < min)
+		{
+			min = temp->lines;
+			min_run = temp->run;
+			// result = ft_bfs_sink(ant_farm, i);
+			// ant_farm->best_run = i - 1;
+			// ft_paths_discovered(ant_farm);
+			// flag = 1;
+			// break ;
+		}
+		temp = temp->next;
+	}
+	return (min_run);
+}
+
+int					ft_bfs_runs(t_ant_farm *ant_farm)
 {
 	size_t			i;
 	t_lines			*lines_lst;
 	t_lines			*temp;
 	size_t			flag;
 	size_t			result;
+	int				flag_stop;
 
 	i = 1;
 	flag = 0;
+	flag_stop = 0;
 	lines_lst = ant_farm->lines_lst;
 	ant_farm->discovered_paths = -1;
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
@@ -150,12 +196,12 @@ void				ft_bfs_runs(t_ant_farm *ant_farm)
 	while (!(ant_farm->discovered_paths == ant_farm->max_paths ||
 	flag == 1 || ant_farm->discovered_paths == 0))
 	// while (flag == 0)
-	// while (i <= 8)
+	// while (i <= 20)
 	{
 		// ft_printf("discovered paths = %d \n", ant_farm->discovered_paths);
 		ant_farm->best_run = i;
 		result = ft_bfs_algorithm(ant_farm, i);
-		// ft_printf(">> Current Run : %d - BFS Result %d\n", ant_farm->best_run, result);
+		// ft_printf("BFS : %d - BFS Result %d\n", ant_farm->best_run, result);
 		if (result != 0)
 		{
 			ft_sort_paths_on_size(ant_farm);
@@ -166,29 +212,64 @@ void				ft_bfs_runs(t_ant_farm *ant_farm)
 			// ft_print_paths(ant_farm);
 			temp = (t_lines *)ft_memalloc(sizeof(t_lines));
 			temp->lines = ant_farm->lines;
+			temp->run = i;
 			ft_lines_list_addend(&(ant_farm->lines_lst), temp);
-			temp = ant_farm->lines_lst;
-			while (temp != NULL)
+			// ft_printf("flag stop %d best run %d lines %d last elem lines %d \n", flag_stop, ant_farm->best_run, ant_farm->lines, find_last_elem(ant_farm->lines_lst));
+			if (flag_stop == 0 && ant_farm->best_run != 1 && \
+			ant_farm->lines > find_last_elem(ant_farm->lines_lst))
 			{
-				if (temp->next != NULL && temp->lines < temp->next->lines)
-				{
-					ant_farm->best_run = i - 1;
-					ft_paths_discovered(ant_farm);
-					flag = 1;
-					break ;
-				}
-				temp = temp->next;
+				ft_bfs_fullreset_and_score(ant_farm);
+				ft_bfs_level_sink(ant_farm);
+				ft_bfs_level_source(ant_farm);
+				i += 1;
+				ant_farm->best_run = i;
+				result = ft_bfs_algorithm(ant_farm, i);
+				// result = ft_bfs_sink(ant_farm, i);
+				// ft_printf("BFS IN LOOP : %d - BFS Result %d\n", ant_farm->best_run, result);
+				// ft_print_paths(ant_farm);
+				ft_sort_paths_on_size(ant_farm);
+				ft_ants_to_paths(ant_farm);
+				// ft_print_paths(ant_farm);
+				temp = (t_lines *)ft_memalloc(sizeof(t_lines));
+				temp->lines = ant_farm->lines;
+				temp->run = i;
+				ft_lines_list_addend(&(ant_farm->lines_lst), temp);
+				// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
+				// ft_printf(" ****** RUN : %d - LINES : %d \n", i, ant_farm->lines);
+				// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
+				flag_stop = 1;
+				ft_paths_discovered(ant_farm);
 			}
+			// else
+			// {
+			// 	break ;
+			// }
+			// temp = ant_farm->lines_lst;
+			// while (temp != NULL)
+			// {
+			// 	if (temp->next != NULL && temp->lines < temp->next->lines)
+			// 	{
+			// 		// result = ft_bfs_sink(ant_farm, i);
+			// 		ant_farm->best_run = i - 1;
+			// 		ft_paths_discovered(ant_farm);
+			// 		flag = 1;
+			// 		// break ;
+			// 	}
+			// 	temp = temp->next;
+			// }
 		}
 		else
 		{
-			// ft_printf("Result is 0\n");
-			ant_farm->best_run = i - 1;
+			ant_farm->best_run = find_best_run(ant_farm->lines_lst);
+			// ft_printf("BEST RUN : %d\n", ant_farm->best_run);
 			ft_paths_discovered(ant_farm);
 			flag = 1;
 		}
+		if (ant_farm->best_run == 0)
+			return (ft_exit_msg(ant_farm, error_no_solution));
 		ft_bfs_level_sink(ant_farm);
 		ft_bfs_level_source(ant_farm);
 		i += 1;
 	}
+	return (SUCCESS);
 }

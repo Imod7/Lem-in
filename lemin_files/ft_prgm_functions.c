@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 10:16:47 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:47:18 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 	else if (signal == error_invalid_ants_amount)
 		ft_putendl_fd("Error in Ants Amount", 2);
 	else if (signal == error_invalid_room_data)
-		ft_putendl_fd("Error in Room Data (missing/more than necessary coordinates)", 2);
+		ft_putendl_fd("Error in Room Data (error in coordinates)", 2);
 	else if (signal == error_no_links)
 		ft_putendl_fd("Error No Links", 2);
 	else if (signal == error_no_rooms)
@@ -52,11 +52,10 @@ t_prgm_signal		ft_exit_msg(t_ant_farm *ant_farm, t_prgm_signal signal)
 		ft_putendl_fd("Error Start Room has no Link to the Map", 2);
 	else if (signal == error_end_room_con)
 		ft_putendl_fd("Error End Room has no Link to the Map", 2);
+	else if (signal == error_no_solution)
+		ft_putendl_fd("Error No Solution in the Map", 2);
 	else if (signal == error_coord_not_number)
-	{
-		// ant_farm->signal = error_invalid_room_data;
 		ft_putendl_fd("Error in Room Coordinates (coordinates are not numbers)", 2);
-	}
 	// ft_printf("in exit msg signal = %d \n", signal);
 	// ft_printf("error number \t : %d\n", errno);
 	// ft_printf("error string \t : %s\n", strerror(errno));
@@ -86,7 +85,7 @@ int					ft_exitprogram(t_ant_farm *ant_farm)
 	ft_free_path_lines(ant_farm->lines_lst);
 	// ft_printf("after free queue\n");
 	free(ant_farm);
-	if (ant_farm->signal == ERROR)
-		return (ERROR);
+	// if (ant_farm->signal == ERROR)
+	// 	return (ERROR);
 	return (SUCCESS);
 }

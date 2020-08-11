@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 22:29:12 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:51:23 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 	return (temp);
 }
 
-
 /*
 ** Function that checks if the line that we check from the input file
 ** (with the map data) is a start / end  / intermediate room.
@@ -85,6 +84,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	(void)data;
 	if (!ft_strcmp(line, "##start"))
 	{
+		// ft_printf("FUNCTION ft_check_if_is_room %s\n", line);
 		if (ft_get_start_room(ant_farm->rooms_lst) != NULL)
 		{
 			// ft_printf("start exists %s\n", line);
@@ -93,6 +93,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		if (ft_save_inputline(ant_farm, line, 1) != SUCCESS)
 		{
 			// ft_printf(" .. error found:%s error:%i\n", line, ant_farm->signal);
+			// ant_farm->signal = error_invalid_start_room;
 			return (ft_exit_msg(ant_farm, error_invalid_start_room));
 		}
 		else
@@ -109,6 +110,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		else if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
 		{
 			// ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
+			// ant_farm->signal = error_invalid_end_room;
 			return (ft_exit_msg(ant_farm, error_invalid_end_room));
 		}
 		else
@@ -116,7 +118,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	}
 	else if (link == NULL)
 	{
-		// ft_printf(ANSI_COLOR_CYAN"Intermediate room\n"ANSI_COLOR_RESET);
+		// ft_printf(ANSI_COLOR_CYAN"Intermediate room %s \n"ANSI_COLOR_RESET, line);
 		// if (ft_strchri(line, '-') && ft_strequ(line, "Jaj7 8 --8"))
 		// {
 		// 	ret = ft_save_inputline(ant_farm, line, 0);

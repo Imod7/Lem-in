@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 10:51:34 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:55:16 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 	while (i > 0)
 	{
 		i = get_next_line(0, &returned_line);
-		if (i != 0)
+		if (i != 0 && i != -1)
 		{
 			ft_saveinput(ant_farm, returned_line, &j, *data);
 			// ft_printf("line:%s valid:%i arg:%s i:%i j:%i signal:%i\n", returned_line, ant_farm->data->valid, ant_farm->data->argument, i, j, ant_farm->signal);
@@ -97,6 +97,14 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 		}
 		else if (i == 0 && j == 0)
 			return (ft_exit_msg(ant_farm, error_empty_file));
+		}
+		else if (i == -1)
+		{
+			// free(ant_farm);
+			// free(returned_line);
+			// ft_printf("no file %s \n", returned_line);
+			return (ft_exit_msg(ant_farm, error_empty_file));
+		}
 		ft_precheck_if_valid(ant_farm, *data, returned_line);
 		if ((*data)->valid == ERROR)
 			return (ERROR);
@@ -140,7 +148,8 @@ int					main(int argc, char **argv)
 		return (ft_exitprogram(ant_farm));
 	ft_bfs_level_sink(ant_farm);
 	ft_bfs_level_source(ant_farm);
-	ft_bfs_runs(ant_farm);
+	if (ft_bfs_runs(ant_farm) != SUCCESS)
+		return (ft_exitprogram(ant_farm));
 	ft_free_paths_ants_lst(ant_farm);
 	ft_ants_to_paths(ant_farm);
 	// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
@@ -166,6 +175,9 @@ int					main(int argc, char **argv)
 	// else
 	// 	ft_printf("its set %d\n", ant_farm->options & OPTION_M);
 	ft_move_ants(ant_farm);
+	if (ant_farm->options & OPTION_L)
+		ft_printf(ANSI_COLOR_BLUE"\nNumber of lines %d\n"ANSI_COLOR_RESET, \
+		ant_farm->lines);
 	// ft_print_paths_list(ant_farm);
 	// ft_print_paths_list_detail(ant_farm);
 	ft_exitprogram(ant_farm);

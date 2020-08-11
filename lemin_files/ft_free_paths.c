@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:25 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 10:58:25 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/08 18:05:15 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void				ft_free_path_lines(t_lines *lines_head)
 
 	while (lines_head != NULL)
 	{
+		// ft_printf("lines %d\n", lines_head->lines);
 		tmp = lines_head;
 		lines_head = lines_head->next;
 		free(tmp);
