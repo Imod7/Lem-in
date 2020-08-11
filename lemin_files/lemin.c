@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 17:03:15 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 17:20:59 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int		ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, char *line)
 			// ft_printf("LINK CAME AFTER ROOM\n");
 			data->valid = 0;
 		}
-		else if (data->valid == 0 && ant_farm->signal != 5)
+		else if (data->valid == 0 && ant_farm->signal != 5 && ant_farm->signal != 2)
 		{
-			// ft_printf("ERROR invalid room data in line:%s\n", line);
+			ft_printf("ERROR invalid room data in line:%s\n", line);
 			data->valid = ERROR;
 			return (ft_exit_msg(ant_farm, error_invalid_room_data));
 		}
