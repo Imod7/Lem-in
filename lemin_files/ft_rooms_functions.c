@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 08:36:41 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/09 22:29:12 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 	int ret;
 
 	ret = -1;
+	(void)data;
 	if (!ft_strcmp(line, "##start"))
 	{
 		if (ft_get_start_room(ant_farm->rooms_lst) != NULL)
@@ -89,14 +90,13 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 			// ft_printf("start exists %s\n", line);
 			return (ft_exit_msg(ant_farm, error_start_room_exists));
 		}
-		ret = ft_save_inputline(ant_farm, line, 1, data);
-		ft_printf("return is:%i line:%s\n", ret, line);
-		if (ret != SUCCESS)
+		if (ft_save_inputline(ant_farm, line, 1) != SUCCESS)
 		{
-			ft_printf(" .. error found:%s error:%i\n", line, ant_farm->signal);
+			// ft_printf(" .. error found:%s error:%i\n", line, ant_farm->signal);
 			return (ft_exit_msg(ant_farm, error_invalid_start_room));
 		}
-		return ((ret == CONTINUE ? ret : succes_room_saved));
+		else
+			ant_farm->signal = succes_room_saved;
 	}
 	else if (!ft_strcmp(line, "##end"))
 	{
@@ -106,13 +106,13 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 			// ft_printf("end exists \n");
 			return (ft_exit_msg(ant_farm, error_end_room_exists));
 		}
-		ret = ft_save_inputline(ant_farm, line, 2, data);
-		if (ret != SUCCESS)
+		else if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
 		{
 			// ft_printf("error found:%s error:%i\n", line, ant_farm->signal);
 			return (ft_exit_msg(ant_farm, error_invalid_end_room));
 		}
-		return ((ret == CONTINUE ? ret : succes_room_saved));
+		else
+			ant_farm->signal = succes_room_saved;
 	}
 	else if (link == NULL)
 	{
@@ -129,7 +129,7 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		{
 			return (ft_exit_msg(ant_farm, error_in_link));
 		}
-		else if (ft_save_inputline(ant_farm, line, 0, data) != SUCCESS)
+		else if (ft_save_inputline(ant_farm, line, 0) != SUCCESS)
 		{
 			// ft_printf("line:%s error found >s> :%s error:%i data arg:%s\n", line, ant_farm->signal, data->argument);
 			if (ft_strequ(line, "Gyy5- Q_d0"))

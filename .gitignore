@@ -1,6 +1,0 @@
-*.o
-*.map
-.DS_Store
-/moana_test/*
-/maps/*
-/invalid_maps/*
