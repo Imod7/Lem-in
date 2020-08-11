@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/10 03:58:38 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 12:10:18 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,19 @@ static int			read_input(t_ant_farm *ant_farm)
 				return (ERROR);
 			}
 		}
-		else if ((i == 0 && j == 0) || (i == -1))
+		else if (i == 0 && j == 0)
 		{
 			// ft_printf("empty file \n");
 			// ft_printf("i = %d , j = %d\n", i, j);
 			return (ft_exit_msg(ant_farm, error_empty_file));
 		}
-		// free(returned_line);
+		else if (i == -1)
+		{
+			// free(ant_farm);
+			// free(returned_line);
+			// ft_printf("no file %s \n", returned_line);
+			return (ft_exit_msg(ant_farm, error_empty_file));
+		}
 	}
 	i = check_dup_rooms_lst(&ant_farm->rooms_lst);
 	if (i == -1)
