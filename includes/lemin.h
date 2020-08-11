@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 09:36:14 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 10:17:43 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct			s_ant_farm
 {
 	long long			ants;
 	size_t				rooms;
+	struct s_data		*data;
 	struct s_hash_table	*hash_table;
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
@@ -281,6 +282,7 @@ void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 ** Functions to Free Allocated Memory
 */
 
+void					ft_free_data(t_data *data);
 void					ft_free_inputlst(t_input *input_lst);
 void					ft_free_roomslst(t_room *rooms_lst);
 void					ft_free_hashtable(t_hash_table *hash_table);
