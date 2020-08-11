@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 09:37:59 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 10:52:29 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 			return (0);
 		if (check_if_valid(ant_farm, line) != SUCCESS)
 		{
-			ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
+			// ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
 			return (ant_farm->signal);
 		}
 		input_line = ft_input_newnode(line);
@@ -73,11 +73,9 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	space = ft_strchri(line, ' ');
 	i = ft_strchri(line, '-');
 	line_items = ft_strsplit(line, ' ');
-	// if (line_items == NULL)
-	// 	ft_printf("line_items is NULL\n");
 	len = array_size(line_items);
-	ft_printf("'%s'  len %d\n", line_items[0], len);
-	ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
+	// ft_printf("'%s'  len %d\n", line_items[0], len);
+	// ft_printf("len = %d : '%s' : x '%s'  y '%s'\n", len, line_items[0], line_items[1], line_items[2]);
 	if (len < 3 || i > 1 || len > 3 || space > 2)
 	{
 		ft_free_string(line_items, len);

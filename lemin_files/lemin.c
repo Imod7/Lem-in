@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 10:26:02 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 10:51:34 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 ** so that the order of 1)ants_amount, 2)rooms and 3)links is valid
 ** and also that data doesn't pass that doesn't belong in that section
 */
-static int		ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, char *line, int i)
+static int		ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, char *line)
 {
-	(void)i;
+	(void)line;
 	if (ft_strequ(data->argument, "ants_amount"))
 	{
 		if (ant_farm->signal == 1)
 			data->argument = "room";
 		else if (ant_farm->signal != 2 && ant_farm->signal != 0)
 		{
-			ft_printf("ERROR amounts of ants in line:%s\n", line);
+			// ft_printf("ERROR amounts of ants in line:%s\n", line);
 			data->valid = ERROR;
 			return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 		}
@@ -35,33 +35,28 @@ static int		ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, char *line,
 	{
 		if (data->valid == 1 && ant_farm->signal == 5)
 		{
-			ft_printf("LINK CAME AFTER ROOM\n");
+			// ft_printf("LINK CAME AFTER ROOM\n");
 			data->valid = 0;
 		}
 		else if (data->valid == 0 && ant_farm->signal != 5)
 		{
-			ft_printf("ERROR invalid room data in line:%s\n", line);
+			// ft_printf("ERROR invalid room data in line:%s\n", line);
 			data->valid = ERROR;
-			// if (ft_strequ("Urj0 1366 1366", line))
-			// {
-			// 	ft_printf("data:%s valid:%i signal:%i\n", data->argument, data->valid, ant_farm->signal);
-			// 	exit(1);
-			// }
 			return (ft_exit_msg(ant_farm, error_invalid_room_data));
 		}
 		else if (data->valid == 0 && ant_farm->signal == 5)
 		{
-			ft_printf("TWO LINKS AFTER EACH OTHER\n");
+			// ft_printf("TWO LINKS AFTER EACH OTHER\n");
 			data->valid = 1;
 			data->argument = "link";
 		}
-		ft_printf("GOOD ROOM\n");
+		// ft_printf("GOOD ROOM\n");
 	}
 	else if (ft_strequ(data->argument, "link") && data->valid == 1)
 	{
 		if (ant_farm->signal != 5 && ant_farm->signal != 2)
 		{
-			ft_printf("ERROR in link in line:%s\n", line);
+			// ft_printf("ERROR in link in line:%s\n", line);
 			data->valid = ERROR;
 			return (ft_exit_msg(ant_farm, error_in_link));
 		}
@@ -85,7 +80,7 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 		if (i != 0)
 		{
 			ft_saveinput(ant_farm, returned_line, &j, *data);
-			ft_printf("line:%s valid:%i arg:%s i:%i j:%i signal:%i\n", returned_line, ant_farm->data->valid, ant_farm->data->argument, i, j, ant_farm->signal);
+			// ft_printf("line:%s valid:%i arg:%s i:%i j:%i signal:%i\n", returned_line, ant_farm->data->valid, ant_farm->data->argument, i, j, ant_farm->signal);
 			if (ant_farm->signal == success_ants_saved)
 			{
 				j += 1;
@@ -102,15 +97,10 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 		}
 		else if (i == 0 && j == 0)
 			return (ft_exit_msg(ant_farm, error_empty_file));
-		ft_precheck_if_valid(ant_farm, *data, returned_line, j);
-		// if (ft_strequ("Urj0 1366 1366", returned_line))
-		// {
-		// 	ft_printf("data:%s valid:%i\n", data->argument, data->valid);
-		// 	exit(1);
-		// }
+		ft_precheck_if_valid(ant_farm, *data, returned_line);
 		if ((*data)->valid == ERROR)
 			return (ERROR);
-		ft_printf("line:%s datatype:%s valid:%i signal:%i\n", returned_line, ant_farm->data->argument, ant_farm->data->valid, ant_farm->signal);
+		// ft_printf("line:%s datatype:%s valid:%i signal:%i\n", returned_line, ant_farm->data->argument, ant_farm->data->valid, ant_farm->signal);
 	}
 	i = check_dup_rooms_lst(&ant_farm->rooms_lst);
 	if (i == -1)
