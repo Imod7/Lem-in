@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 22:32:08 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 09:37:59 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data 
 	int				ret;
 
 	ret = count_words(line, ' ');
-	link = (ret == 1) ? ft_strchr(line, '-') : NULL;
+	data->min = ft_strchri(line, '-');
+	link = (ret == 1 && data->min == 1) ? ft_strchr(line, '-') : NULL;
+	// link = (ret == 1) ? ft_strchr(line, '-') : NULL;
 	input_line = ft_input_newnode(line);
 	ft_input_addend(&(ant_farm->input), input_line);
 	if (check_if_valid(ant_farm, line) != SUCCESS)
@@ -144,7 +146,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data 
 	// ft_printf(" j = %d \n", )
 	else if (*j == 0 && ft_check_if_ants_amount(ant_farm, line, *j) != CONTINUE)
 		return (ant_farm->signal);
-	else if (*j != 0 && ft_is_number(line) == SUCCESS)
+	else if (*j != 0 && ft_is_number(line) == SUCCESS && ft_strequ(data->argument, "ants_amount"))
 	{
 		// ft_printf("invalid ants amount\n");
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
@@ -153,8 +155,9 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data 
 	{
 		// ft_printf("line:%s\n", line);
 		// ft_printf(ANSI_COLOR_CYAN"Thiss is a Link\n"ANSI_COLOR_RESET);
-		ret = ft_strchri(line, '-');
-		if (ret != 1)
+		// ret = ft_strchri(line, '-');
+		// if (ret != 1)
+		if (data->min != 1 || ft_strlen(line) < 3)
 		{
 			ant_farm->signal = error_in_link;
 			// ft_printf("error found:%s\n", line);

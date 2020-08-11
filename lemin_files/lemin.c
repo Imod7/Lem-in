@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 22:09:44 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 09:52:48 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, char *line,
 	{
 		if (ant_farm->signal == 1)
 			data->argument = "room";
-		else if (ant_farm->signal != 2)
+		else if (ant_farm->signal != 2 && ant_farm->signal != 0)
 		{
 			ft_printf("ERROR amounts of ants in line:%s\n", line);
 			data->valid = ERROR;
@@ -81,6 +81,8 @@ static int			read_input(t_ant_farm *ant_farm)
 	k = 0;
 	j = 0;
 	data = (t_data *)ft_memalloc(sizeof(t_data));
+	data->valid = 1;
+	data->argument = "ants_amount";
 	while (i > 0)
 	{
 		i = get_next_line(0, &returned_line);
@@ -90,8 +92,6 @@ static int			read_input(t_ant_farm *ant_farm)
 			ft_printf("line:%s valid:%i arg:%s i:%i j:%i signal:%i\n", returned_line, data->valid, data->argument, i, j, ant_farm->signal);
 			if (ant_farm->signal == success_ants_saved)
 			{
-				data->valid = 1;
-				data->argument = "ants_amount";
 				j += 1;
 			}
 			else if ((ant_farm->signal != SUCCESS && \

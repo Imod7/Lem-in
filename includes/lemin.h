@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 19:53:07 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/11 09:36:14 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct			s_data
 {
 	int					valid;
+	int					min;
 	char				*argument;
 }						t_data;
 
