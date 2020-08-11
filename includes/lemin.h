@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 19:53:07 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/10 21:58:27 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct			s_data
 {
 	int					valid;
+	int					min;
 	char				*argument;
 }						t_data;
 
@@ -102,6 +103,7 @@ typedef struct			s_ant_farm
 {
 	long long			ants;
 	size_t				rooms;
+	struct s_data		*data;
 	struct s_hash_table	*hash_table;
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
@@ -230,7 +232,7 @@ int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 int						ft_check_if_ants_amount(t_ant_farm *ant_farm, \
 												char *line, size_t j);
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
-											t_position pos);
+											t_position pos, t_data *data);
 int						ft_save_neighbors(t_ant_farm *ant_farm);
 void					delete_dead_ends(t_hash_table *hash_table);
 int						ft_check_links(t_ant_farm *ant_farm);
