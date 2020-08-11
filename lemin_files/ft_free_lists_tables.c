@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:37:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/16 17:16:36 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 10:15:21 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,13 @@ void				ft_free_hashtable(t_hash_table *hash_table)
 	}
 	free(hash_table->array);
 	free(hash_table);
+}
+
+void	ft_free_data(t_data *data)
+{
+	if (data != NULL)
+	{
+		free(data);
+		data = NULL;
+	}
 }

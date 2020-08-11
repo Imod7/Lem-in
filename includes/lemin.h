@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 12:00:51 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 10:17:43 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,19 @@
 // # include <stdio.h>
 # include <errno.h>
 
+typedef struct			s_data
+{
+	int					valid;
+	int					min;
+	char				*argument;
+}						t_data;
+
 typedef enum			e_prgm_signal
 {
 	SUCCESS = 0,
 	success_ants_saved = 1,
+	succes_room_saved = 4,
+	succes_link_saved = 5,
 	CONTINUE = 2,
 	BREAK = 3,
 	ERROR = -1,
@@ -94,6 +103,7 @@ typedef struct			s_ant_farm
 {
 	long long			ants;
 	size_t				rooms;
+	struct s_data		*data;
 	struct s_hash_table	*hash_table;
 	struct s_input		*input;
 	struct s_room		*rooms_lst;
@@ -211,14 +221,14 @@ typedef struct			s_paths
 */
 
 t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
-										size_t *j);
+										size_t *j, t_data *data);
 int						ft_is_number(char *str);
 int						check_argv(int *signal, char *str);
 int						add_num(char *str, int sign);
 int						check_dup_rooms_lst(t_room **rooms_lst);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
-											char *link);
+											char *link, t_data *data);
 int						ft_check_if_ants_amount(t_ant_farm *ant_farm, \
 												char *line, size_t j);
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
@@ -272,6 +282,7 @@ void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 ** Functions to Free Allocated Memory
 */
 
+void					ft_free_data(t_data *data);
 void					ft_free_inputlst(t_input *input_lst);
 void					ft_free_roomslst(t_room *rooms_lst);
 void					ft_free_hashtable(t_hash_table *hash_table);

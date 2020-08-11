@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 12:00:02 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/09 21:33:47 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int				ft_is_number(char *str)
 	i = 0;
 	sign = 0;
 	space = 0;
+	// ft_printf("string:%s\n", str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == ' ')
@@ -85,7 +86,10 @@ int				ft_is_number(char *str)
 		if ((i == 0) && (str[0] == '+' || str[0] == '-'))
 			;
 		else if (str[i] < 48 || str[i] > 57 || space > 1)
+		{
+			// ft_printf("invalid number:str[i]:%i\n", str[i]);
 			return (error_invalid_ants_amount);
+		}
 		i++;
 	}
 	return (SUCCESS);
