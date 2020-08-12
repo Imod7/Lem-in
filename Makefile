@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/12 15:15:23 by svan-der      ########   odam.nl          #
+#    Updated: 2020/08/12 17:11:20 by svan-der      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-# FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -28,12 +27,14 @@ SRC_LEMIN =	\
 		lemin.c \
 		ft_ants_to_paths.c \
 		ft_ants_move.c \
+		ft_ants_move_func.c \
 		ft_ants_functions.c \
 		ft_bfs.c \
 		ft_bfs_queue_func.c \
 		ft_bfs_levels.c \
 		ft_bfs_reset.c \
-		ft_bfs_sink.c \
+		ft_bfs_runs.c \
+		ft_bfs_runs_func.c \
 		ft_check_dup_rooms.c\
 		ft_free_lists_tables.c \
 		ft_free_other.c \

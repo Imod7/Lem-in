@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 14:32:07 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 16:50:09 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ t_room				*ft_get_start_room(t_room *temp)
 	while (temp != NULL)
 	{
 		if (temp->position == START)
-			break ;
+			return (temp);
 		temp = temp->next;
 	}
+	temp = NULL;
 	return (temp);
 }
 
@@ -64,9 +65,12 @@ t_room				*ft_get_end_room(t_ant_farm *ant_farm)
 	while (temp != NULL)
 	{
 		if (temp->position == END)
-			break ;
+		{
+			return (temp);
+		}
 		temp = temp->next;
 	}
+	temp = NULL;
 	return (temp);
 }
 
