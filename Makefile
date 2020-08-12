@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/12 15:18:06 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/08/12 18:36:34 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_LEMIN =	\
 		ft_free_paths.c \
 		ft_hashing.c \
 		ft_input_parsing.c \
+		ft_input_parsing_func.c \
 		ft_input_checking.c \
 		ft_input_validation_func.c \
 		ft_lines_move.c \

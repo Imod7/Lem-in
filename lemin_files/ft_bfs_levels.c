@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:24:38 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 14:34:52 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 18:47:14 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Function that checks if it should enqueue the neighbors when
 ** traversing from source to sink and sink to source in the functions
-** ft_bfs_level_source and lvl_sink respectively.
+** lvl_source and lvl_sink respectively.
 ** It is called from both function but with a different flag.
 */
 
@@ -43,6 +43,26 @@ int					ft_enqueue_condition(t_ant_farm *ant_farm, \
 			neighbors->hash_item->room->parent->level_sink + 1;
 	}
 	return (SUCCESS);
+}
+
+void				levels_lastchecks(t_ant_farm *ant_farm, int flag)
+{
+	t_room			*temp;
+
+	if (flag == 0)
+	{
+		temp = ft_get_start_room(ant_farm->rooms_lst);
+		temp->level_source = -1;
+		ft_free_queue(ant_farm->queue);
+		ft_bfs_fullreset(ant_farm);
+	}
+	else
+	{
+		temp = ft_get_end_room(ant_farm);
+		temp->level_sink = -1;
+		ft_free_queue(ant_farm->queue);
+		ft_bfs_fullreset(ant_farm);
+	}
 }
 
 /*
@@ -75,10 +95,7 @@ int					lvl_source(t_ant_farm *ant_farm)
 		}
 		ft_dequeue(ant_farm->queue);
 	}
-	temp = ft_get_start_room(ant_farm->rooms_lst);
-	temp->level_source = -1;
-	ft_free_queue(ant_farm->queue);
-	ft_bfs_fullreset(ant_farm);
+	levels_lastchecks(ant_farm, 0);
 	return (SUCCESS);
 }
 
@@ -112,9 +129,6 @@ int					lvl_sink(t_ant_farm *ant_farm)
 		}
 		ft_dequeue(ant_farm->queue);
 	}
-	temp = ft_get_end_room(ant_farm);
-	temp->level_sink = -1;
-	ft_free_queue(ant_farm->queue);
-	ft_bfs_fullreset(ant_farm);
+	levels_lastchecks(ant_farm, 1);
 	return (SUCCESS);
 }
