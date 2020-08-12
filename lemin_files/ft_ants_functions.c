@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 09:58:56 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 10:33:59 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 09:53:45 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int					choose_ant(t_paths *path, int ant_id)
 {
 	t_ants			*ant_lst;
 
-	// ft_printf(" choose next ant than %d \n", ant_id);
 	ant_lst = path->ants_lst;
 	while (ant_lst != NULL)
 	{
@@ -60,12 +59,15 @@ void				ft_add_ant_to_antslist(t_ants **lst, t_ants *new)
 ** Function that mallocs an ant and assigns it to the given room
 */
 
-void				add_ant_to_room(t_paths *path, t_room *room, int ant_id)
+int					add_ant_to_room(t_paths *path, t_room *room, int ant_id)
 {
 	t_ants			*ant;
 
 	ant = (t_ants *)ft_memalloc(sizeof(t_ants));
+	if (ant == NULL)
+		return (ERROR);
 	ant->ant_id = ant_id;
 	ant->path = path;
 	ft_add_ant_to_antslist(&(room->ants_lst), ant);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 16:22:24 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 09:46:26 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 {
+	// ft_printf(" check if valid called again \n");
 	if ((str[0] == '#') && (str[1] != '#'))
 	{
 		// ft_printf("Comment line %s\n", str);
@@ -39,6 +40,7 @@ static int			check_if_valid(t_ant_farm *ant_farm, char *str)
 	}
 	else if (!ft_strcmp(str, ""))
 	{
+		// ft_printf("  func check_if_valid signal %d, line : '%s'\n", ant_farm->signal, str);
 		// ant_farm->signal = error_empty_line;
 		// ft_printf("in check VALID ant_farm->signal = %d\n", ant_farm->signal);
 		return (ft_exit_msg(ant_farm, error_empty_line));
@@ -64,22 +66,27 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	char			**line_items;
 	size_t			len;
 
+	// ft_printf("save inputline function position %d\n", pos);
 	if ((pos == START) || (pos == END))
 	{
 		i = get_next_line(0, &line);
 		if (i == 0)
 			return (0);
+		// ft_printf(" blabla HERE save inputline function line %s\n", line);
 		while (check_if_valid(ant_farm, line) == CONTINUE)
 		{
-			ft_printf("freeing line : %s \n", line);
+			// ft_printf("freeing line : %s \n", line);
 			free(line);
 			i = get_next_line(0, &line);
 			if (i == 0)
 				return (0);
 		}
+		// ft_printf(" ;;;;; HERE save inputline function signal %d\n", ant_farm->signal);
+		if (ant_farm->signal < 0)
+			return (ant_farm->signal);
 		if (check_if_valid(ant_farm, line) != SUCCESS)
 		{
-			ft_printf("it frees line - signal %d\n", ant_farm->signal);
+			// ft_printf("meta edw it frees line - signal %d, line : '%s'\n", ant_farm->signal, line);
 			free(line);
 			// ft_printf("save input line  ant_farm->signal = %d\n", ant_farm->signal);
 			return (ant_farm->signal);
@@ -88,6 +95,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 		input_line = ft_input_newnode(line);
 		ft_input_addend(&(ant_farm->input), input_line);
 	}
+	// ft_printf(" jjjj HERE save inputline function \n");
 	space = ft_strchri(line, ' ');
 	line_items = ft_strsplit(line, ' ');
 	i = ft_strchri(line_items[0], '-');
@@ -124,6 +132,7 @@ t_prgm_signal		ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	}
 	ant_farm->rooms++;
 	ft_free_string(line_items, len);
+	// ft_printf("end save inputline function \n");
 	return (SUCCESS);
 }
 
@@ -141,6 +150,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data 
 	t_input			*input_line;
 	int				ret;
 
+	// ft_printf("save input function \n");
 	ret = count_words(line, ' ');
 	data->min = ft_strchri(line, '-');
 	link = (ret == 1 && data->min == 1) ? ft_strchr(line, '-') : NULL;
@@ -149,7 +159,7 @@ t_prgm_signal		ft_saveinput(t_ant_farm *ant_farm, char *line, size_t *j, t_data 
 	ft_input_addend(&(ant_farm->input), input_line);
 	if (check_if_valid(ant_farm, line) != SUCCESS)
 	{
-		// ft_printf("is it valid ant_farm->signal = %d\n", ant_farm->signal);
+		// ft_printf("func saveinput ant_farm->signal = %d\n", ant_farm->signal);
 		return (ant_farm->signal);
 	}
 	// else if ((line[0] == '#') && (line[1] == '#') && \

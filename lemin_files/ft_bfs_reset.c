@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:12:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 07:20:16 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/11 18:47:26 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void				ft_bfs_fullreset(t_ant_farm *ant_farm)
 	while (temp != NULL)
 	{
 		temp->state = UNEXPLORED;
-		// temp->score = 0;
 		temp = temp->next;
 	}
 }
@@ -81,11 +80,8 @@ static void			ft_reset_score_pathlst(t_path_list *path_lst)
 	while (curr_node != NULL)
 	{
 		curr_node->room->score = 0;
-		// ft_printf(" room name %s - score %d\n", curr_node->room->name, curr_node->room->score);
 		curr_node = curr_node->next;
 	}
-	// ft_printf(" RESET DONE \n");
-	// path_lst = NULL;
 }
 
 /*
@@ -100,11 +96,9 @@ void				ft_reset_score_on_pathid(t_ant_farm *ant_farm, int path_id)
 	curr_node = ant_farm->paths;
 	while (curr_node->next != NULL)
 	{
-		// prev_node = curr_node;
 		if (curr_node->path_id == path_id)
 			break ;
 		curr_node = curr_node->next;
 	}
-	// ft_printf(" reseting score in path id %d of run %d\n", curr_node->path_id, curr_node->run);
 	ft_reset_score_pathlst(curr_node->path_lst);
 }

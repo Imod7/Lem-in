@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 16:58:57 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 16:08:26 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,6 @@ int						ft_check_if_ants_amount(t_ant_farm *ant_farm, \
 int						ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 											t_position pos);
 int						ft_save_neighbors(t_ant_farm *ant_farm);
-void					delete_dead_ends(t_hash_table *hash_table);
 int						ft_check_links(t_ant_farm *ant_farm);
 size_t					array_size(char **array);
 int						ft_check_str_length(char *str);
@@ -311,11 +310,14 @@ t_hash_item				*ft_retrieve_hash_item(t_hash_table *hash_table, \
 */
 
 int						ft_bfs_runs(t_ant_farm *ant_farm);
+int						ft_bfs_algorithm(t_ant_farm *ant_farm, size_t run);
 void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset_and_score(t_ant_farm *ant_farm);
-void					ft_bfs_level_sink(t_ant_farm *ant_farm);
-void					ft_bfs_level_source(t_ant_farm *ant_farm);
+int						ft_run_bfs_reset_score(t_ant_farm *ant_farm, \
+											int flag_stop, size_t *i);
+int						lvl_sink(t_ant_farm *ant_farm);
+int						lvl_source(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \
 									t_neighbor *neighbors, t_room *temp, \
 									size_t run);
@@ -338,7 +340,6 @@ void					ft_path_addend(t_paths **lst, t_paths *new);
 void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);
 void					ft_pathlst_addend(t_path_list **lst, t_path_list *new);
 size_t					ft_find_maxpaths(t_ant_farm *ant_farm);
-t_paths					*ft_create_path(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_sizes(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
@@ -361,7 +362,7 @@ void					check_if_valid_path(t_ant_farm *ant_farm);
 
 void					ft_dequeue(t_queue	*q);
 int						ft_queue_is_empty(t_queue *q);
-void					ft_enqueue(t_queue	*q, t_room	*temp);
+int						ft_enqueue(t_queue	*q, t_room	*temp);
 void					ft_print_queue(t_queue *q);
 void					ft_free_queue(t_queue *q);
 
@@ -392,8 +393,8 @@ size_t					ft_check_cut_edge(t_ant_farm *ant_farm, \
 void					ft_add_ants_to_list(t_ants **lst, t_ants *new);
 int						ft_ants_to_paths(t_ant_farm *ant_farm);
 int						choose_ant(t_paths *path, int ant_id);
-void					ft_move_ants(t_ant_farm *ant_farm);
-void					add_ant_to_room(t_paths *path, t_room *room, \
+int						ft_move_ants(t_ant_farm *ant_farm);
+int						add_ant_to_room(t_paths *path, t_room *room, \
 										int ant_id);
 void					ft_add_ant_to_antslist(t_ants **lst, t_ants *new);
 void					ft_print_move(t_ant_farm *ant_farm);
@@ -402,6 +403,14 @@ void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
 void					ft_free_ants_lst(t_ants **ants_lst);
 void					ft_free_paths_ants_lst(t_ant_farm *ant_farm);
+
+/*
+** Functions related to ants move
+*/
+
+int						check_ant_vs_room(t_paths *path, t_room *room, \
+										int ant_id);
+int						choose_and_check(t_paths *path, t_path_list *path_lst);
 
 /*
 ** Functions related to the moving of the ants.

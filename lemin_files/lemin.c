@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 17:20:59 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:36:30 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 			// ft_printf("line:%s valid:%i arg:%s i:%i j:%i signal:%i\n", returned_line, ant_farm->data->valid, ant_farm->data->argument, i, j, ant_farm->signal);
 			if (ant_farm->signal == success_ants_saved)
 			{
+				// ft_printf("lemin.c signal %d\n", ant_farm->signal);
 				j += 1;
 			}
 			else if ((ant_farm->signal != SUCCESS && \
@@ -90,7 +91,7 @@ static int			read_input(t_ant_farm *ant_farm, t_data **data)
 			&& ant_farm->signal != succes_link_saved)\
 			|| (*data)->valid == ERROR)
 			{
-				// ft_printf("%i\n", ant_farm->signal);
+				// ft_printf("edw mipws ? %i\n", ant_farm->signal);
 				// ft_printf("data valid:%i\n", ant_farm->data->valid);
 				return (ERROR);
 			}
@@ -131,58 +132,34 @@ int					main(int argc, char **argv)
 		return (ERROR);
 	if (read_input(ant_farm, &ant_farm->data) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
-	// print_input_list(ant_farm->input);
-	// ft_print_rooms_list(ant_farm->rooms_lst);
 	if (ant_farm->rooms_lst == NULL)
 	{
 		ft_exit_msg(ant_farm, error_no_rooms);
 		return (ft_exitprogram(ant_farm));
 	}
 	ft_hashing_process(ant_farm);
-	// print_hash_table(ant_farm->hash_table);
 	if (ft_save_neighbors(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
-	// ft_print_neighbors_list(ant_farm->hash_table);
-	// delete_dead_ends(ant_farm->hash_table);
-	// ft_printf("Amount of rooms : %d\n", ant_farm->rooms);
 	if (ft_check_links(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
-	ft_bfs_level_sink(ant_farm);
-	ft_bfs_level_source(ant_farm);
+	if (lvl_sink(ant_farm) != SUCCESS || \
+	lvl_source(ant_farm) != SUCCESS)
+			return (ft_exitprogram(ant_farm));
 	if (ft_bfs_runs(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
 	ft_free_paths_ants_lst(ant_farm);
-	ft_ants_to_paths(ant_farm);
-	// ft_printf(ANSI_COLOR_BLUE" ============================================= \n");
-	// ft_printf(" ****** BEST RUN %d - Lines needed %d ********** \n", ant_farm->best_run, ant_farm->lines);
-	// ft_printf(" ============================================= \n"ANSI_COLOR_RESET);
-	// ft_print_paths(ant_farm);
-	// ft_print_paths_sizes(ant_farm);
-	// ft_bfs_again(ant_farm, 2);
-	// ft_printf("\nBFS AGAIN PATHS\n");
-	// ft_print_paths(ant_farm);
-	// ft_printf("\nRunning DFS\n");
-	// ft_dfs(ant_farm);
-	// ft_printf("\nDFS PATHS\n");
-	// ft_print_paths(ant_farm);
-	// ft_printf("\nRunning DFS from sink\n");
-	// ft_dfs_from_sink(ant_farm);
-	// ft_print_ants_in_paths(ant_farm);
+	if (ft_ants_to_paths(ant_farm) != SUCCESS)
+		return (ERROR);
 	if (!(ant_farm->options & OPTION_M))
-	{
 		ft_print_mapdata(ant_farm);
-		// ft_printf("its not set %d\n", ant_farm->options & OPTION_M);
+	if (ft_move_ants(ant_farm) != SUCCESS)
+	{
+		ft_exit_msg(ant_farm, ERROR);
+		return (ft_exitprogram(ant_farm));
 	}
-	// else
-	// 	ft_printf("its set %d\n", ant_farm->options & OPTION_M);
-	ft_move_ants(ant_farm);
 	if (ant_farm->options & OPTION_L)
 		ft_printf(ANSI_COLOR_BLUE"\nNumber of lines %d\n"ANSI_COLOR_RESET, \
 		ant_farm->lines);
-	// ft_print_paths_list(ant_farm);
-	// ft_print_paths_list_detail(ant_farm);
 	ft_exitprogram(ant_farm);
-	// while (1)
-	// 	;
 	return (SUCCESS);
 }
