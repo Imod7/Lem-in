@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:57 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 19:25:43 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 20:15:09 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,30 @@ static int	set_and_retrieve(t_ant_farm *ant_farm, int argc, char *argv)
 	return (CONTINUE);
 }
 
+static int	ft_process_data(t_ant_farm *ant_farm)
+{
+	if (ft_save_neighbors(ant_farm) != SUCCESS)
+		return (ERROR);
+	if (ft_check_links(ant_farm) != SUCCESS)
+		return (ERROR);
+	if (lvl_sink(ant_farm) != SUCCESS || \
+	lvl_source(ant_farm) != SUCCESS)
+		return (ERROR);
+	if (ft_bfs_runs(ant_farm) != SUCCESS)
+		return (ERROR);
+	ft_free_paths_ants_lst(ant_farm);
+	if (ft_ants_to_paths(ant_farm) != SUCCESS)
+		return (ERROR);
+	if (!(ant_farm->options & OPTION_M))
+		ft_print_mapdata(ant_farm);
+	if (ft_move_ants(ant_farm) != SUCCESS)
+	{
+		ft_exit_msg(ant_farm, ERROR);
+		return (ERROR);
+	}
+	return (SUCCESS);
+}
+
 int			main(int argc, char **argv)
 {
 	t_ant_farm		*ant_farm;
@@ -83,29 +107,8 @@ int			main(int argc, char **argv)
 	ret = set_and_retrieve(ant_farm, argc, argv[1]);
 	if (ret != CONTINUE)
 		return (ret == ERROR ? ft_exitprogram(ant_farm) : SUCCESS);
-	if (ft_save_neighbors(ant_farm) != SUCCESS)
+	if (ft_process_data(ant_farm) != SUCCESS)
 		return (ft_exitprogram(ant_farm));
-	if (ft_check_links(ant_farm) != SUCCESS)
-		return (ft_exitprogram(ant_farm));
-	// ft_bfs_level_sink(ant_farm);
-	// ft_bfs_level_source(ant_farm);
-	if (lvl_sink(ant_farm) != SUCCESS || \
-	lvl_source(ant_farm) != SUCCESS)
-		return (ft_exitprogram(ant_farm));
-	if (ft_bfs_runs(ant_farm) != SUCCESS)
-		return (ft_exitprogram(ant_farm));
-	ft_free_paths_ants_lst(ant_farm);
-	// ft_ants_to_paths(ant_farm);
-	if (ft_ants_to_paths(ant_farm) != SUCCESS)
-		return (ERROR);
-	if (!(ant_farm->options & OPTION_M))
-		ft_print_mapdata(ant_farm);
-	// ft_move_ants(ant_farm);
-	if (ft_move_ants(ant_farm) != SUCCESS)
-	{
-		ft_exit_msg(ant_farm, ERROR);
-		return (ft_exitprogram(ant_farm));
-	}
 	if (ant_farm->options & OPTION_L)
 		ft_printf(ANSI_COLOR_BLUE"\nNumber of lines %d\n"ANSI_COLOR_RESET, \
 		ant_farm->lines);

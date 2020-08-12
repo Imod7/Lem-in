@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 19:17:37 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 20:22:48 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 			return (ant_farm->signal);
 		else if (result != SUCCESS)
 			return (ft_exit_msg(ant_farm, error_invalid_start_room));
-		// if (ft_save_inputline(ant_farm, line, 1) != SUCCESS)
-		// 	return (ft_exit_msg(ant_farm, error_invalid_start_room));
 		ant_farm->signal = succes_room_saved;
 	}
 	else if (!ft_strcmp(line, "##end"))
@@ -106,8 +104,6 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 			return (ant_farm->signal);
 		else if (result != SUCCESS)
 			return (ft_exit_msg(ant_farm, error_invalid_end_room));
-		// if (ft_save_inputline(ant_farm, line, 2) != SUCCESS)
-		// 	return (ft_exit_msg(ant_farm, error_invalid_end_room));
 		ant_farm->signal = succes_room_saved;
 	}
 	else if (link == NULL)

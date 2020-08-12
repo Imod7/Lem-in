@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   ft_ants_move.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
+/*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/19 10:11:32 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 12:43:52 by dsaripap      ########   odam.nl         */
+/*   Created: 2020/08/12 20:16:18 by svan-der      #+#    #+#                 */
+/*   Updated: 2020/08/12 20:21:40 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int					push_ants_next_check(t_paths *path, t_path_list *path_lst)
+static int		push_ants_next_check(t_paths *path, t_path_list *path_lst)
 {
 	if (check_ant_vs_room(path, path_lst->next->room, \
 	path_lst->room->ants_lst->ant_id) != SUCCESS)
@@ -33,7 +33,7 @@ int					push_ants_next_check(t_paths *path, t_path_list *path_lst)
 ** and we iterate it in reverse
 */
 
-int					push_ant_to_next_room(t_paths *path)
+static int		push_ant_to_next_room(t_paths *path)
 {
 	t_path_list		*path_lst;
 
@@ -55,7 +55,7 @@ int					push_ant_to_next_room(t_paths *path)
 	return (SUCCESS);
 }
 
-static int			ants_move_loop(t_ant_farm *ant_farm, t_paths *path, \
+static int		ants_move_loop(t_ant_farm *ant_farm, t_paths *path, \
 									size_t i)
 {
 	t_path_list		*p_lst;
@@ -92,7 +92,7 @@ static int			ants_move_loop(t_ant_farm *ant_farm, t_paths *path, \
 ** If option -a was not selected then it prints the ants moves
 */
 
-int					ft_move_ants(t_ant_farm *ant_farm)
+int				ft_move_ants(t_ant_farm *ant_farm)
 {
 	t_paths			*path;
 	size_t			i;
@@ -105,7 +105,8 @@ int					ft_move_ants(t_ant_farm *ant_farm)
 			path = path->next;
 		if (ants_move_loop(ant_farm, path, i) != SUCCESS)
 			return (ERROR);
-		(ant_farm->options & OPTION_A) ? : ft_print_move(ant_farm);
+		if (ant_farm->options & OPTION_A)
+			ft_print_move(ant_farm);
 		i += 1;
 	}
 	return (SUCCESS);

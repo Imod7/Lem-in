@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/11 19:18:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 15:19:39 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 20:09:29 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,12 @@ static int			ft_bfs_result_check(t_ant_farm *ant_farm, size_t *flag, \
 int					ft_bfs_runs(t_ant_farm *ant_farm)
 {
 	size_t			i;
-	t_lines			*lines_lst;
 	size_t			flag;
 	int				flag_stop;
 
 	i = 1;
 	flag = 0;
 	flag_stop = 0;
-	lines_lst = ant_farm->lines_lst;
 	ant_farm->discovered_paths = -1;
 	ant_farm->max_paths = ft_find_maxpaths(ant_farm);
 	while (!(ant_farm->discovered_paths == ant_farm->max_paths ||
