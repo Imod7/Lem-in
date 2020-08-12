@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 18:39:49 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 19:19:37 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,10 @@ typedef struct			s_room
 	size_t				level_sink;
 	int					score;
 	size_t				run;
-	// size_t				ant;
 	struct s_ants		*ants_lst;
 	t_state				state;
 	t_position			position;
 	struct s_paths		*path;
-	// int					path_id;
 	struct s_room		*parent;
 	struct s_room		*next;
 	struct s_neighbor	*neighbors;
@@ -160,7 +158,6 @@ typedef struct			s_room
 
 typedef struct			s_neighbor
 {
-	// unsigned int		key;
 	struct s_hash_item	*hash_item;
 	struct s_neighbor	*next;
 	struct s_neighbor	*prev;
@@ -227,6 +224,8 @@ t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 int						ft_is_number(char *str);
 int						check_argv(int *signal, char *str);
 int						add_num(char *str, int sign);
+int						ft_precheck_if_valid(t_ant_farm *ant_farm, \
+											t_data *data, int i);
 int						check_dup_rooms_lst(t_room **rooms_lst);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
@@ -257,7 +256,6 @@ void					print_input_list(t_input *input_data);
 void					ft_print_rooms_list(t_room *rooms_lst);
 void					print_hash_table(t_hash_table *hash_table);
 void					ft_print_neighbors_list(t_hash_table *hash_table);
-// void					print_neighbors_list_debug(t_hash_table *hash_table);
 void					ft_print_mapdata(t_ant_farm *ant_farm);
 
 /*
@@ -277,7 +275,6 @@ void					ft_room_addend(t_room **lst, t_room *new);
 ** Functions to save the hash_items in the hash table
 */
 
-// t_hash_item				*ft_hashitem_newnode(t_room *room);
 t_hash_item				*ft_hashitem_newnode(t_room *room, unsigned int	key);
 void					ft_hashitem_addend(t_hash_item **lst, t_hash_item *new);
 
@@ -292,7 +289,6 @@ void					ft_free_hashtable(t_hash_table *hash_table);
 void					ft_free_string(char **string, size_t size);
 void					ft_free_paths(t_ant_farm *ant_farm);
 void					ft_free_pathlst(t_path_list *path_lst);
-// void					ft_path_del_last(t_ant_farm *ant_farm);
 void					ft_free_path_on_pathid(t_ant_farm *ant_farm, \
 												int path_id);
 void					ft_free_path_lines(t_lines *lines_head);
@@ -321,7 +317,7 @@ int						ft_run_bfs_reset_score(t_ant_farm *ant_farm, \
 int						lvl_sink(t_ant_farm *ant_farm);
 int						lvl_source(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \
-									t_neighbor *neighbors, t_room *temp, \
+									t_neighbor *neighbors, \
 									size_t run);
 void					ft_reset_score_on_pathid(t_ant_farm *ant_farm, \
 											int path_id);
@@ -329,14 +325,14 @@ void					ft_bfs_reset(t_ant_farm *ant_farm);
 void					ft_bfs_fullreset(t_ant_farm *ant_farm);
 size_t					ft_bfs_sink(t_ant_farm *ant_farm, size_t run);
 size_t					ft_check_min_cut_sink(t_ant_farm *ant_farm, \
-									t_neighbor *neighbors, t_room *temp, \
+									t_neighbor *neighbors, \
 									size_t current_run);
 
 /*
 ** Functions related to paths
 */
 
-void					ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
+int						ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
 									size_t run);
 void					ft_path_addend(t_paths **lst, t_paths *new);
 void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);
@@ -345,9 +341,6 @@ size_t					ft_find_maxpaths(t_ant_farm *ant_farm);
 void					ft_print_paths(t_ant_farm *ant_farm);
 void					ft_print_paths_sizes(t_ant_farm *ant_farm);
 void					ft_print_paths_list(t_ant_farm *ant_farm);
-// void					ft_print_paths_list_detail(t_ant_farm *ant_farm);
-// void					ft_save_room_to_dfs_path(t_path_list **path_lst, 
-												// t_room *room);
 t_room					*ft_get_start_room(t_room *temp);
 t_room					*ft_get_end_room(t_ant_farm *ant_farm);
 void					ft_paths_discovered(t_ant_farm *ant_farm);
@@ -400,7 +393,6 @@ int						add_ant_to_room(t_paths *path, t_room *room, \
 										int ant_id);
 void					ft_add_ant_to_antslist(t_ants **lst, t_ants *new);
 void					ft_print_move(t_ant_farm *ant_farm);
-// void					ft_keep_ants_moving(t_ant_farm *ant_farm);
 void					ft_print_ants_in_paths(t_ant_farm *ant_farm);
 void					ft_print_ants_in_rooms(t_ant_farm *ant_farm);
 void					ft_free_ants_lst(t_ants **ants_lst);

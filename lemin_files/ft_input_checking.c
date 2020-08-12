@@ -6,13 +6,13 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:02:42 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/09 21:33:47 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 15:17:28 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int		add_num(char *str, int sign)
+int			add_num(char *str, int sign)
 {
 	int long long	num;
 	int				j;
@@ -45,7 +45,7 @@ int		add_num(char *str, int sign)
 ** that corresponds to the room coordinate is valid.
 */
 
-int		check_argv(int *signal, char *str)
+int			check_argv(int *signal, char *str)
 {
 	int		i;
 	int		sign;
@@ -69,16 +69,13 @@ int		check_argv(int *signal, char *str)
 	return (i);
 }
 
-int				ft_is_number(char *str)
+int			ft_is_number(char *str)
 {
 	int			i;
-	int			sign;
 	int			space;
 
 	i = 0;
-	sign = 0;
 	space = 0;
-	// ft_printf("string:%s\n", str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == ' ')
@@ -87,7 +84,6 @@ int				ft_is_number(char *str)
 			;
 		else if (str[i] < 48 || str[i] > 57 || space > 1)
 		{
-			// ft_printf("invalid number:str[i]:%i\n", str[i]);
 			return (error_invalid_ants_amount);
 		}
 		i++;
@@ -105,10 +101,8 @@ int				ft_is_number(char *str)
 int			ft_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
 {
 	ant_farm->signal = CONTINUE;
-	// ft_printf("line : %s j : %d Ants amount : '%d'\n", line, j, ant_farm->ants);
 	if (ant_farm->ants != 0 || ft_is_number(line) != SUCCESS || j != 0)
 	{
-		// ft_printf("--- Ants amount : '%s'\n", line);
 		return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 	}
 	else
@@ -116,14 +110,11 @@ int			ft_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
 		if (ft_check_str_length(line) == ERROR)
 			return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 		ant_farm->ants = ft_atoll(line);
-		// ft_printf("____Ants amount : '%lld' \n", ant_farm->ants);
 		if (ant_farm->ants <= 0 || ant_farm->ants < -2147483648 || \
 		ant_farm->ants > 2147483647)
 		{
-			// ft_printf("____Ants amount : '%d' \n", ant_farm->ants);
 			return (ft_exit_msg(ant_farm, error_invalid_ants_amount));
 		}
-		// ft_printf(ANSI_COLOR_CYAN"Ants=%d\n"ANSI_COLOR_RESET, ant_farm->ants);
 		ant_farm->signal = success_ants_saved;
 	}
 	return (ant_farm->signal);
@@ -133,7 +124,7 @@ int			ft_check_if_ants_amount(t_ant_farm *ant_farm, char *line, size_t j)
 ** Function that checks if we have no links at all
 */
 
-int					ft_check_links(t_ant_farm *ant_farm)
+int			ft_check_links(t_ant_farm *ant_farm)
 {
 	t_hash_item		**hash_item;
 	size_t			i;

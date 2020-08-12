@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 19:27:37 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:30:26 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void				ft_print_paths_sizes(t_ant_farm *ant_farm)
 		ft_printf(" [ Path Size : %d ", paths->path_size);
 		ft_printf(" - Run : %d ] \n", paths->run);
 		paths = paths->next;
-		// ft_printf("next path %p \n", paths);
 	}
 }
 
@@ -91,47 +90,3 @@ void				ft_print_paths_list(t_ant_farm *ant_farm)
 	}
 	ft_printf("---------------------------------------------------------\n");
 }
-
-// void				ft_print_paths_list_detail(t_ant_farm *ant_farm)
-// {
-// 	t_path_list		*paths_lst;
-// 	t_paths			*paths;
-
-// 	paths = ant_farm->paths;
-// 	ft_printf("\n               Paths List          \n");
-// 	ft_printf("---------------------------------------------------------\n");
-// 	ft_printf("|path_id\tprev\tnext\n");
-// 	while (paths != NULL)
-// 	{
-// 		ft_printf("%d\t\t", paths->path_id);
-// 		if (paths->prev)
-// 			ft_printf("%d\t", paths->prev->path_id);
-// 		else
-// 			ft_printf("NULL\t");
-// 		if (paths->next)
-// 			ft_printf("%d\t", paths->next->path_id);
-// 		else
-// 			ft_printf("NULL\t");
-// 		paths_lst = paths->path_lst;
-// 		ft_printf("\npaths_list\tnext\tprev\n|");
-// 		while (paths_lst != NULL)
-// 		{
-// 			ft_printf("%s\t\t", paths_lst->room->name);
-// 			if (paths_lst->next != NULL)
-// 				ft_printf("%s\t", paths_lst->next->room->name);
-// 			else
-// 				ft_printf("NULL\t");
-// 			if (paths_lst->prev != NULL)
-// 				ft_printf("%s\t", paths_lst->prev->room->name);
-// 			else
-// 				ft_printf("NULL\t");
-// 			paths_lst = paths_lst->next;
-// 			if (paths_lst != NULL)
-// 				ft_printf("\n -> ");
-// 		}
-// 		paths = paths->next;
-// 		// ft_printf("\n");
-// 	}
-// 	ft_printf("---------------------------------------------------------\n");
-// 	ft_printf(ANSI_COLOR_RESET);
-// }

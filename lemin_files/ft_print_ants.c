@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:51 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/30 16:16:39 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:24:35 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 		ants_lst = paths->ants_lst;
 		while (ants_lst != NULL)
 		{
-			// ft_printf("path list not NULL  \n");
 			ft_printf("%d", ants_lst->ant_id);
 			ants_lst = ants_lst->next;
 			if (ants_lst != NULL)
@@ -42,7 +41,6 @@ void				ft_print_ants_in_paths(t_ant_farm *ant_farm)
 		}
 		paths = paths->next;
 		ft_printf("\n");
-		// ft_printf("next path %p \n", paths);
 	}
 	ft_printf(ANSI_COLOR_RESET);
 }
@@ -89,23 +87,8 @@ static void			ft_check_room_position(t_path_list *path_lst, \
 		path_lst->room->ants_lst->ant_id);
 	else if ((path_lst->room->ants_lst != NULL) && \
 	(path_lst->room->position == END))
-	// {
 		ft_print_ants_in_sink(path_lst->room->ants_lst, paths, \
 		path_lst);
-		// ants_lst = path_lst->room->ants_lst;
-		// while ((ants_lst->next != NULL) && \
-		// (ants_lst->path->path_id != paths->path_id))
-		// {
-		// 	ants_lst = ants_lst->next;
-		// }
-		// if (ants_lst->path->path_id == paths->path_id)
-		// {
-		// 	ft_printf("| %s : %d |", path_lst->room->name, \
-		// 	ants_lst->ant_id);
-		// }
-		// else
-		// 	ft_printf("| %s : 0 |", path_lst->room->name);
-	// }
 	else
 		ft_printf("| %s : 0 |", path_lst->room->name);
 }
@@ -125,7 +108,6 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 	paths = ant_farm->paths;
 	while (paths != NULL)
 	{
-		// ft_printf("path run %d - best run %d \n", paths->run, ant_farm->best_run);
 		if (paths->run == ant_farm->best_run)
 		{
 			ft_printf("Path ID %d : ", paths->path_id);
@@ -133,33 +115,7 @@ void				ft_print_ants_in_rooms(t_ant_farm *ant_farm)
 			while (path_lst != NULL)
 			{
 				ft_check_room_position(path_lst, paths);
-				// if ((path_lst->room->ants_lst != NULL) && \
-				// (path_lst->room->position != END))
-				// 	ft_printf("| %s : %d |", path_lst->room->name, \
-				// 	path_lst->room->ants_lst->ant_id);
-				// else if ((path_lst->room->ants_lst != NULL) && \
-				// (path_lst->room->position == END))
-				// // {
-				// 	ft_print_ants_in_sink(path_lst->room->ants_lst, paths, \
-				// 	path_lst);
-				// 	// ants_lst = path_lst->room->ants_lst;
-				// 	// while ((ants_lst->next != NULL) && \
-				// 	// (ants_lst->path->path_id != paths->path_id))
-				// 	// {
-				// 	// 	ants_lst = ants_lst->next;
-				// 	// }
-				// 	// if (ants_lst->path->path_id == paths->path_id)
-				// 	// {
-				// 	// 	ft_printf("| %s : %d |", path_lst->room->name, \
-				// 	// 	ants_lst->ant_id);
-				// 	// }
-				// 	// else
-				// 	// 	ft_printf("| %s : 0 |", path_lst->room->name);
-				// // }
-				// else
-				// 	ft_printf("| %s : 0 |", path_lst->room->name);
 				path_lst = path_lst->next;
-				// (path_lst == NULL) ? : ft_printf(" -> ");
 				if (path_lst != NULL)
 					ft_printf(" -> ");
 			}

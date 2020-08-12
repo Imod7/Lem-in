@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:12:05 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 16:45:14 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 19:32:56 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static size_t		ft_add_neighbors_of_room(t_ant_farm *ant_farm, \
 		neighb_tmp = neighb_tmp->next;
 	}
 	if (flag == 0)
-		return (ft_check_min_cut(ant_farm, neighbors, front_room, current_run));
+		return (ft_check_min_cut(ant_farm, neighbors, current_run));
 	return (flag);
 }
 

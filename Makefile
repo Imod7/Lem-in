@@ -6,15 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/12 18:36:34 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/08/12 19:34:20 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
-CC = clang
+CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-# FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -45,6 +44,7 @@ SRC_LEMIN =	\
 		ft_input_parsing_func.c \
 		ft_input_checking.c \
 		ft_input_validation_func.c \
+		ft_input_validation_order.c\
 		ft_lines_move.c \
 		ft_min_cut.c \
 		ft_map_data_functions.c \

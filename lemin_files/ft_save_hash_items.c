@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:13 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/29 20:52:26 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:33:28 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,16 @@ void				ft_hashitem_addend(t_hash_item **lst, t_hash_item *new)
 {
 	t_hash_item		*temp;
 
-	// ft_printf("hash item add function %s\n", new->room->name);
 	if (*lst == NULL)
 	{
 		*lst = new;
 		return ;
 	}
 	temp = *lst;
-	// ft_printf("temp %s\n", temp->room->name);
 	while (temp->colision_next != NULL)
 	{
-		// ft_printf("temp %s\n", temp->colision_prev->room->name);
 		temp = temp->colision_next;
 	}
-	// ft_printf(" >> temp %s\n", temp->room->name);
 	temp->colision_next = new;
 	new->colision_prev = temp;
 }

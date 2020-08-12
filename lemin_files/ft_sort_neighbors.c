@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/30 11:07:43 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:41:58 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,6 @@ void				ft_splitlist(t_neighbor *completelist, \
 	}
 }
 
-// static void			ft_set_result(t_neighbor **result_list, \
-// 								t_neighbor **a, t_neighbor **b, \
-// 								size_t flag)
-// {
-// 	(*result_list) = *a;
-// 	result_list->next = ft_mergeback(&((*a)->next), b, flag);
-// 	result_list->next->prev = *a;
-// }
-
 /*
 ** The merging part of merge sort
 */
@@ -82,45 +73,25 @@ t_neighbor			*ft_mergeback(t_neighbor **ahalf, t_neighbor **bhalf, \
 	t_neighbor		*result_list;
 
 	result_list = NULL;
-	// (*ahalf != NULL) ? : return (*bhalf);
-	// (*bhalf != NULL) ? : return (*ahalf);
 	if (*ahalf == NULL)
 		return (*bhalf);
 	else if (*bhalf == NULL)
 		return (*ahalf);
-	// else
-	// {
-	// if (((*ahalf)->hash_item->room != NULL) && ((*bhalf)->hash_item->room != NULL))
-	// 	ft_printf("ahalf %s = %d, bhalf %s = %d \n", (*ahalf)->hash_item->room->name, (*ahalf)->hash_item->room->score, (*bhalf)->hash_item->room->name, (*bhalf)->hash_item->room->score);
-	// if ((*ahalf)->hash_item->room->score < (*bhalf)->hash_item->room->score)
 	if ((flag == 0 && (*ahalf)->hash_item->room->score > \
 	(*bhalf)->hash_item->room->score) || \
 	(flag == 1 && (*ahalf)->hash_item->room->level_sink > \
 	(*bhalf)->hash_item->room->level_sink))
 	{
-		// ft_set_result(&result_list, bhalf, ahalf, flag);
-		// ft_printf("bhalf first \n");
 		result_list = *bhalf;
 		result_list->next = ft_mergeback(&((*bhalf)->next), ahalf, flag);
 		result_list->next->prev = *bhalf;
 	}
-	// else if (flag == 1 && (*ahalf)->hash_item->room->level_sink > \
-	// (*bhalf)->hash_item->room->level_sink)
-	// {
-		// ft_printf("bhalf first \n");
-		// ft_set_result(&result_list, bhalf, ahalf, flag);
-		// result_list = *bhalf;
-		// result_list->next = ft_mergeback(&((*bhalf)->next), ahalf, flag);
-		// result_list->next->prev = *bhalf;
-	// }
 	else
 	{
-		// ft_printf("ahalf first \n");
 		result_list = *ahalf;
 		result_list->next = ft_mergeback(&((*ahalf)->next), bhalf, flag);
 		result_list->next->prev = *ahalf;
 	}
-	// }
 	return (result_list);
 }
 
@@ -134,7 +105,6 @@ t_neighbor			*ft_merge_sort(t_neighbor **completelist, size_t flag)
 	t_neighbor		*first_half;
 	t_neighbor		*second_half;
 
-	// ft_printf("merge sort \n");
 	first_half = NULL;
 	second_half = NULL;
 	if ((*completelist)->next == NULL)
@@ -143,7 +113,6 @@ t_neighbor			*ft_merge_sort(t_neighbor **completelist, size_t flag)
 	ft_merge_sort(&first_half, flag);
 	ft_merge_sort(&second_half, flag);
 	*completelist = ft_mergeback(&first_half, &second_half, flag);
-	// ft_printf(" list %s \n", (*completelist)->hash_item->room->name);
 	return (*completelist);
 }
 
@@ -158,6 +127,5 @@ int					ft_sort_neighbors(t_neighbor **completelist, \
 									t_room **room, size_t flag)
 {
 	(*room)->neighbors = ft_merge_sort(completelist, flag);
-	// ft_printf(" after merge %s", (*room)->neighbors->hash_item->room->name);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:29 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/07/31 22:19:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:08:50 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ void			ft_print_mapdata(t_ant_farm *ant_farm)
 	lines = ant_farm->input;
 	while (lines != NULL)
 	{
-		// if ((lines->line[0] == '#') && (lines->line[1] != '#'))
-		// 	;
-		// else
 		ft_printf("%s\n", lines->line);
 		lines = lines->next;
 	}
