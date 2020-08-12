@@ -6,7 +6,7 @@
 /*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 20:16:18 by svan-der      #+#    #+#                 */
-/*   Updated: 2020/08/12 20:21:40 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 20:46:02 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int				ft_move_ants(t_ant_farm *ant_farm)
 			path = path->next;
 		if (ants_move_loop(ant_farm, path, i) != SUCCESS)
 			return (ERROR);
-		if (ant_farm->options & OPTION_A)
+		if (!(ant_farm->options & OPTION_A))
 			ft_print_move(ant_farm);
 		i += 1;
 	}

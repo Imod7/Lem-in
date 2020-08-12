@@ -6,83 +6,15 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 18:00:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 20:22:48 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 20:39:00 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-/*
-** Functions ft_room_addend which is used to
-** save a room of the input file at the end of the
-** rooms linked list
-*/
-
-void				ft_room_addend(t_room **lst, t_room *new)
+static int			ft_check_start(t_ant_farm *ant_farm, char *line)
 {
-	t_room			*temp;
-
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
-}
-
-/*
-** Function that returns the source.
-** It iterates through the rooms_list and if the position
-** of the room is START, then it means this room is the source.
-*/
-
-t_room				*ft_get_start_room(t_room *temp)
-{
-	while (temp != NULL)
-	{
-		if (temp->position == START)
-			return (temp);
-		temp = temp->next;
-	}
-	temp = NULL;
-	return (temp);
-}
-
-/*
-** Function that returns the sink.
-** It iterates through the rooms_list and if the position
-** of the room is END, then it means this room is the sink
-*/
-
-t_room				*ft_get_end_room(t_ant_farm *ant_farm)
-{
-	t_room			*temp;
-
-	temp = ant_farm->rooms_lst;
-	while (temp != NULL)
-	{
-		if (temp->position == END)
-		{
-			return (temp);
-		}
-		temp = temp->next;
-	}
-	temp = NULL;
-	return (temp);
-}
-
-/*
-** Function that checks if the line that we check from the input file
-** (with the map data) is a start / end  / intermediate room.
-*/
-
-int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
-										char *link, t_data *data)
-{
-	int result;
+	int				result;
 
 	if (!ft_strcmp(line, "##start"))
 	{
@@ -94,8 +26,16 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		else if (result != SUCCESS)
 			return (ft_exit_msg(ant_farm, error_invalid_start_room));
 		ant_farm->signal = succes_room_saved;
+		return (SUCCESS);
 	}
-	else if (!ft_strcmp(line, "##end"))
+	return (CONTINUE);
+}
+
+static int			ft_check_end(t_ant_farm *ant_farm, char *line)
+{
+	int				result;
+
+	if (!ft_strcmp(line, "##end"))
 	{
 		if (ft_get_end_room(ant_farm) != NULL)
 			return (ft_exit_msg(ant_farm, error_end_room_exists));
@@ -105,7 +45,31 @@ int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
 		else if (result != SUCCESS)
 			return (ft_exit_msg(ant_farm, error_invalid_end_room));
 		ant_farm->signal = succes_room_saved;
+		return (SUCCESS);
 	}
+	return (CONTINUE);
+}
+
+/*
+** Function that checks if the line that we check from the input file
+** (with the map data) is a start / end  / intermediate room.
+*/
+
+int					ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
+										char *link, t_data *data)
+{
+	int				result;
+
+	result = ft_check_start(ant_farm, line);
+	if (result < 0)
+		return (ERROR);
+	else if (result == SUCCESS)
+		return (SUCCESS);
+	result = ft_check_end(ant_farm, line);
+	if (result < 0)
+		return (ERROR);
+	else if (result == SUCCESS)
+		return (SUCCESS);
 	else if (link == NULL)
 	{
 		if (ft_strequ(data->argument, "link"))
