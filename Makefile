@@ -6,7 +6,7 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/12 19:34:20 by dsaripap      ########   odam.nl          #
+#    Updated: 2020/08/12 20:26:14 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC_LEMIN =	\
 		ft_prgm_functions.c \
 		ft_prgm_options.c \
 		ft_rooms_functions.c \
+		ft_rooms_func.c \
 		ft_save_hash_items.c \
 		ft_save_neighbors.c \
 		ft_save_paths.c \
