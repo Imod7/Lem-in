@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:38:04 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 11:38:03 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 13:59:01 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ t_hash_item			*ft_retrieve_hash_item(t_hash_table *hash_table, char *str)
 	t_hash_item		*temp_item;
 	unsigned int	key;
 
-	// ft_printf(" -Looking up the hash_item %s in the hash table\n", str);
 	key = ft_hash_function(str, hash_table->size);
 	temp_item = hash_table->array[key];
 	while (temp_item)
 	{
-		// ft_printf(" -Comparing room %s with str %s\n", temp_item->room_name, str);
 		if (ft_strcmp(str, temp_item->room_name) == 0)
 			return (temp_item);
 		temp_item = temp_item->colision_next;
@@ -87,7 +85,6 @@ unsigned int		ft_hash_function(char *name, int size)
 		i += 1;
 	}
 	key = key % size;
-	// ft_printf("Room name '%s'\t --> hashed to key -> \t%u\n", name, key);
 	return (key);
 }
 
@@ -98,23 +95,18 @@ unsigned int		ft_hash_function(char *name, int size)
 ** one room stored.
 */
 
-void				ft_hashing_colision(t_ant_farm *ant_farm, \
+int					ft_hashing_colision(t_ant_farm *ant_farm, \
 									t_room *temp, unsigned int key)
 {
 	t_hash_item		*ht_item;
 	t_hash_item		*temp_item;
 
-	// ft_printf(" Key '%d' exists\n", key);
 	temp_item = ant_farm->hash_table->array[key];
-	// while (temp_item->colision_next != NULL)
-	// {
-	// 	ft_printf(" After item %s of the collision list\n", temp_item->room_name);
-	// 	temp_item = temp_item->colision_next;
-	// }
-	// ft_printf("Colision : Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
 	ht_item = ft_hashitem_newnode(temp, key);
-	// ht_item->hashed_key = key;
+	if (ht_item == NULL)
+		return (ERROR);
 	ft_hashitem_addend(&(temp_item->colision_next), ht_item);
+	return (SUCCESS);
 }
 
 /*
@@ -131,7 +123,6 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 {
 	unsigned int	key;
 	t_hash_item		*ht_item;
-	// t_hash_item		*temp_item;
 	t_room			*temp;
 
 	ht_item = NULL;
@@ -139,36 +130,16 @@ int					ft_hashing_process(t_ant_farm *ant_farm)
 	ant_farm->hash_table = ft_create_hash_table(ant_farm->rooms);
 	while (temp != NULL)
 	{
-		// ft_printf("Room : '%s'\n", temp->name);
-		// ht_item = ft_memalloc(sizeof(ht_item));
-		// if (ht_item == NULL)
-		// 	return (-1);
 		key = ft_hash_function(temp->name, ant_farm->hash_table->size);
 		if (ant_farm->hash_table->array[key] == NULL)
 		{
-			// ft_printf("Saving room '%s' in key '%d'\n", temp->name, key);
 			ht_item = ft_hashitem_newnode(temp, key);
-			// ht_item->hashed_key = key;
 			ht_item->colision_prev = NULL;
 			ft_hashitem_addend(&(ant_farm->hash_table->array[key]), ht_item);
 		}
-		else
-			ft_hashing_colision(ant_farm, temp, key);
-		// {
-		// 	// ft_printf(" Key '%d' exists\n", key);
-		// 	temp_item = ant_farm->hash_table->array[key];
-		// 	// while (temp_item->colision_next != NULL)
-		// 	// {
-		// 	// 	ft_printf(" After item %s of the collision list\n", temp_item->room_name);
-		// 	// 	temp_item = temp_item->colision_next;
-		// 	// }
-		// 	// ft_printf("Colision : Saving room '%s' in the linked list of key '%d'\n", temp->name, key);
-		// 	ht_item = ft_hashitem_newnode(temp, key);
-		// 	// ht_item->hashed_key = key;
-		// 	ft_hashitem_addend(&(temp_item->colision_next), ht_item);
-		// }
+		else if (ft_hashing_colision(ant_farm, temp, key) != SUCCESS)
+			return (ERROR);
 		temp = temp->next;
-		// print_hash_table(ant_farm->hash_table);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 16:58:57 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/12 15:05:43 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,8 @@ t_prgm_signal			ft_saveinput(t_ant_farm *ant_farm, char *line, \
 int						ft_is_number(char *str);
 int						check_argv(int *signal, char *str);
 int						add_num(char *str, int sign);
+int						ft_precheck_if_valid(t_ant_farm *ant_farm, \
+											t_data *data, int i);
 int						check_dup_rooms_lst(t_room **rooms_lst);
 int						set_prgm_options(char *argv, t_ant_farm *ant_farm);
 int						ft_check_if_is_room(t_ant_farm *ant_farm, char *line, \
@@ -317,7 +319,7 @@ void					ft_bfs_fullreset_and_score(t_ant_farm *ant_farm);
 void					ft_bfs_level_sink(t_ant_farm *ant_farm);
 void					ft_bfs_level_source(t_ant_farm *ant_farm);
 size_t					ft_check_min_cut(t_ant_farm *ant_farm, \
-									t_neighbor *neighbors, t_room *temp, \
+									t_neighbor *neighbors, \
 									size_t run);
 void					ft_reset_score_on_pathid(t_ant_farm *ant_farm, \
 											int path_id);
@@ -332,7 +334,7 @@ size_t					ft_check_min_cut_sink(t_ant_farm *ant_farm, \
 ** Functions related to paths
 */
 
-void					ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
+int						ft_save_paths_bfs(t_ant_farm *ant_farm, size_t flag, \
 									size_t run);
 void					ft_path_addend(t_paths **lst, t_paths *new);
 void					ft_pathlst_addstart(t_path_list **l, t_path_list *new);

@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:39:37 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/11 12:53:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:37:38 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,37 @@ static int			ft_retrieve_and_save(t_ant_farm *ant_farm, char *room_a, \
 	t_hash_item		*neighbor_item;
 
 	room_item = ft_retrieve_hash_item(ant_farm->hash_table, room_a);
-	// ft_printf("Retrieved Room '%s'\n", room_item->room_name);
 	neighbor_item = ft_retrieve_hash_item(ant_farm->hash_table, room_b);
 	if (room_item == NULL || neighbor_item == NULL)
 	{
-		// ft_printf("retrieve and save : %s %s\n", room_a, room_b);
 		return (ft_exit_msg(ant_farm, error_in_link));
 	}
 	else if (ft_strcmp(room_item->room_name, neighbor_item->room_name))
 	{
-		// ft_printf("same names for rooms %s --- %s\n", room_item->room_name, 
-		// neighbor_item->room_name);
 		neighbor = (t_neighbor*)ft_memalloc(sizeof(t_neighbor));
+		if (neighbor == NULL)
+			return (ERROR);
 		neighbor->hash_item = neighbor_item;
 		ft_neighbor_addend(&(room_item->room->neighbors), neighbor);
 	}
-	// ft_printf("Adding in retrieved room '%s' the neighbor '%s'\n", room_item->room_name, neighbor_item->room_name);
+	return (SUCCESS);
+}
+
+static int			ft_check_neighbors(t_ant_farm *ant_farm, \
+								int len, char **array)
+{
+	if (len < 2 || len > 2)
+	{
+		ft_free_string(array, len);
+		return (ft_exit_msg(ant_farm, error_in_link));
+	}
+	if (ft_retrieve_and_save(ant_farm, array[0], array[1]) != SUCCESS)
+	{
+		ft_free_string(array, len);
+		return (ant_farm->signal);
+	}
+	if (ft_retrieve_and_save(ant_farm, array[1], array[0]) != SUCCESS)
+		return (ant_farm->signal);
 	return (SUCCESS);
 }
 
@@ -70,7 +85,6 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 	char			**array;
 	size_t			len;
 
-	// ft_printf("save neighbors function \n");
 	temp = ant_farm->input;
 	len = 0;
 	while (temp != NULL)
@@ -79,33 +93,14 @@ int					ft_save_neighbors(t_ant_farm *ant_farm)
 		ft_strchr(temp->line, ' ') == NULL)
 		{
 			if (ft_get_start_room(ant_farm->rooms_lst) == NULL)
-			{
-				// ft_printf("start exists \n");
 				return (ft_exit_msg(ant_farm, error_start_room_missing));
-			}
 			if (ft_get_end_room(ant_farm) == NULL)
-			{
-				// ft_printf("end exists \n");
 				return (ft_exit_msg(ant_farm, error_end_room_missing));
-			}
-			// ft_printf(ANSI_COLOR_CYAN"Link : '%s'\n"ANSI_COLOR_RESET, temp->line);
 			array = ft_strsplit(temp->line, '-');
 			len = array_size(array);
-			// ft_printf("save neighbors : %s len %d\n", array[0], len);
-			if (len < 2 || len > 2)
-			{
-				ft_free_string(array, len);
-				return (ft_exit_msg(ant_farm, error_in_link));
-			}
-			if (ft_retrieve_and_save(ant_farm, array[0], array[1]) != SUCCESS)
-			{
-				// ft_printf("save neighbors : signal %d, %s len %d\n", ant_farm->signal, array[0], len);
-				// len = array_size(array);
-				ft_free_string(array, len);
-				return (ant_farm->signal);
-			}
-			if (ft_retrieve_and_save(ant_farm, array[1], array[0]) != SUCCESS)
-				return (ant_farm->signal);
+			len = ft_check_neighbors(ant_farm, len, array);
+			if (len != SUCCESS)
+				return (len);
 			ft_free_string(array, 2);
 		}
 		temp = temp->next;

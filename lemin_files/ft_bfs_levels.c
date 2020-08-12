@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/21 13:24:38 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/01 11:09:44 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 15:13:08 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void				ft_enqueue_condition(t_ant_farm *ant_farm, \
 		ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
 		neighbors->hash_item->room->parent = ant_farm->queue->front->room;
 		if (neighbors->hash_item->room->level_source == 0)
-		// neighbors->hash_item->room->position == END
 			neighbors->hash_item->room->level_source = \
 			neighbors->hash_item->room->parent->level_source + 1;
 	}
@@ -38,9 +37,6 @@ void				ft_enqueue_condition(t_ant_farm *ant_farm, \
 		ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
 		neighbors->hash_item->room->parent = ant_farm->queue->front->room;
 		if (neighbors->hash_item->room->level_sink == 0)
-		// neighbors->hash_item->room->position == START
-		// &&
-		// neighbors->hash_item->room->position != START)
 			neighbors->hash_item->room->level_sink = \
 			neighbors->hash_item->room->parent->level_sink + 1;
 	}
@@ -68,24 +64,12 @@ void				ft_bfs_level_source(t_ant_farm *ant_farm)
 		while (neighbors != NULL)
 		{
 			ft_enqueue_condition(ant_farm, neighbors, 0);
-			// if (neighbors->hash_item->room->state == UNEXPLORED &&
-			// 	neighbors->hash_item->room->position != END)
-			// {
-			// 	ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
-			// 	neighbors->hash_item->room->parent = ant_farm->queue->front->room;
-			// 	if (neighbors->hash_item->room->level_source == 0)
-			// 	// neighbors->hash_item->room->position == END
-			// 		neighbors->hash_item->room->level_source = \
-			// 		neighbors->hash_item->room->parent->level_source + 1;
-			// }
-			// ft_printf(" neigh %s lvl source %d \n", neighbors->hash_item->room->name, neighbors->hash_item->room->level_source);
 			neighbors = neighbors->next;
 		}
 		ft_dequeue(ant_farm->queue);
 	}
 	temp = ft_get_start_room(ant_farm->rooms_lst);
 	temp->level_source = -1;
-	// ft_printf("temp %s lvl source %d \n", temp->name, temp->level_source);
 	ft_free_queue(ant_farm->queue);
 	ft_bfs_fullreset(ant_farm);
 }
@@ -112,26 +96,12 @@ void				ft_bfs_level_sink(t_ant_farm *ant_farm)
 		while (neighbors != NULL)
 		{
 			ft_enqueue_condition(ant_farm, neighbors, 1);
-			// if (neighbors->hash_item->room->state == UNEXPLORED &&
-			// neighbors->hash_item->room->position != START)
-			// {
-			// 	ft_enqueue(ant_farm->queue, neighbors->hash_item->room);
-			// 	neighbors->hash_item->room->parent = ant_farm->queue->front->room;
-			// 	if (neighbors->hash_item->room->level_sink == 0)
-			// 	// neighbors->hash_item->room->position == START
-			// 	// &&
-			// 	// neighbors->hash_item->room->position != START)
-			// 		neighbors->hash_item->room->level_sink = \
-			// 		neighbors->hash_item->room->parent->level_sink + 1;
-			// }
-			// ft_printf(" neigh %s lvl sink %d \n", neighbors->hash_item->room->name, neighbors->hash_item->room->level_sink);
 			neighbors = neighbors->next;
 		}
 		ft_dequeue(ant_farm->queue);
 	}
 	temp = ft_get_end_room(ant_farm);
 	temp->level_sink = -1;
-	// ft_printf("temp %s lvl sink %d \n", temp->name, temp->level_sink);
 	ft_free_queue(ant_farm->queue);
 	ft_bfs_fullreset(ant_farm);
 }
