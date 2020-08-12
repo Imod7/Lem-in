@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:07:43 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 12:00:33 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:04:21 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 
 size_t				array_size(char **array)
 {
-	size_t 			i;
+	size_t			i;
 
 	i = 0;
 	while (array[i] != NULL)
 	{
-		// ft_printf("array %s\n", array[i]);
 		i += 1;
 	}
 	return (i);
@@ -44,20 +43,12 @@ static size_t		ft_calculate_length(char *str)
 
 	i = 0;
 	len = 0;
-	// ft_printf("str %s \n", str);
 	while (str[i] != '\0')
 	{
 		if (i == 0 && str[i] == '-')
 			len += 1;
 		else if (i == 0 && str[i] == '+')
 			;
-		// else if ((i == 0 || i == 1) && str[i] == '0')
-		// {
-		// 	ft_printf(" str[] %d\n", str[i]);
-		// 	while (str[i] == '0')
-		// 		i++;
-		// 	i--;
-		// }
 		else if (str[i] >= 48 || str[i] <= 57)
 		{
 			len += 1;
@@ -81,7 +72,6 @@ int					ft_check_str_length(char *str)
 	size_t			len;
 
 	len = ft_calculate_length(str);
-	// ft_printf("len %d\n", len);
 	if (str[0] == '+' && len > 10)
 		return (ERROR);
 	else if (str[0] == '-' && len > 11)

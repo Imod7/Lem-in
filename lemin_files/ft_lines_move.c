@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 11:22:55 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/08 18:04:32 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:08:00 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ void				ft_calculate_lines(t_ant_farm *ant_farm)
 
 	max_lines = 0;
 	paths = ant_farm->paths;
-	// ft_printf(">> Calculate Lines - Current Run : %d \n", ant_farm->best_run);
-	while (paths != NULL) // && paths->run == ant_farm->best_run)
+	while (paths != NULL)
 	{
 		if (paths->ants_lst != NULL && paths->run == ant_farm->best_run)
 		{
-			// ft_printf("...path_id %d, paths_size %d, path run %d\n", paths->path_id, paths->path_size, paths->run);
-			// ft_printf("path_id %d, paths_size %d, ants %d\n", paths->path_id, paths->path_size, paths->ants_amount);
 			total_size = paths->path_size + paths->ants_amount;
 			if (total_size > max_lines)
 				max_lines = total_size;
@@ -48,7 +45,6 @@ void				ft_calculate_lines(t_ant_farm *ant_farm)
 		paths = paths->next;
 	}
 	ant_farm->lines = max_lines - 2;
-	// ft_printf(ANSI_COLOR_CYAN"Lines Needed: %d \n\n", ant_farm->lines);
 }
 
 /*

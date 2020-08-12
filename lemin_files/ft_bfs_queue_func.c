@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:11:54 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/06/19 11:09:39 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:11:31 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void				ft_dequeue(t_queue *q)
 	free(q_item);
 }
 
-void				ft_enqueue(t_queue *q, t_room *temp)
+int					ft_enqueue(t_queue *q, t_room *temp)
 {
 	t_queue_item	*q_item;
 
 	q_item = (t_queue_item *)ft_memalloc(sizeof(t_queue_item));
+	if (q_item == NULL)
+		return (ERROR);
 	q_item->room = temp;
 	if (!ft_queue_is_empty(q))
 	{
@@ -40,6 +42,7 @@ void				ft_enqueue(t_queue *q, t_room *temp)
 		q->back = q_item;
 	}
 	q_item->room->state = EXPLORED;
+	return (SUCCESS);
 }
 
 int					ft_queue_is_empty(t_queue *q)

@@ -6,15 +6,14 @@
 #    By: dominique <dominique@student.codam.nl>       +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/21 13:51:27 by dominique     #+#    #+#                  #
-#    Updated: 2020/08/11 16:07:47 by svan-der      ########   odam.nl          #
+#    Updated: 2020/08/12 19:34:20 by dsaripap      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_LEMIN = lem-in
 LIBFT = libft/libft.a
-CC = clang
+CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-# FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LEMIN_SRCDIR = lemin_files
 LEMIN_OBJDIR = .obj-lemin
 EXEDIR = ./
@@ -28,24 +27,26 @@ SRC_LEMIN =	\
 		lemin.c \
 		ft_ants_to_paths.c \
 		ft_ants_move.c \
+		ft_ants_move_func.c \
 		ft_ants_functions.c \
 		ft_bfs.c \
 		ft_bfs_queue_func.c \
 		ft_bfs_levels.c \
 		ft_bfs_reset.c \
-		ft_bfs_sink.c \
+		ft_bfs_runs.c \
+		ft_bfs_runs_func.c \
 		ft_check_dup_rooms.c\
-		ft_dead_ends.c \
 		ft_free_lists_tables.c \
 		ft_free_other.c \
 		ft_free_paths.c \
 		ft_hashing.c \
 		ft_input_parsing.c \
+		ft_input_parsing_func.c \
 		ft_input_checking.c \
 		ft_input_validation_func.c \
+		ft_input_validation_order.c\
 		ft_lines_move.c \
 		ft_min_cut.c \
-		ft_min_cut_sink.c \
 		ft_map_data_functions.c \
 		ft_paths_commonfunc.c \
 		ft_paths_mainfunc.c \
