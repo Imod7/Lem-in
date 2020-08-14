@@ -6,7 +6,7 @@
 /*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/05 17:05:52 by svan-der      #+#    #+#                 */
-/*   Updated: 2020/08/05 17:06:04 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/14 05:36:13 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ size_t	ft_strchri(const char *str, char c)
 
 	i = 0;
 	j = 0;
-	while (str[i])
+	if (str != NULL)
 	{
-		if (str[i] == c)
-			j++;
-		i++;
+		while (str[i])
+		{
+			if (str[i] == c)
+				j++;
+			i++;
+		}
 	}
 	return (j);
 }

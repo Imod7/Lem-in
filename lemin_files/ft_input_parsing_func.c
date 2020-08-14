@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 18:33:48 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 18:38:10 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/14 06:19:05 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static t_prgm_signal	ft_save_input_n_check(t_ant_farm *ant_farm, \
 	i = 0;
 	if (save_start_end(ant_farm, line, pos, i) != SUCCESS)
 		return (ERROR);
+	if (line == NULL)
+		return (SUCCESS);
 	space = ft_strchri(*line, ' ');
 	*line_items = ft_strsplit(*line, ' ');
 	i = ft_strchri((*line_items)[0], '-');
@@ -36,7 +38,7 @@ static t_prgm_signal	ft_save_input_n_check(t_ant_farm *ant_farm, \
 	ft_is_number((*line_items)[2]) != SUCCESS)
 	{
 		ft_free_string(*line_items, len);
-		return (ft_exit_msg(ant_farm, error_coord_not_number));
+		return (ERROR);
 	}
 	return (len);
 }
@@ -69,7 +71,7 @@ t_prgm_signal			ft_save_inputline(t_ant_farm *ant_farm, char *line, \
 	if (ant_farm->signal < 0)
 	{
 		ft_free_string(line_items, len);
-		return (ft_exit_msg(ant_farm, error_invalid_room_data));
+		return (ant_farm->signal);
 	}
 	ant_farm->rooms++;
 	ft_free_string(line_items, len);

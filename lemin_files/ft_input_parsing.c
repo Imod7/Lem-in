@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 15:04:20 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 18:40:53 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/14 03:49:23 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ t_prgm_signal		save_start_end(t_ant_farm *ant_farm, char **line, \
 			if (i == 0)
 				return (0);
 		}
-		if (ant_farm->signal < 0)
-			return (ant_farm->signal);
-		if (check_if_valid(ant_farm, *line) != SUCCESS)
+		if (ant_farm->signal < 0 || check_if_valid(ant_farm, *line) != 0)
 		{
 			free(*line);
 			return (ant_farm->signal);

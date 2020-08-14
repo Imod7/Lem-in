@@ -6,7 +6,7 @@
 /*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 20:16:18 by svan-der      #+#    #+#                 */
-/*   Updated: 2020/08/12 20:46:02 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/14 03:19:03 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static int		push_ants_next_check(t_paths *path, t_path_list *path_lst)
 	path_lst->room->ants_lst->ant_id) != SUCCESS)
 		return (ERROR);
 	if (path_lst->prev->room->ants_lst == NULL)
-		choose_and_check(path, path_lst);
+	{
+		if (choose_and_check(path, path_lst) == ERROR)
+			return (ERROR);
+	}
 	else if (path_lst->prev->room->ants_lst != NULL)
 	{
 		if (check_ant_vs_room(path, path_lst->room, \
@@ -49,7 +52,8 @@ static int		push_ant_to_next_room(t_paths *path)
 		}
 		else if (path_lst->room->ants_lst != NULL && path_lst->next == NULL && \
 		path_lst->prev->prev == NULL)
-			choose_and_check(path, path_lst);
+			if (choose_and_check(path, path_lst) == ERROR)
+				return (ERROR);
 		path_lst = path_lst->prev;
 	}
 	return (SUCCESS);
