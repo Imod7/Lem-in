@@ -6,7 +6,7 @@
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/11 19:18:33 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 20:09:29 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/14 13:25:44 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static size_t		find_best_run(t_lines *lines_lst)
 
 	temp = lines_lst;
 	min = 2147483647;
+	min_run = 0;
 	while (temp != NULL)
 	{
 		if (temp->lines < min)
