@@ -6,7 +6,7 @@
 /*   By: dsaripap <dsaripap@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 10:40:12 by dsaripap      #+#    #+#                 */
-/*   Updated: 2020/08/12 19:19:37 by dsaripap      ########   odam.nl         */
+/*   Updated: 2020/08/14 05:24:04 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LEMIN_H
 
 # include "libft.h"
-# include <errno.h>
 
 typedef struct			s_data
 {

@@ -6,7 +6,7 @@
 /*   By: svan-der <svan-der@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/11 23:53:05 by svan-der      #+#    #+#                 */
-/*   Updated: 2020/08/12 15:17:53 by svan-der      ########   odam.nl         */
+/*   Updated: 2020/08/14 05:23:52 by svan-der      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static int		ft_check_ants_valid(t_ant_farm *ant_farm, t_data *data)
 
 int				ft_precheck_if_valid(t_ant_farm *ant_farm, t_data *data, int i)
 {
+	if (ant_farm->signal < 0)
+		return (ERROR);
 	if (i == 1)
 	{
 		if ((ant_farm->signal != SUCCESS && \
